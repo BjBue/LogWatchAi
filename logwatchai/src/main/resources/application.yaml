@@ -1,3 +1,47 @@
 spring:
   application:
     name: logwatchai
+
+datasource:
+  url: jdbc:mariadb://db:3306/logwatchai
+  username: loguser
+  password: logpass
+  driver-class-name: org.mariadb.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update # Schema automatisch anpassen (für Dev/PoC)
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+  mail:
+    host: smtp.example.com
+    port: 587
+    username: your-email@example.com
+    password: your-email-password
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls.enable: true
+
+server:
+  port: 8080
+
+logging:
+  level:
+    root: INFO
+    com.bbu.solution: DEBUG
+
+jwt:
+  secret: mySuperSecretJWTKey
+  expiration-ms: 3600000 # 1 Stunde
+
+ai:
+  api-key: your-openai-api-key
+  enabled: true # kann bei Bedarf deaktiviert werden
+
+app:
+  config-file: config/logwatchai.yaml
+  # hier kann später zusätzliche App-Konfiguration stehen
