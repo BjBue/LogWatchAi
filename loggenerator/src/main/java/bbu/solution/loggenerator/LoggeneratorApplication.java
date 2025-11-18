@@ -11,7 +11,7 @@ import java.io.IOException;
 @RestController
 public class LoggeneratorApplication {
 
-	private static final String LOG_FILE = "/logs/test.log";
+	private static final String LOG_FILE = "/shared-logs/test.log";
 
 	public static void main(String[] args) {
 		SpringApplication.run(LoggeneratorApplication.class, args);

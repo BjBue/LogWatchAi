@@ -1,6 +1,5 @@
 watchPaths:
-  - "/var/log/syslog"
-  - "/var/log/auth.log"
+  - "/shared-logs/test.log"
 
 alertRules:
   error: "ALERT"

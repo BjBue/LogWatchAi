@@ -16,9 +16,12 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="loggenerator" />
+        <module name="log-generator" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="loggenerator" target="21" />
+    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">

@@ -37,17 +37,19 @@ services:
       db:
         condition: service_healthy
     volumes:
-      - logs:/logs   # Log-Verzeichnis teilen
+      - ./shared-logs:/shared-logs
 
   log-generator:
     build:
-      context: ../log-generator
-    container_name: log-generator
+      context: ../loggenerator
+    container_name: loggenerator-app
     restart: always
     ports:
-      - "9090:9090"
+      - "9090:8080"
+    environment:
+      LOG_OUTPUT: /logs/test.log
     volumes:
-      - logs:/logs     # Shared logs
+      - ./shared-logs:/shared-logs     # Shared logs
     depends_on:
       db:
         condition: service_healthy
