@@ -12,3 +12,11 @@ $ docker-compose down   //evtl. mit -v (löscht volumes)
 $ docker-compose build
 $ docker-compose up -d
 
+
+Projket mit loggenerattor
+$ cd logwatchai
+$ .\mvnw.cmd clean package
+$ cd loggenerator
+$ .\mvnw.cmd clean package
+$ cd ..\logwatchai
+$ docker-compose up --build

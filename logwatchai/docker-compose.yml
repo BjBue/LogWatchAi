@@ -14,7 +14,6 @@ services:
       - "3306:3306"
     volumes:
       - db_data:/var/lib/mysql
-
     healthcheck:
       test: [ "CMD-SHELL", "mariadb -h localhost -uloguser -plogpass -e 'Select 1'" ]
       interval: 10s
@@ -22,9 +21,9 @@ services:
       retries: 10
       start_period: 30s
 
-
   app:
-    build: .
+    build:
+      context: .
     container_name: logwatchai-app
     restart: always
     environment:
@@ -37,6 +36,22 @@ services:
     depends_on:
       db:
         condition: service_healthy
+    volumes:
+      - logs:/logs   # Log-Verzeichnis teilen
+
+  log-generator:
+    build:
+      context: ../log-generator
+    container_name: log-generator
+    restart: always
+    ports:
+      - "9090:9090"
+    volumes:
+      - logs:/logs     # Shared logs
+    depends_on:
+      db:
+        condition: service_healthy
 
 volumes:
   db_data:
+  logs:
