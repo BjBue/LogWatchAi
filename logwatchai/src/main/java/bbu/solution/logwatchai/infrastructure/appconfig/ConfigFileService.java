@@ -1,5 +1,6 @@
 package bbu.solution.logwatchai.infrastructure.appconfig;
 
+import bbu.solution.logwatchai.domain.appconfig.AppConfig;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import org.springframework.stereotype.Component;

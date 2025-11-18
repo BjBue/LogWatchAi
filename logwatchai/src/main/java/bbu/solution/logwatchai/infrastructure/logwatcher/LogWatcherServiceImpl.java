@@ -4,7 +4,7 @@ import bbu.solution.logwatchai.domain.log.LogEntryService;
 import bbu.solution.logwatchai.domain.logwatcher.LogEvent;
 import bbu.solution.logwatchai.domain.logwatcher.LogWatcherService;
 import bbu.solution.logwatchai.domain.appconfig.AppConfigService;
-import bbu.solution.logwatchai.infrastructure.appconfig.AppConfig;
+import bbu.solution.logwatchai.domain.appconfig.AppConfig;
 import jakarta.annotation.PostConstruct;
 import org.springframework.stereotype.Service;
 
@@ -67,6 +67,6 @@ public class LogWatcherServiceImpl implements LogWatcherService {
     private void handleEvent(LogEvent event) {
         logEntryService.saveRawLog(event.getLine(), UUID.randomUUID());
         System.out.println("NEW LOG EVENT: " + event.getLine());
-        // später: Alert, AI, Mail, Persistenz
+        // später: Alert, AI, Mail
     }
 }

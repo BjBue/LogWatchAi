@@ -1,5 +1,6 @@
 package bbu.solution.logwatchai.infrastructure.appconfig;
 
+import bbu.solution.logwatchai.domain.appconfig.AppConfig;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
