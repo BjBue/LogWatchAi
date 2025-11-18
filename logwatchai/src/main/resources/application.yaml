@@ -44,5 +44,5 @@ ai:
   enabled: true # kann bei Bedarf deaktiviert werden
 
 app:
-  config-file: config/logwatchai.yaml
+  config-file: /app/config/logwatchai.yaml
   # hier kann später zusätzliche App-Konfiguration stehen

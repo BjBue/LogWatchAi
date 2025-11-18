@@ -1,4 +1,4 @@
-package bbu.solution.logwatchai.infrastructure.config;
+package bbu.solution.logwatchai.infrastructure.securityconfig;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,7 +15,7 @@ public class SecurityConfig {
 
         http
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("health").permitAll()   // public
+                        .requestMatchers("health","config-test").permitAll()   // public
                         .anyRequest().authenticated()
                 )
                 .csrf(AbstractHttpConfigurer::disable)  // no csrf

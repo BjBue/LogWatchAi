@@ -1,0 +1,12 @@
+watchPaths:
+  - "/var/log/syslog"
+  - "/var/log/auth.log"
+
+alertRules:
+  error: "ALERT"
+  warning: "WARN"
+
+reportEmail: "admin@example.com"
+
+aiEnabled: true
+aiModel: "gpt-4.1"
