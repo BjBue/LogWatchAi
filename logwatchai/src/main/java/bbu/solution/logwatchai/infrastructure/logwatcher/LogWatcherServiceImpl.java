@@ -1,5 +1,6 @@
 package bbu.solution.logwatchai.infrastructure.logwatcher;
 
+import bbu.solution.logwatchai.domain.log.LogEntryService;
 import bbu.solution.logwatchai.domain.logwatcher.LogEvent;
 import bbu.solution.logwatchai.domain.logwatcher.LogWatcherService;
 import bbu.solution.logwatchai.domain.appconfig.AppConfigService;
@@ -18,9 +19,11 @@ public class LogWatcherServiceImpl implements LogWatcherService {
 
     private final AppConfig config;
     private final ExecutorService executor = Executors.newCachedThreadPool();
+    private final LogEntryService logEntryService;
 
-    public LogWatcherServiceImpl(AppConfigService configService) {
+    public LogWatcherServiceImpl(AppConfigService configService, LogEntryService logEntryService) {
         this.config = configService.getConfig();
+        this.logEntryService = logEntryService;
     }
 
     @PostConstruct
@@ -62,6 +65,7 @@ public class LogWatcherServiceImpl implements LogWatcherService {
     }
 
     private void handleEvent(LogEvent event) {
+        logEntryService.saveRawLog(event.getLine(), UUID.randomUUID());
         System.out.println("NEW LOG EVENT: " + event.getLine());
         // später: Alert, AI, Mail, Persistenz
     }
