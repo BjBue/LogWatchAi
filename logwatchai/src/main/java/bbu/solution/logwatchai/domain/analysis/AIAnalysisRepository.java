@@ -12,5 +12,5 @@ public interface AIAnalysisRepository extends JpaRepository<AIAnalysis, UUID> {
 
     List<AIAnalysis> findBySeverity(Severity severity);
 
-    List<AIAnalysis> findByProbabilityGreaterThan(double threshold);
+    List<AIAnalysis> findByAnomalyScoreGreaterThan(double threshold);
 }

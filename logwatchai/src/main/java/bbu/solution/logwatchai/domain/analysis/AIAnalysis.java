@@ -14,7 +14,7 @@ import java.util.UUID;
         indexes = {
                 @Index(name = "idx_ai_analyses_log_entry_id", columnList = "logEntryId"),
                 @Index(name = "idx_ai_analyses_severity", columnList = "severity"),
-                @Index(name = "idx_ai_analyses_probability", columnList = "probability"),
+                @Index(name = "idx_ai_analyses_anomaly_score", columnList = "anomaly_score"),
                 @Index(name = "idx_ai_analyses_analyzed_at", columnList = "analyzedAt")
         }
 )
@@ -51,7 +51,7 @@ public class AIAnalysis {
     @Column(columnDefinition = "TEXT")
     private String recommendation;
 
-    @Column(nullable = false)
+    @Column(name = "anomaly_score", nullable = false)
     private double anomalyScore; // 0.0 – 1.0
 
     @Column(nullable = false, updatable = false)

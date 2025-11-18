@@ -9,9 +9,3 @@ reportEmail: "admin@example.com"
 
 aiEnabled: true
 aiModel: "gpt-4.1"
-
-api:
-  users:
-    - username: "admin"
-      password: "geheim123"
-      roles: ["ADMIN"]

@@ -6,6 +6,8 @@ import bbu.solution.logwatchai.domain.logwatcher.LogWatcherService;
 import bbu.solution.logwatchai.domain.appconfig.AppConfigService;
 import bbu.solution.logwatchai.domain.appconfig.AppConfig;
 import jakarta.annotation.PostConstruct;
+import jakarta.transaction.Transactional;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.nio.file.Path;
@@ -20,6 +22,9 @@ public class LogWatcherServiceImpl implements LogWatcherService {
     private final AppConfig config;
     private final ExecutorService executor = Executors.newCachedThreadPool();
     private final LogEntryService logEntryService;
+
+    @Autowired
+    private LogWatcherService self;
 
     public LogWatcherServiceImpl(AppConfigService configService, LogEntryService logEntryService) {
         this.config = configService.getConfig();
@@ -64,7 +69,8 @@ public class LogWatcherServiceImpl implements LogWatcherService {
         return map;
     }
 
-    private void handleEvent(LogEvent event) {
+    @Transactional
+    public void handleEvent(LogEvent event) {
         logEntryService.saveRawLog(event.getLine(), UUID.randomUUID());
         System.out.println("NEW LOG EVENT: " + event.getLine());
         // später: Alert, AI, Mail

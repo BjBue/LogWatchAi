@@ -1,6 +1,5 @@
 package bbu.solution.logwatchai.domain.user;
 
-import bbu.solution.logwatchai.domain.user.User.Role;
 import bbu.solution.logwatchai.infrastructure.security.JwtResponse;
 
 import java.util.List;

@@ -28,7 +28,6 @@ public class LogEntry {
     @Id
     @Column(nullable = false, columnDefinition = "BINARY(16)", updatable = false)
     @JdbcTypeCode(SqlTypes.BINARY)
-    @GeneratedValue
     private UUID id;
 
     @Column(nullable = false, updatable = false)
@@ -46,8 +45,8 @@ public class LogEntry {
     private String level;
 
     // Optimistische Sperre für parallele Analysen
-    @Version
-    private Long version;
+    //@Version
+    //private Long version;
 
     // Status-Flags
     @Column(nullable = false)

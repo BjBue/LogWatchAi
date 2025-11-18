@@ -7,6 +7,7 @@ CREATE TABLE IF NOT EXISTS log_entries (
     analyzed        BOOLEAN      NOT NULL DEFAULT FALSE,
     has_anomaly     BOOLEAN      NOT NULL DEFAULT FALSE,
     level           VARCHAR(16),
+--    version         BIGINT       NOT NULL DEFAULT 0,
     source_id       BINARY(16)   NOT NULL,
 
     CONSTRAINT fk_log_entries_source
