@@ -16,7 +16,7 @@ services:
       - db_data:/var/lib/mysql
 
     healthcheck:
-      test: [ "CMD-SHELL", "mysql -h localhost -uloguser -plogpass -e 'Select 1'" ]
+      test: [ "CMD-SHELL", "mariadb -h localhost -uloguser -plogpass -e 'Select 1'" ]
       interval: 10s
       timeout: 5s
       retries: 10
