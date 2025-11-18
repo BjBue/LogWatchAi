@@ -4,28 +4,39 @@ services:
   db:
     image: mariadb:11
     container_name: logwatchai-db
+    restart: always
     environment:
-      - MYSQL_ROOT_PASSWORD=rootpassword
-      - MYSQL_DATABASE=logwatchai
-      - MYSQL_USER=loguser
-      - MYSQL_PASSWORD=logpass
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: logwatchai
+      MYSQL_USER: loguser
+      MYSQL_PASSWORD: logpass
     ports:
       - "3306:3306"
     volumes:
       - db_data:/var/lib/mysql
 
+    healthcheck:
+      test: [ "CMD-SHELL", "mysql -h localhost -uloguser -plogpass -e 'Select 1'" ]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 30s
+
+
   app:
     build: .
     container_name: logwatchai-app
+    restart: always
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:mariadb://db:3306/logwatchai
-      - SPRING_DATASOURCE_USERNAME=loguser
-      - SPRING_DATASOURCE_PASSWORD=logpass
-      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+      SPRING_DATASOURCE_URL: jdbc:mariadb://db:3306/logwatchai
+      SPRING_DATASOURCE_USERNAME: loguser
+      SPRING_DATASOURCE_PASSWORD: logpass
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
     ports:
       - "8080:8080"
     depends_on:
-      - db
+      db:
+        condition: service_healthy
 
 volumes:
   db_data:

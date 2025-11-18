@@ -1,7 +1,7 @@
 # Dockerfile für LogWatchAI
 
 # 1. Basisimage mit Java
-FROM eclipse-temurin:25-jdk-focal
+FROM eclipse-temurin:25-jdk
 
 # 2. Arbeitsverzeichnis
 WORKDIR /app

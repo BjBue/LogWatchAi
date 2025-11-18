@@ -2,11 +2,12 @@ spring:
   application:
     name: logwatchai
 
-datasource:
-  url: jdbc:mariadb://db:3306/logwatchai
-  username: loguser
-  password: logpass
-  driver-class-name: org.mariadb.jdbc.Driver
+  datasource:
+    url: jdbc:mariadb://db:3306/logwatchai
+    username: loguser
+    password: logpass
+    driver-class-name: org.mariadb.jdbc.Driver
+
   jpa:
     hibernate:
       ddl-auto: update # Schema automatisch anpassen (für Dev/PoC)
