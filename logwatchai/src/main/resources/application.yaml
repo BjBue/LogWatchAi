@@ -55,7 +55,7 @@ logging:
     #org.springframework.web.client.RestTemplate: DEBUG
 
 jwt:
-  secret: mySuperSecretJWTKey
+  secret: mySuperSecretJWTKeyWithmanymanycharacterstoget32assuggestedanywhereintheinternet
   expiration-ms: 3600000 # 1 Stunde
 
 ai:
