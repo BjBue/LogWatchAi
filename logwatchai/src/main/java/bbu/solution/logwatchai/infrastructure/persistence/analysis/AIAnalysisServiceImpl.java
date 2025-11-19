@@ -1,6 +1,7 @@
 package bbu.solution.logwatchai.infrastructure.persistence.analysis;
 
 import bbu.solution.logwatchai.domain.analysis.AIAnalysis;
+import bbu.solution.logwatchai.domain.analysis.AIAnalysisService;
 import bbu.solution.logwatchai.domain.analysis.Severity;
 import bbu.solution.logwatchai.domain.analysis.SeverityUtil;
 import bbu.solution.logwatchai.domain.log.LogEntry;
@@ -10,14 +11,16 @@ import com.theokanning.openai.completion.chat.*;
 import com.theokanning.openai.completion.chat.ChatCompletionRequest;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import java.time.Duration;
 import java.util.List;
 import java.util.UUID;
+import java.util.concurrent.CompletableFuture;
 
 @Service
-public class AIAnalysisServiceImpl {
+public class AIAnalysisServiceImpl implements AIAnalysisService {
 
     private final OpenAiService openAiService;
     private final AIAnalysisRepository aiRepository;
@@ -26,7 +29,7 @@ public class AIAnalysisServiceImpl {
 
     public AIAnalysisServiceImpl(
             @Value("${ai.api-key}") String apiKey,
-            @Value("${ai.model:gpt-4.1}") String model,
+            @Value("${ai.model:gpt-4o-mini}") String model,
             AIAnalysisRepository aiRepository
     ) {
         this.openAiService = new OpenAiService(apiKey, Duration.ofSeconds(60));
@@ -34,7 +37,14 @@ public class AIAnalysisServiceImpl {
         this.model = model;
     }
 
-    public AIAnalysis analyzeLog(LogEntry logEntry) {
+    @Async
+    public CompletableFuture<AIAnalysis> analyzeAsync(LogEntry logEntry) {
+        AIAnalysis result = analyze(logEntry);
+        return CompletableFuture.completedFuture(result);
+    }
+
+    @Override
+    public AIAnalysis analyze(LogEntry logEntry) {
         // 1) create Prompt as json
         String prompt = buildPrompt(logEntry.getRawText());
 

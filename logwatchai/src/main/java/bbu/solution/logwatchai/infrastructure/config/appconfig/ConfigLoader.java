@@ -1,4 +1,4 @@
-package bbu.solution.logwatchai.infrastructure.appconfig;
+package bbu.solution.logwatchai.infrastructure.config.appconfig;
 
 import bbu.solution.logwatchai.domain.appconfig.AppConfig;
 import jakarta.annotation.PostConstruct;

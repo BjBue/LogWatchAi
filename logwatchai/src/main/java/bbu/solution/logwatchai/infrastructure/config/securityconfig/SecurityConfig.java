@@ -1,4 +1,4 @@
-package bbu.solution.logwatchai.infrastructure.securityconfig;
+package bbu.solution.logwatchai.infrastructure.config.securityconfig;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

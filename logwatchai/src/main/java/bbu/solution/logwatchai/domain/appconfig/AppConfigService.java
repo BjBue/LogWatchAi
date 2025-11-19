@@ -1,6 +1,6 @@
 package bbu.solution.logwatchai.domain.appconfig;
 
-import bbu.solution.logwatchai.infrastructure.appconfig.ConfigLoader;
+import bbu.solution.logwatchai.infrastructure.config.appconfig.ConfigLoader;
 import org.springframework.stereotype.Service;
 
 @Service

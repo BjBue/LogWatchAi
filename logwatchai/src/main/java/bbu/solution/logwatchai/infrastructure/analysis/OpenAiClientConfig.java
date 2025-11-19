@@ -10,7 +10,7 @@ import java.time.Duration;
 @Configuration
 public class OpenAiClientConfig {
 
-    @Bean(destroyMethod = "shutdown")
+    @Bean
     public OpenAiService openAiService(@Value("${ai.api-key}") String apiKey) {
         // Timeout optional
         return new OpenAiService(apiKey, Duration.ofSeconds(60));
