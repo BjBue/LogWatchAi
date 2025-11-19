@@ -2,16 +2,16 @@ package bbu.solution.logwatchai.infrastructure.analysis;
 
 import bbu.solution.logwatchai.application.analysis.AIAnalysisProcessor;
 import bbu.solution.logwatchai.domain.log.LogEntry;
-import bbu.solution.logwatchai.infrastructure.persistence.analysis.AIAnalysisServiceImpl;
+import bbu.solution.logwatchai.domain.analysis.AIAnalysisService;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
 @Component
 public class AIAnalysisProcessorImpl implements AIAnalysisProcessor {
 
-    private final AIAnalysisServiceImpl analyzer;
+    private final AIAnalysisService analyzer;
 
-    public AIAnalysisProcessorImpl(AIAnalysisServiceImpl analyzer) {
+    public AIAnalysisProcessorImpl(AIAnalysisService analyzer) {
         this.analyzer = analyzer;
     }
 
