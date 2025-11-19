@@ -12,11 +12,14 @@ import java.util.UUID;
 public interface LogEntryService {
     List<LogEntry> ingestLog(LogSource logSource);
     LogEntry saveRawLog(String rawText, UUID sourceId);
-    AIAnalysis analyzeLog(LogEntry logEntry);
+
+    AIAnalysis analyze(LogEntry logEntry);
     void analyzePendingLogs();
     void markAsAnalyzed(UUID id);
+
     DailyReport generateReport(LocalDate date);
     DailyReport generateReport(LocalDate from, LocalDate to);
+
     List<LogEntry> getLogs(LogFilter filter);
     Page<LogEntry> getLogsPageable(LogFilter filter, Pageable pageable);
 }

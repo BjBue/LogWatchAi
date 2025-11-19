@@ -6,6 +6,7 @@ import bbu.solution.logwatchai.domain.log.LogEntryService;
 import bbu.solution.logwatchai.domain.log.LogFilter;
 import bbu.solution.logwatchai.domain.report.DailyReport;
 import bbu.solution.logwatchai.domain.logsource.LogSource;
+import bbu.solution.logwatchai.infrastructure.persistence.analysis.AIAnalysisServiceImpl;
 import jakarta.transaction.Transactional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -19,9 +20,11 @@ import java.util.UUID;
 public class LogEntryServiceImpl implements LogEntryService {
 
     private final LogEntryRepository logEntryRepository;
+    private final AIAnalysisServiceImpl aiAnalysisService;
 
-    public LogEntryServiceImpl(LogEntryRepository logEntryRepository) {
+    public LogEntryServiceImpl(LogEntryRepository logEntryRepository, AIAnalysisServiceImpl aiAnalysisService) {
         this.logEntryRepository = logEntryRepository;
+        this.aiAnalysisService = aiAnalysisService;
     }
 
     @Override
@@ -37,8 +40,17 @@ public class LogEntryServiceImpl implements LogEntryService {
     }
 
     @Override
-    public AIAnalysis analyzeLog(LogEntry logEntry) {
-        return null;
+    @Transactional
+    public AIAnalysis analyze(LogEntry logEntry) {
+        // 1) call AI analysis infra service
+        AIAnalysis saved = aiAnalysisService.analyzeLog(logEntry); // aiAnalysisService ist @Autowired in der Klasse
+
+        // 2) attach to logEntry
+        logEntry.setAnalysis(saved);
+        logEntry.markAsAnalyzed(saved);
+        logEntryRepository.save(logEntry);
+
+        return saved;
     }
 
     @Override
