@@ -48,9 +48,11 @@ server:
 logging:
   level:
     root: INFO
-    com.bbu.solution: DEBUG
-    org.hibernate.SQL: debug
+    #com.bbu.solution: DEBUG
+    #org.hibernate.SQL: debug
     org.hibernate.type.descriptor.sql: trace
+    #com.theokanning.openai: DEBUG
+    #org.springframework.web.client.RestTemplate: DEBUG
 
 jwt:
   secret: mySuperSecretJWTKey
