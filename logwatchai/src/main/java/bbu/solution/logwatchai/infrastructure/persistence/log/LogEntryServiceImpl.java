@@ -43,7 +43,7 @@ public class LogEntryServiceImpl implements LogEntryService {
     @Transactional
     public AIAnalysis analyze(LogEntry logEntry) {
         // 1) call AI analysis infra service
-        AIAnalysis saved = aiAnalysisService.analyzeLog(logEntry); // aiAnalysisService ist @Autowired in der Klasse
+        AIAnalysis saved = aiAnalysisService.analyze(logEntry); // aiAnalysisService ist @Autowired in der Klasse
 
         // 2) attach to logEntry
         logEntry.setAnalysis(saved);

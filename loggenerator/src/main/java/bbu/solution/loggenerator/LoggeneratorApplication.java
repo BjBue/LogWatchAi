@@ -47,25 +47,57 @@ public class LoggeneratorApplication {
 		return "OK";
 	}
 
+
+	private static final String[] SERVICES = {
+			"AuthService", "Database", "ApiGateway", "Security",
+			"UserService", "JobScheduler", "PaymentClient",
+			"Network", "JvmMonitor"
+	};
+
+	private static final String[] INFO_MESSAGES = {
+			"User '{}' authenticated successfully (session={})",
+			"GET /api/users/{} 200 OK in {}ms trace={}",
+			"DailyCleanup completed in {}ms (deleted={})",
+			"Service heartbeat OK"
+	};
+
+	private static final String[] WARN_MESSAGES = {
+			"Disk usage at {}% on /dev/sda1 (threshold=90%)",
+			"High latency detected between node A and B ({}ms)",
+			"Failed login attempt for user '{}' from IP {}"
+	};
+
+	private static final String[] ERROR_MESSAGES = {
+			"Connection pool exhausted (active={}, max={})",
+			"External API /charge returned 503 Service Unavailable retry={}",
+			"NullPointerException while processing user={}",
+			"OutOfMemoryWarning: Heap usage {}% ({}GB / {}GB)"
+	};
+
 	private String generateRandomLog() {
-		String timestamp = LocalDateTime.now().format(FMT);
+		String timestamp = java.time.Instant.now().toString();
+		String service = SERVICES[RANDOM.nextInt(SERVICES.length)];
 
-		String[] levels = {"INFO", "WARN", "ERROR", "DEBUG"};
-		String level = levels[RANDOM.nextInt(levels.length)];
+		String level;
+		String message;
 
-		String[] messages = {
-				"User authentication successful",
-				"Failed login attempt from IP 10.0.0." + RANDOM.nextInt(255),
-				"Disk space at " + (80 + RANDOM.nextInt(20)) + "% capacity",
-				"Database connection timeout",
-				"Service heartbeat OK",
-				"File not found: /etc/config.yaml",
-				"User session expired",
-				"Scheduled job completed",
-				"High memory usage detected",
-				"External API responded with 500"
-		};
+		int pick = RANDOM.nextInt(10);
 
-		return timestamp + " [" + level + "] " + messages[RANDOM.nextInt(messages.length)];
+		if (pick < 4) {
+			level = "INFO";
+			message = format(INFO_MESSAGES[RANDOM.nextInt(INFO_MESSAGES.length)]);
+		} else if (pick < 7) {
+			level = "WARN";
+			message = format(WARN_MESSAGES[RANDOM.nextInt(WARN_MESSAGES.length)]);
+		} else {
+			level = "ERROR";
+			message = format(ERROR_MESSAGES[RANDOM.nextInt(ERROR_MESSAGES.length)]);
+		}
+
+		return String.format("%s %s [%s] %s", timestamp, level, service, message);
+	}
+
+	private String format(String template) {
+		return template.replace("{}", String.valueOf(RANDOM.nextInt(999)));
 	}
 }
