@@ -6,7 +6,7 @@ import bbu.solution.logwatchai.domain.log.LogEntryService;
 import bbu.solution.logwatchai.domain.log.LogFilter;
 import bbu.solution.logwatchai.domain.report.DailyReport;
 import bbu.solution.logwatchai.domain.logsource.LogSource;
-import bbu.solution.logwatchai.infrastructure.persistence.analysis.AIAnalysisServiceImpl;
+import bbu.solution.logwatchai.domain.analysis.AIAnalysisService;
 import jakarta.transaction.Transactional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -20,9 +20,9 @@ import java.util.UUID;
 public class LogEntryServiceImpl implements LogEntryService {
 
     private final LogEntryRepository logEntryRepository;
-    private final AIAnalysisServiceImpl aiAnalysisService;
+    private final AIAnalysisService aiAnalysisService;
 
-    public LogEntryServiceImpl(LogEntryRepository logEntryRepository, AIAnalysisServiceImpl aiAnalysisService) {
+    public LogEntryServiceImpl(LogEntryRepository logEntryRepository, AIAnalysisService aiAnalysisService) {
         this.logEntryRepository = logEntryRepository;
         this.aiAnalysisService = aiAnalysisService;
     }

@@ -6,7 +6,7 @@ import bbu.solution.logwatchai.domain.logwatcher.LogEvent;
 import bbu.solution.logwatchai.domain.logwatcher.LogWatcherService;
 import bbu.solution.logwatchai.domain.appconfig.AppConfigService;
 import bbu.solution.logwatchai.domain.appconfig.AppConfig;
-import bbu.solution.logwatchai.infrastructure.persistence.analysis.AIAnalysisServiceImpl;
+import bbu.solution.logwatchai.domain.analysis.AIAnalysisService;
 import jakarta.annotation.PostConstruct;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +28,7 @@ public class LogWatcherServiceImpl implements LogWatcherService {
     @Autowired
     private LogWatcherService self;
     @Autowired
-    private AIAnalysisServiceImpl aIAnalysisServiceImpl;
+    private AIAnalysisService aIAnalysisService;
 
     public LogWatcherServiceImpl(AppConfigService configService, LogEntryService logEntryService) {
         this.config = configService.getConfig();
@@ -79,7 +79,7 @@ public class LogWatcherServiceImpl implements LogWatcherService {
         // evtl. rauswerfen wenn ich kein debugging mehr brauche
         System.out.println("NEW LOG EVENT: " + event.getLine());
 
-        aIAnalysisServiceImpl.analyzeAsync(entry);
+        aIAnalysisService.analyzeAsync(entry);
         // später: Alert, AI, Mail
     }
 }
