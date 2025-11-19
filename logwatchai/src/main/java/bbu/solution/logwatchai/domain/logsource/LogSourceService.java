@@ -1,4 +1,4 @@
-package bbu.solution.logwatchai.domain.source;
+package bbu.solution.logwatchai.domain.logsource;
 
 import java.util.List;
 import java.util.UUID;

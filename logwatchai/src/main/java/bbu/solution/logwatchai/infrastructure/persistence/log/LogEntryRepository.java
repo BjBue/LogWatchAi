@@ -1,5 +1,6 @@
-package bbu.solution.logwatchai.domain.log;
+package bbu.solution.logwatchai.infrastructure.persistence.log;
 
+import bbu.solution.logwatchai.domain.log.LogEntry;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

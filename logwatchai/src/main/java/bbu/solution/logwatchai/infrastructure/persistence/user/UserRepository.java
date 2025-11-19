@@ -1,5 +1,6 @@
-package bbu.solution.logwatchai.domain.user;
+package bbu.solution.logwatchai.infrastructure.persistence.user;
 
+import bbu.solution.logwatchai.domain.user.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.Optional;
 import java.util.UUID;

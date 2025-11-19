@@ -1,5 +1,7 @@
-package bbu.solution.logwatchai.domain.analysis;
+package bbu.solution.logwatchai.infrastructure.persistence.analysis;
 
+import bbu.solution.logwatchai.domain.analysis.AIAnalysis;
+import bbu.solution.logwatchai.domain.analysis.Severity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

@@ -1,4 +1,4 @@
-package bbu.solution.logwatchai.domain.source;
+package bbu.solution.logwatchai.domain.logsource;
 
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
@@ -26,7 +26,7 @@ public class LogSource {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 20)
-    private SourceType type;
+    private LogSourceType type;
 
     @Column(length = 500)
     private String path;
@@ -55,8 +55,8 @@ public class LogSource {
     public UUID getId() { return id; }
     public String getName() { return name; }
     public void setName(String name) { this.name = name; }
-    public SourceType getType() { return type; }
-    public void setType(SourceType type) { this.type = type; }
+    public LogSourceType getType() { return type; }
+    public void setType(LogSourceType type) { this.type = type; }
     public String getPath() { return path; }
     public void setPath(String path) { this.path = path; }
     public JsonNode getConnectionInfo() { return connectionInfo; }
