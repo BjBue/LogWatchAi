@@ -31,6 +31,7 @@ services:
       SPRING_DATASOURCE_USERNAME: loguser
       SPRING_DATASOURCE_PASSWORD: logpass
       SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      JWT_SECRET: "a87f8d9c6bb04a65d4af77fd8c9b15eaa73729c3fae243bda85ef31c59d19f72"
     ports:
       - "8080:8080"
     depends_on:

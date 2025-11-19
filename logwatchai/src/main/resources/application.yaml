@@ -47,15 +47,17 @@ server:
 
 logging:
   level:
-    root: INFO
-    #com.bbu.solution: DEBUG
-    #org.hibernate.SQL: debug
+    root: DEBUG
+    com.bbu.solution: DEBUG
+    org.hibernate.SQL: debug
     org.hibernate.type.descriptor.sql: trace
-    #com.theokanning.openai: DEBUG
-    #org.springframework.web.client.RestTemplate: DEBUG
+    com.theokanning.openai: DEBUG
+    org.springframework.web.client.RestTemplate: DEBUG
+    org.springframework: DEBUG
+    io.jsonwebtoken: DEBUG
 
 jwt:
-  secret: mySuperSecretJWTKeyWithmanymanycharacterstoget32assuggestedanywhereintheinternet
+  secret: ${JWT_SECRET}
   expiration-ms: 3600000 # 1 Stunde
 
 ai:
