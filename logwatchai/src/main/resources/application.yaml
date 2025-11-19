@@ -47,14 +47,14 @@ server:
 
 logging:
   level:
-    root: DEBUG
-    com.bbu.solution: DEBUG
-    org.hibernate.SQL: debug
-    org.hibernate.type.descriptor.sql: trace
-    com.theokanning.openai: DEBUG
-    org.springframework.web.client.RestTemplate: DEBUG
-    org.springframework: DEBUG
-    io.jsonwebtoken: DEBUG
+    root: INFO
+    #com.bbu.solution: DEBUG
+    #org.hibernate.SQL: debug
+    #org.hibernate.type.descriptor.sql: trace
+    #com.theokanning.openai: DEBUG
+    #org.springframework.web.client.RestTemplate: DEBUG
+    #org.springframework: DEBUG
+    #io.jsonwebtoken: DEBUG
 
 jwt:
   secret: ${JWT_SECRET}
