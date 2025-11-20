@@ -38,7 +38,14 @@ public class AIAnalysisServiceImpl implements AIAnalysisService {
         this.model = model;
     }
 
+    /*
     @Async
+    public CompletableFuture<AIAnalysis> analyzeAsync(LogEntry logEntry) {
+        AIAnalysis result = analyze(logEntry);
+        return CompletableFuture.completedFuture(result);
+    }
+    */
+    @Async("aiExecutor")
     public CompletableFuture<AIAnalysis> analyzeAsync(LogEntry logEntry) {
         AIAnalysis result = analyze(logEntry);
         return CompletableFuture.completedFuture(result);
@@ -49,6 +56,7 @@ public class AIAnalysisServiceImpl implements AIAnalysisService {
         return aiRepository.findById(id);
     }
 
+    /*
     @Override
     public AIAnalysis analyze(LogEntry logEntry) {
         // 1) create Prompt as json
@@ -74,6 +82,65 @@ public class AIAnalysisServiceImpl implements AIAnalysisService {
         // 3) persist and return
         AIAnalysis saved = aiRepository.save(ai);
         return saved;
+    }
+    */
+    @Override
+    public AIAnalysis analyze(LogEntry logEntry) {
+        String prompt = buildPrompt(logEntry.getRawText());
+
+        ChatMessage system = new ChatMessage("system", """
+            You are an expert log analyst. 
+            Return only JSON with fields:
+            severity, category, summarizedIssue, likelyCause, recommendation, anomalyScore
+            """);
+
+        ChatMessage user = new ChatMessage("user", prompt);
+
+        ChatCompletionRequest request = ChatCompletionRequest.builder()
+                .model(model)
+                .messages(List.of(system, user))
+                .temperature(0.0)
+                .maxTokens(700)
+                .n(1)
+                .build();
+
+        ChatCompletionResult result = callOpenAIWithRetry(request);
+
+        String text = extractTextFromResult(result);
+
+        AIAnalysis ai = parseAndBuildAIAnalysis(text, logEntry.getId());
+        return aiRepository.save(ai);
+    }
+
+    private ChatCompletionResult callOpenAIWithRetry(ChatCompletionRequest request) {
+        int maxRetries = 5;
+        int attempt = 0;
+        long backoff = 2000; // 2s Start
+
+        while (true) {
+            try {
+                return openAiService.createChatCompletion(request);
+            }
+            catch (com.theokanning.openai.OpenAiHttpException ex) {
+                String msg = ex.getMessage();
+                if (msg != null && msg.contains("Rate limit")) {
+                    attempt++;
+                    if (attempt > maxRetries) {
+                        throw ex;
+                    }
+
+                    try {
+                        Thread.sleep(backoff);
+                    } catch (InterruptedException ignored) {}
+
+                    backoff *= 2; // exponential backoff
+                    continue;
+                }
+
+                // not a rate limit error
+                throw ex;
+            }
+        }
     }
 
     private String buildPrompt(String rawLog) {
