@@ -1,4 +1,4 @@
-package bbu.solution.logwatchai.infrastructure.logwatcher;
+package bbu.solution.logwatchai.application.logwatcher;
 
 import bbu.solution.logwatchai.domain.log.LogEntry;
 import bbu.solution.logwatchai.domain.log.LogEntryService;
@@ -7,6 +7,7 @@ import bbu.solution.logwatchai.domain.logwatcher.LogWatcherService;
 import bbu.solution.logwatchai.domain.appconfig.AppConfigService;
 import bbu.solution.logwatchai.domain.appconfig.AppConfig;
 import bbu.solution.logwatchai.domain.analysis.AIAnalysisService;
+import bbu.solution.logwatchai.infrastructure.logwatcher.DirectoryWatcher;
 import jakarta.annotation.PostConstruct;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,7 +46,7 @@ public class LogWatcherServiceImpl implements LogWatcherService {
         grouped.forEach((dir, files) -> {
             executor.submit(() -> {
                 try {
-                    DirectoryWatcher watcher = new DirectoryWatcher(dir, this::handleEvent);
+                    DirectoryWatcher watcher = new DirectoryWatcher(dir, self::handleEvent);
 
                     for (Path file : files) {
                         watcher.addFile(file);
@@ -73,13 +74,13 @@ public class LogWatcherServiceImpl implements LogWatcherService {
         return map;
     }
 
+    @Override
     @Transactional
     public void handleEvent(LogEvent event) {
+        //do log
         LogEntry entry = logEntryService.saveRawLog(event.getLine(), UUID.randomUUID());
-        // evtl. rauswerfen wenn ich kein debugging mehr brauche
-        System.out.println("NEW LOG EVENT: " + event.getLine());
-
+        //do analysis
         aIAnalysisService.analyzeAsync(entry);
-        // später: Alert, AI, Mail
+        // TODO: Alert, Mail
     }
 }

@@ -1,4 +1,4 @@
-package bbu.solution.logwatchai.infrastructure.persistence.log;
+package bbu.solution.logwatchai.application.log;
 
 import bbu.solution.logwatchai.domain.analysis.AIAnalysis;
 import bbu.solution.logwatchai.domain.log.LogEntry;
@@ -7,6 +7,7 @@ import bbu.solution.logwatchai.domain.log.LogFilter;
 import bbu.solution.logwatchai.domain.report.DailyReport;
 import bbu.solution.logwatchai.domain.logsource.LogSource;
 import bbu.solution.logwatchai.domain.analysis.AIAnalysisService;
+import bbu.solution.logwatchai.infrastructure.persistence.log.LogEntryRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

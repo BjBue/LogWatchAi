@@ -2,10 +2,12 @@ package bbu.solution.logwatchai.domain.alert;
 
 import bbu.solution.logwatchai.domain.analysis.Severity;
 import jakarta.persistence.*;
+import lombok.*;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
+
 import java.time.Instant;
-import java.util.UUID;
+import java.util.*;
 
 @Entity
 @Table(name = "alerts",
@@ -15,45 +17,63 @@ import java.util.UUID;
                 @Index(name = "idx_alerts_created_at", columnList = "created_at DESC"),
                 @Index(name = "idx_alerts_source_id", columnList = "source_id")
         })
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Alert {
 
-    @Id @GeneratedValue
+    @Id
+    @GeneratedValue
     @Column(nullable = false, columnDefinition = "BINARY(16)")
     @JdbcTypeCode(SqlTypes.BINARY)
     private UUID id;
 
-    @Column(nullable = false)
+    @Column(nullable = false, updatable = false)
     private Instant createdAt = Instant.now();
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
+    @Setter
     private Severity severity;
 
     @Column(nullable = false, length = 500)
+    @Setter
     private String message;
 
-    @Column(name = "rule_name", nullable = false, length = 100)
-    private String ruleName;
+    @JdbcTypeCode(SqlTypes.JSON)
+    @Column(name = "rule_names", columnDefinition = "json", nullable = false)
+    private List<String> ruleNames = new ArrayList<>();
 
     @Column(nullable = false)
+    @Setter
     private boolean active = true;
 
     @Column(name = "source_id", columnDefinition = "BINARY(16)")
     @JdbcTypeCode(SqlTypes.BINARY)
+    @Setter
     private UUID sourceId;
 
-    public void activate()   { this.active = true; }
-    public void deactivate() { this.active = false; }
+    // --- Builder for easier creation ---
+    @Builder
+    public Alert(Severity severity, String message, List<String> ruleNames, UUID sourceId) {
+        this.severity = severity;
+        this.message = message;
+        this.sourceId = sourceId;
+        this.ruleNames = ruleNames == null ? new ArrayList<>() : new ArrayList<>(ruleNames);
+    }
 
-    public UUID getId() { return id; }
-    public Instant getCreatedAt() { return createdAt; }
-    public Severity getSeverity() { return severity; }
-    public void setSeverity(Severity severity) { this.severity = severity; }
-    public String getMessage() { return message; }
-    public void setMessage(String message) { this.message = message; }
-    public String getRuleName() { return ruleName; }
-    public void setRuleName(String ruleName) { this.ruleName = ruleName; }
-    public boolean isActive() { return active; }
-    public UUID getSourceId() { return sourceId; }
-    public void setSourceId(UUID sourceId) { this.sourceId = sourceId; }
+    // --- Domain methods ---
+    public void deactivate() {
+        this.active = false;
+    }
+
+    public void activate() {
+        this.active = true;
+    }
+
+    public void setRuleNames(List<String> ruleNames) {
+        this.ruleNames = (ruleNames == null)
+                ? new ArrayList<>()
+                : new ArrayList<>(ruleNames);
+    }
 }

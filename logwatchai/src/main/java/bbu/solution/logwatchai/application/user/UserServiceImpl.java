@@ -1,15 +1,15 @@
-package bbu.solution.logwatchai.infrastructure.security;
+package bbu.solution.logwatchai.application.user;
 
 import bbu.solution.logwatchai.domain.user.Role;
 import bbu.solution.logwatchai.domain.user.User;
 import bbu.solution.logwatchai.domain.user.UserService;
 import bbu.solution.logwatchai.infrastructure.persistence.user.UserRepository;
+import bbu.solution.logwatchai.infrastructure.security.JwtResponse;
+import bbu.solution.logwatchai.infrastructure.security.JwtService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.sql.Time;
 import java.time.Instant;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;

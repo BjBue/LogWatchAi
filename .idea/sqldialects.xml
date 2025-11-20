@@ -7,5 +7,6 @@
     <file url="file://$PROJECT_DIR$/logwatchai/src/main/resources/db/migration/v4__create_ai_analysis_table.sql" dialect="MariaDB" />
     <file url="file://$PROJECT_DIR$/logwatchai/src/main/resources/db/migration/v5_create_daily_reports_table.sql" dialect="MariaDB" />
     <file url="file://$PROJECT_DIR$/logwatchai/src/main/resources/db/migration/v6_create_alerts_table.sql" dialect="MariaDB" />
+    <file url="file://$PROJECT_DIR$/logwatchai/src/main/resources/db/migration/v7_update_alerts_json_rules.sql" dialect="GenericSQL" />
   </component>
 </project>

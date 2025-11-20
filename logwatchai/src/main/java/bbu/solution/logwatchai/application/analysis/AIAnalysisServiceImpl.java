@@ -1,10 +1,11 @@
-package bbu.solution.logwatchai.infrastructure.persistence.analysis;
+package bbu.solution.logwatchai.application.analysis;
 
 import bbu.solution.logwatchai.domain.analysis.AIAnalysis;
 import bbu.solution.logwatchai.domain.analysis.AIAnalysisService;
 import bbu.solution.logwatchai.domain.analysis.Severity;
 import bbu.solution.logwatchai.domain.analysis.SeverityUtil;
 import bbu.solution.logwatchai.domain.log.LogEntry;
+import bbu.solution.logwatchai.infrastructure.persistence.analysis.AIAnalysisRepository;
 import com.theokanning.openai.service.OpenAiService;
 
 import com.theokanning.openai.completion.chat.*;
@@ -85,7 +86,7 @@ public class AIAnalysisServiceImpl implements AIAnalysisService {
         if (result == null || result.getChoices() == null || result.getChoices().isEmpty()) {
             return "{}";
         }
-        ChatCompletionChoice choice = result.getChoices().get(0);
+        ChatCompletionChoice choice = result.getChoices().getFirst();
         ChatMessage msg = choice.getMessage();
         if (msg == null) return "{}";
         return msg.getContent();

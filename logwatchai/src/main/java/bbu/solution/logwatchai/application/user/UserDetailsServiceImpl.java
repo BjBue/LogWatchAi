@@ -1,6 +1,7 @@
-package bbu.solution.logwatchai.infrastructure.security;
+package bbu.solution.logwatchai.application.user;
 
 import bbu.solution.logwatchai.infrastructure.persistence.user.UserRepository;
+import bbu.solution.logwatchai.infrastructure.security.UserPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
