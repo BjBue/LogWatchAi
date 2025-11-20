@@ -1,5 +1,6 @@
 package bbu.solution.logwatchai.domain.appconfig;
 
+import bbu.solution.logwatchai.application.rules.AlertingConfig;
 import lombok.Data;
 import java.util.List;
 import java.util.Map;
@@ -8,7 +9,7 @@ import java.util.Map;
 public class AppConfig {
 
     private List<String> watchPaths;
-    private Map<String, String> alertRules;
+    private AlertingConfig alerting;
     private boolean aiEnabled;
     private String aiModel;
     private String reportEmail;

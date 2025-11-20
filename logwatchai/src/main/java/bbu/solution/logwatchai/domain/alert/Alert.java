@@ -1,5 +1,6 @@
 package bbu.solution.logwatchai.domain.alert;
 
+import bbu.solution.logwatchai.domain.analysis.Severity;
 import jakarta.persistence.*;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
@@ -40,8 +41,6 @@ public class Alert {
     @Column(name = "source_id", columnDefinition = "BINARY(16)")
     @JdbcTypeCode(SqlTypes.BINARY)
     private UUID sourceId;
-
-    public enum Severity { INFO, WARNING, CRITICAL }
 
     public void activate()   { this.active = true; }
     public void deactivate() { this.active = false; }

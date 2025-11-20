@@ -1,14 +1,23 @@
 watchPaths:
   - "/shared-logs/test.log"
 
-alertRules:
-  error: "ALERT"
-  warning: "WARN"
+alerting:
+  rules:
+    - name: High severity events
+      severityAtLeast: HIGH
+
+    - name: Critical anomaly score
+      anomalyScoreMin: 0.8
+
+    - name: Database related issues
+      textContains: ["database", "sql", "connection failed"]
+
 
 reportEmail: "admin@example.com"
 
 aiEnabled: true
 aiModel: "gpt-4.1"
+#aiKey
 
 security:
   users:
