@@ -28,7 +28,7 @@ public class Alert {
     @JdbcTypeCode(SqlTypes.BINARY)
     private UUID id;
 
-    @Column(nullable = false, updatable = false)
+    @Column(name = "created_at", nullable = false, updatable = false)
     private Instant createdAt = Instant.now();
 
     @Enumerated(EnumType.STRING)
@@ -53,13 +53,20 @@ public class Alert {
     @Setter
     private UUID sourceId;
 
-    // --- Builder for easier creation ---
+    // --- NEU: Referenz auf den LogEntry, optional/nullable bei Migration
+    @Column(name = "log_entry_id", columnDefinition = "BINARY(16)")
+    @JdbcTypeCode(SqlTypes.BINARY)
+    @Setter
+    private UUID logEntryId;
+
+    // --- Builder for easier creation (erweitert um logEntryId)
     @Builder
-    public Alert(Severity severity, String message, List<String> ruleNames, UUID sourceId) {
+    public Alert(Severity severity, String message, List<String> ruleNames, UUID sourceId, UUID logEntryId) {
         this.severity = severity;
         this.message = message;
         this.sourceId = sourceId;
         this.ruleNames = ruleNames == null ? new ArrayList<>() : new ArrayList<>(ruleNames);
+        this.logEntryId = logEntryId;
     }
 
     // --- Domain methods ---

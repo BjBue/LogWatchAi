@@ -80,7 +80,9 @@ public class LogWatcherServiceImpl implements LogWatcherService {
         //do log
         LogEntry entry = logEntryService.saveRawLog(event.getLine(), UUID.randomUUID());
         //do analysis
-        aIAnalysisService.analyzeAsync(entry);
+        //aIAnalysisService.analyzeAsync(entry);
+        logEntryService.analyzeAsync(entry);
+
         // TODO: Alert, Mail
     }
 }

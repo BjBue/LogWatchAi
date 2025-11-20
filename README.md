@@ -8,7 +8,7 @@ automatisch passende Maßnahmen oder Warnungen
 Projekt neu erstellen:
 ind der konsole im verzecihniss mit dem pom.xml:
 $ .\mvnw.cmd clean package
-$ docker-compose down   //evtl. mit -v (löscht volumes)
+$ docker-compose down   //evtl. mit -v (löscht volumes) nur wenn datenbank weggeworfen werden kann!!!
 $ docker-compose build
 $ docker-compose up -d
 
@@ -20,3 +20,4 @@ $ cd loggenerator
 $ .\mvnw.cmd clean package
 $ cd ..\logwatchai
 $ docker-compose up --build
+

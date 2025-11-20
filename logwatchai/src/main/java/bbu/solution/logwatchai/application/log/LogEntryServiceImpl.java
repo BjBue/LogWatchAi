@@ -1,6 +1,7 @@
 package bbu.solution.logwatchai.application.log;
 
 import bbu.solution.logwatchai.domain.analysis.AIAnalysis;
+import bbu.solution.logwatchai.domain.decision.DecisionEngineService;
 import bbu.solution.logwatchai.domain.log.LogEntry;
 import bbu.solution.logwatchai.domain.log.LogEntryService;
 import bbu.solution.logwatchai.domain.log.LogFilter;
@@ -11,6 +12,7 @@ import bbu.solution.logwatchai.infrastructure.persistence.log.LogEntryRepository
 import jakarta.transaction.Transactional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -23,10 +25,15 @@ public class LogEntryServiceImpl implements LogEntryService {
 
     private final LogEntryRepository logEntryRepository;
     private final AIAnalysisService aiAnalysisService;
+    private final DecisionEngineService decisionEngineService;
 
-    public LogEntryServiceImpl(LogEntryRepository logEntryRepository, AIAnalysisService aiAnalysisService) {
+    public LogEntryServiceImpl(
+            LogEntryRepository logEntryRepository,
+            AIAnalysisService aiAnalysisService,
+            DecisionEngineService decisionEngineService) {
         this.logEntryRepository = logEntryRepository;
         this.aiAnalysisService = aiAnalysisService;
+        this.decisionEngineService = decisionEngineService;
     }
 
     @Override
@@ -46,6 +53,7 @@ public class LogEntryServiceImpl implements LogEntryService {
         return logEntryRepository.save(entry);
     }
 
+/*
     @Override
     @Transactional
     public AIAnalysis analyze(LogEntry logEntry) {
@@ -59,7 +67,26 @@ public class LogEntryServiceImpl implements LogEntryService {
 
         return saved;
     }
+*/
+    @Async
+    @Transactional
+    public void analyzeAsync(LogEntry entry) {
+        try {
+            // 1) KI-Analyse erzeugen
+            AIAnalysis ai = aiAnalysisService.analyze(entry);
 
+            // 2) LogEntry updaten
+            entry.markAsAnalyzed(ai);
+            logEntryRepository.save(entry);
+
+            // 3) DecisionEngine aufrufen
+            decisionEngineService.evaluate(entry, ai);
+
+        } catch (Exception e) {
+            System.err.println("Error during async analysis: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
     @Override
     public void analyzePendingLogs() {
 

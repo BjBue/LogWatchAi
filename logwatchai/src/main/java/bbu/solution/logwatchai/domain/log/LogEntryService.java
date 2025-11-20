@@ -15,7 +15,7 @@ public interface LogEntryService {
     List<LogEntry> ingestLog(LogSource logSource);
     LogEntry saveRawLog(String rawText, UUID sourceId);
 
-    AIAnalysis analyze(LogEntry logEntry);
+    void analyzeAsync(LogEntry logEntry);
     void analyzePendingLogs();
     void markAsAnalyzed(UUID id);
 
