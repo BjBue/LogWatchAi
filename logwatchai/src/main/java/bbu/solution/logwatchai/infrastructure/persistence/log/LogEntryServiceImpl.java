@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -25,6 +26,11 @@ public class LogEntryServiceImpl implements LogEntryService {
     public LogEntryServiceImpl(LogEntryRepository logEntryRepository, AIAnalysisService aiAnalysisService) {
         this.logEntryRepository = logEntryRepository;
         this.aiAnalysisService = aiAnalysisService;
+    }
+
+    @Override
+    public Optional<LogEntry> getLogEntryById(UUID id){
+        return logEntryRepository.findById(id);
     }
 
     @Override

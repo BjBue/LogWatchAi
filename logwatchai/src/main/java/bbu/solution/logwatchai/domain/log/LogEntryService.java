@@ -7,9 +7,11 @@ import bbu.solution.logwatchai.domain.report.DailyReport;
 import org.springframework.data.domain.Pageable;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 public interface LogEntryService {
+    Optional<LogEntry> getLogEntryById(UUID logEntryId);
     List<LogEntry> ingestLog(LogSource logSource);
     LogEntry saveRawLog(String rawText, UUID sourceId);
 
