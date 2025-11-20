@@ -49,8 +49,8 @@ logging:
   level:
     root: INFO
     #com.bbu.solution: DEBUG
-    #org.hibernate.SQL: debug
-    #org.hibernate.type.descriptor.sql: trace
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type.descriptor.sql: trace
     #com.theokanning.openai: DEBUG
     #org.springframework.web.client.RestTemplate: DEBUG
     #org.springframework: DEBUG

@@ -87,11 +87,11 @@ public class LogEntryServiceImpl implements LogEntryService {
 
     @Override
     public List<LogEntry> getLogs(LogFilter filter) {
-        return List.of();
+        return logEntryRepository.findAll();
     }
 
     @Override
     public Page<LogEntry> getLogsPageable(LogFilter filter, Pageable pageable) {
-        return null;
+        return logEntryRepository.findAll(pageable);
     }
 }
