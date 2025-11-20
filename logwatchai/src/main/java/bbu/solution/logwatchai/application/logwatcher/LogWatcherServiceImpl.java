@@ -2,6 +2,8 @@ package bbu.solution.logwatchai.application.logwatcher;
 
 import bbu.solution.logwatchai.domain.log.LogEntry;
 import bbu.solution.logwatchai.domain.log.LogEntryService;
+import bbu.solution.logwatchai.domain.logsource.LogSource;
+import bbu.solution.logwatchai.domain.logsource.LogSourceService;
 import bbu.solution.logwatchai.domain.logwatcher.LogEvent;
 import bbu.solution.logwatchai.domain.logwatcher.LogWatcherService;
 import bbu.solution.logwatchai.domain.appconfig.AppConfigService;
@@ -25,21 +27,35 @@ public class LogWatcherServiceImpl implements LogWatcherService {
     private final AppConfig config;
     private final ExecutorService executor = Executors.newCachedThreadPool();
     private final LogEntryService logEntryService;
+    private final Map<String, UUID> fileSourceMap = new HashMap<>();
+    private final LogSourceService logSourceService;
 
     @Autowired
     private LogWatcherService self;
     @Autowired
     private AIAnalysisService aIAnalysisService;
 
-    public LogWatcherServiceImpl(AppConfigService configService, LogEntryService logEntryService) {
+    public LogWatcherServiceImpl(
+            AppConfigService configService,
+            LogEntryService logEntryService,
+            LogSourceService logSourceService
+    ) {
         this.config = configService.getConfig();
         this.logEntryService = logEntryService;
+        this.logSourceService = logSourceService;
     }
 
     @PostConstruct
     @Override
     public void startWatching() {
         System.out.println("Starting LogWatcher...");
+
+        // 1) Erzeuge / hole LogSources
+        for (String path : config.getWatchPaths()) {
+            LogSource src = logSourceService.findByPath(path)
+                    .orElseGet(() -> logSourceService.createSource(path));
+            fileSourceMap.put(path, src.getId());
+        }
 
         Map<Path, List<Path>> grouped = groupByDirectory(config.getWatchPaths());
 
@@ -77,8 +93,15 @@ public class LogWatcherServiceImpl implements LogWatcherService {
     @Override
     @Transactional
     public void handleEvent(LogEvent event) {
+
+        UUID sourceId = fileSourceMap.get(event.getFilePath());
+        if (sourceId == null) {
+            System.err.println("No LogSource for " + event.getFilePath());
+            return;
+        }
+
         //do log
-        LogEntry entry = logEntryService.saveRawLog(event.getLine(), UUID.randomUUID());
+        LogEntry entry = logEntryService.saveRawLog(event.getLine(), sourceId);
         //do analysis
         //aIAnalysisService.analyzeAsync(entry);
         logEntryService.analyzeAsync(entry);

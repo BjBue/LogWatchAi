@@ -1,6 +1,5 @@
 package bbu.solution.logwatchai.domain.log;
 
-import bbu.solution.logwatchai.domain.analysis.AIAnalysis;
 import bbu.solution.logwatchai.domain.logsource.LogSource;
 import org.springframework.data.domain.Page;
 import bbu.solution.logwatchai.domain.report.DailyReport;
@@ -9,6 +8,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.nio.file.Path;
 
 public interface LogEntryService {
     Optional<LogEntry> getLogEntryById(UUID logEntryId);
@@ -18,6 +18,9 @@ public interface LogEntryService {
     void analyzeAsync(LogEntry logEntry);
     void analyzePendingLogs();
     void markAsAnalyzed(UUID id);
+
+    // neu: von File-Worker / Poller gerufene Hilfsmethode
+    void ingestFileUpdate(LogSource source, Path filePath);
 
     DailyReport generateReport(LocalDate date);
     DailyReport generateReport(LocalDate from, LocalDate to);

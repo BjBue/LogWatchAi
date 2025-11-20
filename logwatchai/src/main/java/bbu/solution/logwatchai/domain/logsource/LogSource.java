@@ -1,5 +1,6 @@
 package bbu.solution.logwatchai.domain.logsource;
 
+import lombok.Getter;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 import jakarta.persistence.*;
@@ -14,6 +15,7 @@ import java.util.UUID;
                 @Index(name = "idx_log_sources_active", columnList = "active"),
                 @Index(name = "idx_log_sources_type", columnList = "type")
         })
+@Getter
 public class LogSource {
 
     @Id @GeneratedValue
@@ -53,6 +55,7 @@ public class LogSource {
     }
 
     public UUID getId() { return id; }
+    public void setId(UUID id) { this.id = id; }
     public String getName() { return name; }
     public void setName(String name) { this.name = name; }
     public LogSourceType getType() { return type; }
@@ -64,5 +67,6 @@ public class LogSource {
     public int getPollingIntervalSec() { return pollingIntervalSec; }
     public void setPollingIntervalSec(int pollingIntervalSec) { this.pollingIntervalSec = pollingIntervalSec; }
     public boolean isActive() { return active; }
+    public void setActive(boolean active) { this.active = active; }
     public Instant getCreatedAt() { return createdAt; }
 }

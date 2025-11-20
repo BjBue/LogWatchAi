@@ -38,21 +38,38 @@ public class LogSourceServiceImpl implements LogSourceService {
 
     @Override
     public void activate(UUID id) {
-        Optional<LogSource> sourceOpt = repository.findById(id);
-        if (sourceOpt.isPresent()) {
-            LogSource src = sourceOpt.get();
+        repository.findById(id).ifPresent(src -> {
             src.activate();
             repository.save(src);
-        }
+        });
     }
 
     @Override
     public void deactivate(UUID id) {
-        Optional<LogSource> sourceOpt = repository.findById(id);
-        if (sourceOpt.isPresent()) {
-            LogSource src = sourceOpt.get();
+        repository.findById(id).ifPresent(src -> {
             src.deactivate();
             repository.save(src);
-        }
+        });
+    }
+
+    // --- neu: lookup by path ---
+    @Override
+    public Optional<LogSource> findByPath(String path) {
+        return repository.findByPath(path);
+    }
+
+    // --- neu: create source for a file path (used on startup when yaml defines watchPaths) ---
+    @Override
+    public LogSource createSource(String path) {
+        LogSource src = new LogSource();
+        // id is @GeneratedValue on entity; do not set manually unless you prefer
+        src.setName("auto:" + path);
+        src.setPath(path);
+        // default type = FILE
+        try {
+            src.setType(bbu.solution.logwatchai.domain.logsource.LogSourceType.FILE);
+        } catch (Exception ignored) { /* shouldn't happen */ }
+        src.setActive(true);
+        return repository.save(src);
     }
 }

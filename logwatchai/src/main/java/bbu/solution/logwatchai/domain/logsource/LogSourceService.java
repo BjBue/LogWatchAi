@@ -1,6 +1,7 @@
 package bbu.solution.logwatchai.domain.logsource;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 public interface LogSourceService {
@@ -10,4 +11,6 @@ public interface LogSourceService {
     List<LogSource> getActiveSources();
     void activate(UUID id);
     void deactivate(UUID id);
+    Optional<LogSource> findByPath(String path);
+    LogSource createSource(String path);
 }

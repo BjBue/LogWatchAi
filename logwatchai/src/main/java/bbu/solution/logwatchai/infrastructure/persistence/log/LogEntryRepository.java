@@ -24,4 +24,7 @@ public interface LogEntryRepository extends JpaRepository<LogEntry, UUID> {
 
     Page<LogEntry> findBySourceIdAndIngestionTimeBetween(
             UUID sourceId, Instant from, Instant to, Pageable pageable);
+
+    // new: simple existence check to avoid duplicate entries when ingesting files
+    boolean existsBySourceIdAndRawText(UUID sourceId, String rawText);
 }
