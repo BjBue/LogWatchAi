@@ -1,6 +1,8 @@
 package bbu.solution.logwatchai.domain.alert;
 
 import bbu.solution.logwatchai.domain.analysis.Severity;
+import bbu.solution.logwatchai.domain.log.LogEntry;
+import bbu.solution.logwatchai.domain.logsource.LogSource;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.JdbcTypeCode;
@@ -53,11 +55,19 @@ public class Alert {
     @Setter
     private UUID sourceId;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "source_id", insertable = false, updatable = false)
+    private LogSource source;
+
     // --- NEU: Referenz auf den LogEntry, optional/nullable bei Migration
     @Column(name = "log_entry_id", columnDefinition = "BINARY(16)")
     @JdbcTypeCode(SqlTypes.BINARY)
     @Setter
     private UUID logEntryId;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "log_entry_id", insertable = false, updatable = false)
+    private LogEntry logEntry;
 
     // --- Builder for easier creation (erweitert um logEntryId)
     @Builder

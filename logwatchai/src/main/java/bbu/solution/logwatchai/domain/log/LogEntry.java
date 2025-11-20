@@ -1,6 +1,7 @@
 package bbu.solution.logwatchai.domain.log;
 
 import bbu.solution.logwatchai.domain.analysis.AIAnalysis;
+import bbu.solution.logwatchai.domain.logsource.LogSource;
 import jakarta.persistence.*;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Index;
@@ -59,6 +60,11 @@ public class LogEntry {
     @Column(columnDefinition = "BINARY(16)", nullable = false, updatable = false)
     @JdbcTypeCode(SqlTypes.BINARY)
     private UUID sourceId;
+
+    // JPA-Beziehung zu LogSource, ohne neue Spalten
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "sourceId", insertable = false, updatable = false)
+    private LogSource source;
 
     // 1:1 Beziehung zur KI-Analyse (lazy, damit nicht immer geladen)
     @OneToOne(mappedBy = "logEntry", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)

@@ -25,28 +25,34 @@ public class DecisionEngineServiceImpl implements DecisionEngineService {
     @Override
     public DecisionOutcome evaluate(LogEntry entry, AIAnalysis analysis) {
 
-        List<Rule> triggered = ruleEvaluator.evaluate(analysis);
+        // 1. Regeln gegen die fertige AI-Analyse ausführen
+        List<Rule> triggeredRules = ruleEvaluator.evaluate(analysis);
 
-        if (triggered.isEmpty()) {
+        // 2. Wenn keine Regel ausgelöst wird → kein Alert
+        if (triggeredRules.isEmpty()) {
             return DecisionOutcome.builder()
                     .triggeredRules(List.of())
                     .alert(null)
                     .build();
         }
 
+        // 3. Alert sauber ausfüllen
         Alert alert = Alert.builder()
-            .severity(analysis.getSeverity())
-            .message(analysis.getSummarizedIssue())
-            .ruleNames(triggered.stream().map(Rule::getName).toList())
-            .sourceId(entry.getSourceId())
-            .logEntryId(entry.getId())
-            .build();
+                .severity(analysis.getSeverity())
+                .message(analysis.getSummarizedIssue())
+                .ruleNames(triggeredRules.stream().map(Rule::getName).toList())
+                // Diese beiden Felder verbinden Alert → LogEntry → LogSource
+                .sourceId(entry.getSourceId())
+                .logEntryId(entry.getId())
+                .build();
 
-        Alert saved = alertService.create(alert);
+        // 4. Persistieren
+        Alert savedAlert = alertService.create(alert);
 
+        // 5. Ergebnis zurück
         return DecisionOutcome.builder()
-                .triggeredRules(triggered)
-                .alert(saved)
+                .triggeredRules(triggeredRules)
+                .alert(savedAlert)
                 .build();
     }
 }
