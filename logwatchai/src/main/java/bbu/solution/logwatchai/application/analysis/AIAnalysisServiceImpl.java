@@ -1,9 +1,6 @@
 package bbu.solution.logwatchai.application.analysis;
 
-import bbu.solution.logwatchai.domain.analysis.AIAnalysis;
-import bbu.solution.logwatchai.domain.analysis.AIAnalysisService;
-import bbu.solution.logwatchai.domain.analysis.Severity;
-import bbu.solution.logwatchai.domain.analysis.SeverityUtil;
+import bbu.solution.logwatchai.domain.analysis.*;
 import bbu.solution.logwatchai.domain.log.LogEntry;
 import bbu.solution.logwatchai.infrastructure.persistence.analysis.AIAnalysisRepository;
 import com.theokanning.openai.service.OpenAiService;
@@ -12,11 +9,14 @@ import com.theokanning.openai.completion.chat.*;
 import com.theokanning.openai.completion.chat.ChatCompletionRequest;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import java.time.Duration;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 
@@ -42,6 +42,11 @@ public class AIAnalysisServiceImpl implements AIAnalysisService {
     public CompletableFuture<AIAnalysis> analyzeAsync(LogEntry logEntry) {
         AIAnalysis result = analyze(logEntry);
         return CompletableFuture.completedFuture(result);
+    }
+
+    @Override
+    public Optional<AIAnalysis> getAIAnalysisById(UUID id) {
+        return aiRepository.findById(id);
     }
 
     @Override
@@ -120,5 +125,15 @@ public class AIAnalysisServiceImpl implements AIAnalysisService {
             AIAnalysis ai = new AIAnalysis(logEntryId, Severity.INFO, "unknown", "no summary", "no cause", "no recommendation", 0.0);
             return ai;
         }
+    }
+
+    @Override
+    public List<AIAnalysis> getAnalysis(AIAnalysisFilter filter) {
+        return aiRepository.findAll();
+    }
+
+    @Override
+    public Page<AIAnalysis> getAIAnalysisPageable(AIAnalysisFilter filter, Pageable pageable) {
+        return aiRepository.findAll(pageable);
     }
 }
