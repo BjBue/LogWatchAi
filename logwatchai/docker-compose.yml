@@ -27,11 +27,20 @@ services:
     container_name: logwatchai-app
     restart: always
     environment:
+      # Database
       SPRING_DATASOURCE_URL: jdbc:mariadb://db:3306/logwatchai
       SPRING_DATASOURCE_USERNAME: loguser
       SPRING_DATASOURCE_PASSWORD: logpass
       SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      # JWT-Config
       JWT_SECRET: "a87f8d9c6bb04a65d4af77fd8c9b15eaa73729c3fae243bda85ef31c59d19f72"
+      # mail-config
+      SPRING_MAIL_HOST: mailhog
+      SPRING_MAIL_PORT: 1025
+      SPRING_MAIL_USERNAME: ""
+      SPRING_MAIL_PASSWORD: ""
+      SPRING_MAIL_PROPERTIES_MAIL_SMTP_AUTH: "false"
+      SPRING_MAIL_PROPERTIES_MAIL_SMTP_STARTTLS_ENABLE: "false"
     ports:
       - "8080:8080"
     depends_on:

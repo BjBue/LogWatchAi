@@ -8,6 +8,8 @@ import bbu.solution.logwatchai.domain.decision.DecisionOutcome;
 import bbu.solution.logwatchai.domain.decision.DecisionEngineService;
 import bbu.solution.logwatchai.domain.log.LogEntry;
 import bbu.solution.logwatchai.domain.rule.Rule;
+import bbu.solution.logwatchai.infrastructure.config.appconfig.ConfigLoader;
+import bbu.solution.logwatchai.infrastructure.email.EmailService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -21,6 +23,9 @@ public class DecisionEngineServiceImpl implements DecisionEngineService {
 
     private final RuleEvaluator ruleEvaluator;
     private final AlertService alertService;
+
+    private final ConfigLoader configLoader;
+    private final EmailService emailService;
 
     @Override
     public DecisionOutcome evaluate(LogEntry entry, AIAnalysis analysis) {
@@ -49,7 +54,13 @@ public class DecisionEngineServiceImpl implements DecisionEngineService {
         // 4. Persistieren
         Alert savedAlert = alertService.create(alert);
 
-        // 5. Ergebnis zurück
+        // 5. send email
+        String recipient = configLoader.getConfig().getReportEmail();
+        if(recipient != null && !recipient.isBlank()){
+            emailService.sendAlertEmail(alert, recipient);
+        }
+
+        // 6. Ergebnis zurück
         return DecisionOutcome.builder()
                 .triggeredRules(triggeredRules)
                 .alert(savedAlert)
