@@ -5,6 +5,13 @@ neue Einträge in Echtzeit mithilfe von KI und leitet
 automatisch passende Maßnahmen oder Warnungen
 
 
+## wichtige urls
+http://localhost:9090/health <- log-generator
+http://localhost:8080/health <- logwatch health
+http://localhost:8080/swagger-ui/index.html#/ <- logwatch-swagger
+http://localhost:8025/ <- mailhog
+
+
 Projekt neu erstellen:
 ind der konsole im verzecihniss mit dem pom.xml:
 $ .\mvnw.cmd clean package
