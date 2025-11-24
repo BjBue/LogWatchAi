@@ -7,13 +7,7 @@ public class SeverityUtil {
     public static Severity valueOfOrNull(String s) {
         if (s == null) return Severity.INFO;
         try {
-            String norm = s.trim().toUpperCase();
-
-            return switch (norm) {
-                case "ERROR", "WARN", "WARNING" -> Severity.HIGH;
-                case "FATAL" -> Severity.CRITICAL;
-                default -> Severity.valueOf(norm);
-            };
+            return Severity.valueOf(s.toUpperCase());
         }
         catch (Exception ex) {
             return Severity.INFO;
