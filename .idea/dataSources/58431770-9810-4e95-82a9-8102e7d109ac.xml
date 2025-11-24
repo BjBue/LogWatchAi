@@ -1432,13 +1432,13 @@ logwatchai|schema||loguser||UPDATE|G</Grants>
     <schema id="554" parent="1" name="information_schema">
       <AutoIntrospectionLevel>2</AutoIntrospectionLevel>
       <LastIntrospectionLevel>2</LastIntrospectionLevel>
-      <LastIntrospectionLocalTimestamp>2025-11-24.10:41:25</LastIntrospectionLocalTimestamp>
+      <LastIntrospectionLocalTimestamp>2025-11-24.11:32:41</LastIntrospectionLocalTimestamp>
       <CollationName>utf8mb3_general_ci</CollationName>
     </schema>
     <schema id="555" parent="1" name="logwatchai">
       <AutoIntrospectionLevel>3</AutoIntrospectionLevel>
       <LastIntrospectionLevel>3</LastIntrospectionLevel>
-      <LastIntrospectionLocalTimestamp>2025-11-24.11:00:10</LastIntrospectionLocalTimestamp>
+      <LastIntrospectionLocalTimestamp>2025-11-24.11:32:41</LastIntrospectionLocalTimestamp>
       <CollationName>utf8mb4_uca1400_ai_ci</CollationName>
     </schema>
     <schema id="556" parent="1" name="mysql">
@@ -1446,19 +1446,19 @@ logwatchai|schema||loguser||UPDATE|G</Grants>
       <Grants>global_priv|||mariadb.sys|localhost|DELETE|G
 global_priv|||mariadb.sys|localhost|SELECT|G</Grants>
       <LastIntrospectionLevel>3</LastIntrospectionLevel>
-      <LastIntrospectionLocalTimestamp>2025-11-24.10:41:25</LastIntrospectionLocalTimestamp>
+      <LastIntrospectionLocalTimestamp>2025-11-24.11:32:41</LastIntrospectionLocalTimestamp>
       <CollationName>utf8mb4_uca1400_ai_ci</CollationName>
     </schema>
     <schema id="557" parent="1" name="performance_schema">
       <AutoIntrospectionLevel>3</AutoIntrospectionLevel>
       <LastIntrospectionLevel>3</LastIntrospectionLevel>
-      <LastIntrospectionLocalTimestamp>2025-11-24.10:41:25</LastIntrospectionLocalTimestamp>
+      <LastIntrospectionLocalTimestamp>2025-11-24.11:32:41</LastIntrospectionLocalTimestamp>
       <CollationName>utf8mb3_general_ci</CollationName>
     </schema>
     <schema id="558" parent="1" name="sys">
       <AutoIntrospectionLevel>2</AutoIntrospectionLevel>
       <LastIntrospectionLevel>2</LastIntrospectionLevel>
-      <LastIntrospectionLocalTimestamp>2025-11-24.10:41:25</LastIntrospectionLocalTimestamp>
+      <LastIntrospectionLocalTimestamp>2025-11-24.11:32:41</LastIntrospectionLocalTimestamp>
       <CollationName>utf8mb3_general_ci</CollationName>
     </schema>
     <user id="559" parent="1" name="healthcheck">

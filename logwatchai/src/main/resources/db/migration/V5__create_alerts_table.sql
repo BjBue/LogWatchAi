@@ -1,7 +1,7 @@
 CREATE TABLE IF NOT EXISTS alerts (
     id              BINARY(16) NOT NULL PRIMARY KEY,
     created_at      DATETIME(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
-    severity        ENUM('INFO','WARNING','CRITICAL') NOT NULL,
+    severity        ENUM('INFO', 'LOW', 'MEDIUM', 'HIGH', 'CRITICAL', 'UNKNOWN_CRITICAL') NOT NULL,
     message         VARCHAR(500) NOT NULL,
     rule_names      JSON NOT NULL DEFAULT '[]',
     active          BOOLEAN NOT NULL DEFAULT TRUE,
