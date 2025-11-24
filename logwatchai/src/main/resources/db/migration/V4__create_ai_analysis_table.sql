@@ -14,6 +14,8 @@ CREATE TABLE IF NOT EXISTS ai_analysis (
     FOREIGN KEY (log_entry_id) REFERENCES log_entries(id)
     ON DELETE CASCADE,
 
+    CONSTRAINT uq_ai_analysis_log_entry_id UNIQUE (log_entry_id),
+
     INDEX idx_ai_analysis_log_entry_id (log_entry_id),
     INDEX idx_ai_analysis_severity (severity),
     INDEX idx_ai_analysis_anomaly_score (anomaly_score DESC),

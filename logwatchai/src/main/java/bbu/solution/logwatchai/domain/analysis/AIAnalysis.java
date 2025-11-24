@@ -26,7 +26,7 @@ public class AIAnalysis {
     @JdbcTypeCode(SqlTypes.BINARY)
     private UUID id;
 
-    @Column(name = "log_entry_id", nullable = false, updatable = false, columnDefinition = "BINARY(16)")
+    @Column(name = "log_entry_id", nullable = false, updatable = false, columnDefinition = "BINARY(16)", unique = true)
     @JdbcTypeCode(SqlTypes.BINARY)
     private UUID logEntryId;
 
