@@ -10,12 +10,12 @@ import java.util.UUID;
 
 @Entity
 @Table(
-        name = "ai_analyses",
+        name = "ai_analysis",
         indexes = {
-                @Index(name = "idx_ai_analyses_log_entry_id", columnList = "logEntryId"),
-                @Index(name = "idx_ai_analyses_severity", columnList = "severity"),
-                @Index(name = "idx_ai_analyses_anomaly_score", columnList = "anomaly_score"),
-                @Index(name = "idx_ai_analyses_analyzed_at", columnList = "analyzedAt")
+                @Index(name = "idx_ai_analysis_log_entry_id", columnList = "logEntryId"),
+                @Index(name = "idx_ai_analysis_severity", columnList = "severity"),
+                @Index(name = "idx_ai_analysis_anomaly_score", columnList = "anomaly_score"),
+                @Index(name = "idx_ai_analysis_analyzed_at", columnList = "analyzedAt")
         }
 )
 public class AIAnalysis {

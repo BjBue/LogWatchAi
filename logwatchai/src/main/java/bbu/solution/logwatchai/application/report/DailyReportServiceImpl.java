@@ -44,7 +44,7 @@ public class DailyReportServiceImpl implements bbu.solution.logwatchai.domain.re
     /**
      * Main generator used by controller:
      * - determines since = lastReport.generatedAt (or epoch)
-     * - collects logs/alerts/analyses with timestamp > since
+     * - collects logs/alerts/analysis with timestamp > since
      * - builds JSON content and saves DailyReport (reported_date optional)
      */
     @Transactional
@@ -60,7 +60,7 @@ public class DailyReportServiceImpl implements bbu.solution.logwatchai.domain.re
         // 2) load new data since (exclusive)
         List<LogEntry> logs = logEntryRepository.findByIngestionTimeAfterOrderByIngestionTimeAsc(since);
         List<Alert> alerts = alertRepository.findByCreatedAtAfterOrderByCreatedAtAsc(since);
-        List<AIAnalysis> analyses = aiAnalysisRepository.findByAnalyzedAtAfterOrderByAnalyzedAtAsc(since);
+        List<AIAnalysis> analysis = aiAnalysisRepository.findByAnalyzedAtAfterOrderByAnalyzedAtAsc(since);
 
         // determine report period
         Instant from = null;
@@ -75,9 +75,9 @@ public class DailyReportServiceImpl implements bbu.solution.logwatchai.domain.re
             from = minInstant(from, aFrom);
             to = maxInstant(to, aTo);
         }
-        if (!analyses.isEmpty()) {
-            Instant anFrom = analyses.get(0).getAnalyzedAt();
-            Instant anTo = analyses.get(analyses.size()-1).getAnalyzedAt();
+        if (!analysis.isEmpty()) {
+            Instant anFrom = analysis.get(0).getAnalyzedAt();
+            Instant anTo = analysis.get(analysis.size()-1).getAnalyzedAt();
             from = minInstant(from, anFrom);
             to = maxInstant(to, anTo);
         }
@@ -109,7 +109,7 @@ public class DailyReportServiceImpl implements bbu.solution.logwatchai.domain.re
                         Optional.ofNullable(a.getLogEntryId()).map(UUID::toString).orElse(null)
                 )).collect(Collectors.toList());
 
-        List<ReportDto.AnalysisItem> analysisItems = analyses.stream()
+        List<ReportDto.AnalysisItem> analysisItems = analysis.stream()
                 .map(ai -> new ReportDto.AnalysisItem(
                         ai.getId().toString(),
                         ai.getAnalyzedAt(),
@@ -122,14 +122,14 @@ public class DailyReportServiceImpl implements bbu.solution.logwatchai.domain.re
         // summary:
         long totalLogs = logItems.size();
         long totalAlerts = alertItems.size();
-        long totalAnalyses = analysisItems.size();
+        long totalanalysis = analysisItems.size();
         Map<String, Long> logsPerSource = logs.stream()
                 .collect(Collectors.groupingBy(
                         l -> Optional.ofNullable(l.getSourceId()).map(UUID::toString).orElse("unknown"),
                         Collectors.counting()
                 ));
 
-        ReportDto.Summary summary = new ReportDto.Summary(totalLogs, totalAlerts, totalAnalyses, logsPerSource);
+        ReportDto.Summary summary = new ReportDto.Summary(totalLogs, totalAlerts, totalanalysis, logsPerSource);
 
         ReportDto.Period period = new ReportDto.Period(from, to);
 
