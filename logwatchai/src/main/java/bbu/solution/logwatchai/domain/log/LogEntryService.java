@@ -12,6 +12,7 @@ import java.nio.file.Path;
 
 public interface LogEntryService {
     Optional<LogEntry> getLogEntryById(UUID logEntryId);
+    boolean doesLogEntryExistsBySourceIdRawText(UUID sourceId, String rawText);
     List<LogEntry> ingestLog(LogSource logSource);
     LogEntry saveRawLog(String rawText, UUID sourceId);
 

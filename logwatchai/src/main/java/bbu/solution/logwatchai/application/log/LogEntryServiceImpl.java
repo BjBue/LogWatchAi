@@ -10,12 +10,14 @@ import bbu.solution.logwatchai.domain.report.DailyReport;
 import bbu.solution.logwatchai.domain.logsource.LogSource;
 import bbu.solution.logwatchai.infrastructure.persistence.log.LogEntryRepository;
 import jakarta.transaction.Transactional;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.nio.ByteBuffer;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.LocalDate;
@@ -48,31 +50,66 @@ public class LogEntryServiceImpl implements LogEntryService {
     }
 
     @Override
+    public boolean doesLogEntryExistsBySourceIdRawText(UUID sourceId, String rawText){
+        return logEntryRepository.existsBySourceIdAndRawText(sourceId, rawText);
+    }
+
+    @Override
     @Transactional
     public LogEntry saveRawLog(String rawText, UUID sourceId) {
         LogEntry entry = new LogEntry(rawText, sourceId);
-        return logEntryRepository.save(entry);
+
+        logEntryRepository.insertIgnoreDuplicate(
+                uuidToBytes(entry.getId()),
+                uuidToBytes(entry.getSourceId()),
+                entry.getTimestamp(),
+                entry.getRawText(),
+                entry.getLevel(),
+                entry.getIngestionTime(),
+                entry.isAnalyzed(),
+                entry.hasAnomaly()
+        );
+
+        return logEntryRepository
+                .findBySourceIdAndRawText(sourceId, rawText)
+                .orElse(entry);
+    }
+
+    private static byte[] uuidToBytes(UUID uuid) {
+        ByteBuffer bb = ByteBuffer.allocate(16);
+        bb.putLong(uuid.getMostSignificantBits());
+        bb.putLong(uuid.getLeastSignificantBits());
+        return bb.array();
     }
 
     @Async
     @Override
-    @Transactional
     public void analyzeAsync(LogEntry entry) {
         try {
-            AIAnalysis ai = aiAnalysisService.analyze(entry);
+            // reload latest entity to avoid stale detached instance
+            var maybe = logEntryRepository.findById(entry.getId());
+            if (maybe.isEmpty()) return;
+            LogEntry current = maybe.get();
 
-            // update entry with analysis and flags
-            entry.markAsAnalyzed(ai);
-            logEntryRepository.save(entry);
+            // skip if another thread already analyzed it
+            if (current.isAnalyzed()) {
+                // debug log
+                return;
+            }
 
-            // decision engine will create alerts if needed
-            decisionEngineService.evaluate(entry, ai);
+            AIAnalysis ai = aiAnalysisService.analyze(current);
+
+            current.markAsAnalyzed(ai);
+            logEntryRepository.save(current);
+
+            decisionEngineService.evaluate(current, ai);
 
         } catch (Exception e) {
             System.err.println("Error during async analysis: " + e.getMessage());
             e.printStackTrace();
         }
     }
+
 
     @Override
     public void analyzePendingLogs() {
@@ -130,10 +167,6 @@ public class LogEntryServiceImpl implements LogEntryService {
             List<String> lines = Files.readAllLines(filePath);
             for (String line : lines) {
                 if (line == null || line.isBlank()) continue;
-
-                // duplicate protection
-                boolean exists = logEntryRepository.existsBySourceIdAndRawText(source.getId(), line);
-                if (exists) continue;
 
                 LogEntry entry = saveRawLog(line, source.getId());
                 // trigger async analysis

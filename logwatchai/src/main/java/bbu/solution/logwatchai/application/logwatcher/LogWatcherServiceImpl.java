@@ -100,12 +100,14 @@ public class LogWatcherServiceImpl implements LogWatcherService {
             return;
         }
 
-        //do log
-        LogEntry entry = logEntryService.saveRawLog(event.getLine(), sourceId);
-        //do analysis
-        //aIAnalysisService.analyzeAsync(entry);
-        logEntryService.analyzeAsync(entry);
+        // todo: normalize path map lookup (optional but recommended)
+        // String normalizedPath = Paths.get(event.getFilePath()).toAbsolutePath().normalize().toString();
+        // UUID sourceId = fileSourceMap.get(normalizedPath);
 
-        // TODO: Alert, Mail
+        // Try to save atomically (saveRawLog handles duplicates via DB constraint)
+        LogEntry entry = logEntryService.saveRawLog(event.getLine(), sourceId);
+
+        // trigger async analysis (saveRawLog returns existing entry if duplicate)
+        logEntryService.analyzeAsync(entry);
     }
 }
