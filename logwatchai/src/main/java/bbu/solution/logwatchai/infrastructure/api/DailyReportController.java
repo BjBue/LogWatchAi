@@ -9,6 +9,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import bbu.solution.logwatchai.application.report.CsvExporter;
 
 import java.time.LocalDate;
 
@@ -18,6 +19,7 @@ import java.time.LocalDate;
 public class DailyReportController {
 
     private final DailyReportServiceImpl reportService;
+    private final CsvExporter csvExporter;
 
     /**
      * Generate and return latest report (since last generatedAt).
@@ -33,7 +35,7 @@ public class DailyReportController {
         DailyReport report = reportService.getOrCreateReport(repDate);
 
         if ("csv".equalsIgnoreCase(format)) {
-            String csv = CsvExporter.reportJsonToCsv(report.getContent());
+            String csv = csvExporter.reportJsonToCsv(report.getContent());
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.parseMediaType("text/csv"));
             headers.set(HttpHeaders.CONTENT_DISPOSITION,

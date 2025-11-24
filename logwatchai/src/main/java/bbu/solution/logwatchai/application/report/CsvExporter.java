@@ -5,34 +5,45 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.csv.CsvMapper;
 import com.fasterxml.jackson.dataformat.csv.CsvSchema;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import org.springframework.stereotype.Component;
 
+@Component
 public class CsvExporter {
 
-    private static final CsvMapper csvMapper = CsvMapper.builder()
-            .addModule(new JavaTimeModule())
-            .build();
+    private final ObjectMapper mapper;   // Spring-managed, already configured with JavaTimeModule
+    private final CsvMapper csvMapper;
 
-    public static String reportJsonToCsv(String json) {
+    public CsvExporter(ObjectMapper mapper) {
+        // Kopie des Spring-ObjectMappers benutzen ist oft sinnvoll, damit eigene Settings möglich sind
+        this.mapper = mapper.copy();
+        // CSV-Mapper mit JavaTimeModule (Instant) registrieren
+        this.csvMapper = CsvMapper.builder()
+                .addModule(new JavaTimeModule())
+                .build();
+    }
+
+    /**
+     * Konvertiert die Report-JSON (wie in DB gespeichert) in ein simples CSV (eine Zeile).
+     * Nicht static — rufe per Bean auf.
+     */
+    public String reportJsonToCsv(String json) {
         try {
-            ObjectMapper mapper = new ObjectMapper();
-
-            // JSON → DTO
+            // JSON -> DTO (ObjectMapper hat JavaTimeModule, deserialisiert Instant korrekt)
             ReportDto dto = mapper.readValue(json, ReportDto.class);
 
-            // CSV-Schema dynamisch erzeugen (Header + Werte)
+            // Erzeuge einfaches CSV-Schema (flach, eine Zeile mit Header)
             CsvSchema schema = CsvSchema.builder()
-                    .addColumn("from")
-                    .addColumn("to")
+                    .addColumn("period_from")
+                    .addColumn("period_to")
                     .addColumn("totalLogs")
                     .addColumn("totalAlerts")
                     .addColumn("totalAnalysis")
                     .build()
                     .withHeader();
 
-            // Flaches CSV → Eine Zeile
-            return csvMapper.writer(schema).writeValueAsString(
-                    new FlatCsvRow(dto)
-            );
+            // Schreibe eine einzelne flache Zeile
+            FlatCsvRow row = new FlatCsvRow(dto);
+            return csvMapper.writer(schema).writeValueAsString(row);
 
         } catch (Exception e) {
             throw new RuntimeException("Failed to convert report JSON to CSV", e);
@@ -40,19 +51,22 @@ public class CsvExporter {
     }
 
     /**
-     * Flache Struktur für CSV (eine Zeile)
+     * Flache Struktur für CSV (eine Zeile). Null-sicher.
      */
-    private record FlatCsvRow(String from, String to,
-                              long totalLogs, long totalAlerts, long totalAnalysis) {
+    private static final class FlatCsvRow {
+        public String period_from;
+        public String period_to;
+        public long totalLogs;
+        public long totalAlerts;
+        public long totalAnalysis;
 
         FlatCsvRow(ReportDto dto) {
-            this(
-                    dto.period().from().toString(),
-                    dto.period().to().toString(),
-                    dto.summary().totalLogs(),
-                    dto.summary().totalAlerts(),
-                    dto.summary().totalAnalysis()
-            );
+            // dto.period() kann Instant-Werte enthalten — toString() ist okay für CSV
+            this.period_from = dto.period() == null || dto.period().from() == null ? "" : dto.period().from().toString();
+            this.period_to   = dto.period() == null || dto.period().to()   == null ? "" : dto.period().to().toString();
+            this.totalLogs = dto.summary() == null ? 0L : dto.summary().totalLogs();
+            this.totalAlerts = dto.summary() == null ? 0L : dto.summary().totalAlerts();
+            this.totalAnalysis = dto.summary() == null ? 0L : dto.summary().totalAnalysis();
         }
     }
 }
