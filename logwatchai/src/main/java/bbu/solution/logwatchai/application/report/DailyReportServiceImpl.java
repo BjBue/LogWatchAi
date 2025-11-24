@@ -13,6 +13,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -194,5 +195,31 @@ public class DailyReportServiceImpl implements bbu.solution.logwatchai.domain.re
     @Override
     public Optional<DailyReport> getByDate(LocalDate date) {
         return dailyReportRepository.findByReportedDate(date);
+    }
+
+    @Override
+    @Transactional
+    public DailyReport getOrCreateReport(LocalDate date) {
+
+        // 1) Falls Report für Datum existiert → zurückgeben
+        Optional<DailyReport> existing = dailyReportRepository.findByReportedDate(date);
+        if (existing.isPresent()) {
+            return existing.get();
+        }
+
+        // 2) Falls nicht → neuen generieren
+        try {
+            return generateLatestReport(date, false);
+        }
+        catch (DataIntegrityViolationException ex) {
+            // 3) Falls Race-Condition → anderen Report zurückgeben
+            return dailyReportRepository.findByReportedDate(date)
+                    .orElseThrow(() -> ex);
+        }
+    }
+
+    @Override
+    public List<DailyReport> getAll() {
+        return dailyReportRepository.findAll(Sort.by("reportedDate").descending());
     }
 }

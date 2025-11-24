@@ -1,53 +1,58 @@
 package bbu.solution.logwatchai.application.report;
 
-import com.fasterxml.jackson.databind.JsonNode;
+import bbu.solution.logwatchai.infrastructure.api.dto.ReportDto;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.dataformat.csv.CsvMapper;
+import com.fasterxml.jackson.dataformat.csv.CsvSchema;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
-import java.util.Iterator;
-import java.util.StringJoiner;
-
-/**
- * Very small converter: converts the "logs" array from report JSON into CSV.
- * If you want a richer CSV, extend this class.
- */
 public class CsvExporter {
 
-    private static final ObjectMapper mapper = new ObjectMapper();
+    private static final CsvMapper csvMapper = CsvMapper.builder()
+            .addModule(new JavaTimeModule())
+            .build();
 
-    public static String reportContentToCsv(String jsonContent) {
+    public static String reportJsonToCsv(String json) {
         try {
-            JsonNode root = mapper.readTree(jsonContent);
-            JsonNode logs = root.path("logs");
-            StringJoiner sj = new StringJoiner("\n");
+            ObjectMapper mapper = new ObjectMapper();
 
-            // header
-            sj.add("id,ingestionTime,level,sourceId,rawText");
+            // JSON → DTO
+            ReportDto dto = mapper.readValue(json, ReportDto.class);
 
-            if (!logs.isArray() || logs.size() == 0) {
-                return sj.toString();
-            }
+            // CSV-Schema dynamisch erzeugen (Header + Werte)
+            CsvSchema schema = CsvSchema.builder()
+                    .addColumn("from")
+                    .addColumn("to")
+                    .addColumn("totalLogs")
+                    .addColumn("totalAlerts")
+                    .addColumn("totalAnalysis")
+                    .build()
+                    .withHeader();
 
-            for (JsonNode l : logs) {
-                String id = csvSafe(l.path("id").asText());
-                String time = csvSafe(l.path("ingestionTime").asText());
-                String level = csvSafe(l.path("level").asText());
-                String source = csvSafe(l.path("sourceId").asText());
-                String raw = csvSafe(l.path("rawText").asText());
-                sj.add(String.join(",", id, time, level, source, raw));
-            }
+            // Flaches CSV → Eine Zeile
+            return csvMapper.writer(schema).writeValueAsString(
+                    new FlatCsvRow(dto)
+            );
 
-            return sj.toString();
         } catch (Exception e) {
-            throw new RuntimeException("Failed to convert report to CSV", e);
+            throw new RuntimeException("Failed to convert report JSON to CSV", e);
         }
     }
 
-    private static String csvSafe(String s) {
-        if (s == null) return "";
-        String out = s.replace("\"", "\"\"");
-        if (out.contains(",") || out.contains("\"") || out.contains("\n")) {
-            return "\"" + out + "\"";
+    /**
+     * Flache Struktur für CSV (eine Zeile)
+     */
+    private record FlatCsvRow(String from, String to,
+                              long totalLogs, long totalAlerts, long totalAnalysis) {
+
+        FlatCsvRow(ReportDto dto) {
+            this(
+                    dto.period().from().toString(),
+                    dto.period().to().toString(),
+                    dto.summary().totalLogs(),
+                    dto.summary().totalAlerts(),
+                    dto.summary().totalAnalysis()
+            );
         }
-        return out;
     }
 }

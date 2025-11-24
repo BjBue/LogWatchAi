@@ -18,10 +18,10 @@ spring:
     database-platform: org.hibernate.dialect.MariaDBDialect
     hibernate:
       ddl-auto: update # Schema automatisch anpassen (für Dev/PoC)
-    show-sql: true
+    show-sql: false  # less sql-queries
     properties:
       hibernate:
-        format_sql: true
+        format_sql: false # no formating for no output
         jdbc:
           lob:
             non_contextual_creation: true
@@ -47,15 +47,20 @@ server:
 
 logging:
   level:
-    root: INFO
-    #com.bbu.solution: DEBUG
-    org.hibernate.SQL: DEBUG
-    org.hibernate.type.descriptor.sql: trace
-    #com.theokanning.openai: DEBUG
-    #org.springframework.web.client.RestTemplate: DEBUG
-    #org.springframework: DEBUG
-    #io.jsonwebtoken: DEBUG
+    root: WARN
+    org.springframework: WARN
+    org.hibernate: WARN
+    org.hibernate.SQL: OFF
+    org.hibernate.type: OFF
 
+    # ========== DEBUGING ==========
+    #com.bbu.solution: DEBUG
+    #org.springframework.web.client.RestTemplate: DEBUG
+    #io.jsonwebtoken: DEBUG
+    #org.hibernate.SQL: DEBUG
+    #org.hibernate.type.descriptor.sql: TRACE
+    #com.theokanning.openai: DEBUG
+    #=============================================================
 jwt:
   secret: ${JWT_SECRET}
   expiration-ms: 3600000 # 1 Stunde
@@ -67,4 +72,5 @@ ai:
 
 app:
   config-file: /app/config/logwatchai.yaml
-  # hier kann später zusätzliche App-Konfiguration stehen
+
+  # place for more configurations

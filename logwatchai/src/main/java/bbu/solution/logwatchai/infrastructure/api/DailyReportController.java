@@ -30,13 +30,14 @@ public class DailyReportController {
             @RequestParam(value = "date", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date
     ) {
         LocalDate repDate = date != null ? date : LocalDate.now();
-        DailyReport report = reportService.generateLatestReport(repDate, false);
+        DailyReport report = reportService.getOrCreateReport(repDate);
 
         if ("csv".equalsIgnoreCase(format)) {
-            String csv = CsvExporter.reportContentToCsv(report.getContent());
+            String csv = CsvExporter.reportJsonToCsv(report.getContent());
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.parseMediaType("text/csv"));
-            headers.set(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"daily-report-" + repDate + ".csv\"");
+            headers.set(HttpHeaders.CONTENT_DISPOSITION,
+                    "attachment; filename=\"daily-report-" + repDate + ".csv\"");
             return ResponseEntity.ok().headers(headers).body(csv);
         } else {
             // default: return JSON as saved content
@@ -44,5 +45,10 @@ public class DailyReportController {
                     .contentType(MediaType.APPLICATION_JSON)
                     .body(report.getContent());
         }
+    }
+
+    @GetMapping("/all")
+    public ResponseEntity<?> getAllReports() {
+        return ResponseEntity.ok(reportService.getAll());
     }
 }
