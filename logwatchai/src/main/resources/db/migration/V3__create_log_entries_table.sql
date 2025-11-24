@@ -14,6 +14,8 @@ CREATE TABLE IF NOT EXISTS log_entries (
        FOREIGN KEY (source_id) REFERENCES log_sources(id)
            ON DELETE RESTRICT,
 
+    CONSTRAINT uq_log_entries_source_raw UNIQUE (source_id, raw_text(300)),
+
     INDEX idx_log_entries_source_id (source_id),
     INDEX idx_log_entries_ingestion_time (ingestion_time DESC),
     INDEX idx_log_entries_analyzed (analyzed),

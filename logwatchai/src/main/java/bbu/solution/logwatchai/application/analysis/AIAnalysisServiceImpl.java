@@ -8,6 +8,7 @@ import com.theokanning.openai.service.OpenAiService;
 import com.theokanning.openai.completion.chat.*;
 import com.theokanning.openai.completion.chat.ChatCompletionRequest;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -25,17 +26,21 @@ public class AIAnalysisServiceImpl implements AIAnalysisService {
 
     private final OpenAiService openAiService;
     private final AIAnalysisRepository aiRepository;
-    private final ObjectMapper mapper = new ObjectMapper();
     private final String model;
+
+    @Autowired
+    private final ObjectMapper mapper;
 
     public AIAnalysisServiceImpl(
             @Value("${ai.api-key}") String apiKey,
             @Value("${ai.model:gpt-4o-mini}") String model,
-            AIAnalysisRepository aiRepository
+            AIAnalysisRepository aiRepository,
+            ObjectMapper mapper
     ) {
         this.openAiService = new OpenAiService(apiKey, Duration.ofSeconds(60));
         this.aiRepository = aiRepository;
         this.model = model;
+        this.mapper = mapper;
     }
 
     /*

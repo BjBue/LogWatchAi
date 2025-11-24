@@ -125,6 +125,12 @@
 			<optional>true</optional>
 		</dependency>
 
+		<!-- dailyReports -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.datatype</groupId>
+			<artifactId>jackson-datatype-jsr310</artifactId>
+		</dependency>
+
 		<!-- Test -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

@@ -13,7 +13,8 @@ import java.util.UUID;
         indexes = @Index(name = "idx_daily_reports_date", columnList = "reported_date", unique = true))
 public class DailyReport {
 
-    @Id @GeneratedValue
+    @Id
+    @GeneratedValue
     @Column(nullable = false, columnDefinition = "BINARY(16)")
     @JdbcTypeCode(SqlTypes.BINARY)
     private UUID id;
@@ -25,15 +26,34 @@ public class DailyReport {
     private Instant generatedAt = Instant.now();
 
     @Lob
-    @Column(nullable = false)
+    @Column(columnDefinition = "LONGTEXT",  nullable = false)
     private String content;
 
-    @Column(columnDefinition = "JSON")
+    @Column(name = "top_issues", columnDefinition = "LONGTEXT")
     @JdbcTypeCode(SqlTypes.JSON)
     private JsonNode topIssues;
 
     @Column(nullable = false)
     private boolean delivered = false;
+
+    public DailyReport() {
+    }
+
+    public DailyReport(UUID id,
+                       LocalDate reportedDate,
+                       Instant generatedAt,
+                       String content,
+                       JsonNode topIssues,
+                       boolean delivered) {
+
+        this.id = id;
+        this.reportedDate = reportedDate;
+        this.generatedAt = generatedAt;
+        this.content = content;
+        this.topIssues = topIssues;
+        this.delivered = delivered;
+    }
+
 
     public void markDelivered() {
         this.delivered = true;

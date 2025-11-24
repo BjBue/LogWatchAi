@@ -1,5 +1,6 @@
-package bbu.solution.logwatchai.domain.report;
+package bbu.solution.logwatchai.infrastructure.persistence.report;
 
+import bbu.solution.logwatchai.domain.report.DailyReport;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.time.LocalDate;
