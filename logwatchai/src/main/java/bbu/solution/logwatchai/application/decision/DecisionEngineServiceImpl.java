@@ -19,6 +19,10 @@ import java.util.List;
 @Slf4j
 @Service
 @RequiredArgsConstructor
+/**
+ * Decision engine implementation that evaluates AI analyses against configured rules,
+ * creates alerts when rules are triggered, persists them and (optionally) sends notification emails.
+ */
 public class DecisionEngineServiceImpl implements DecisionEngineService {
 
     private final RuleEvaluator ruleEvaluator;
@@ -27,13 +31,29 @@ public class DecisionEngineServiceImpl implements DecisionEngineService {
     private final ConfigLoader configLoader;
     private final EmailService emailService;
 
+    /**
+     * Evaluates a log entry together with its AI analysis to determine if any rules are triggered.
+     * If rules are triggered, an Alert is created, persisted and — if configured — an email notification is sent.
+     *
+     * Steps performed:
+     * 1. Execute rules against the completed AI analysis.
+     * 2. If no rule is triggered, return an empty outcome (no alert).
+     * 3. Construct an Alert containing severity, message, rule names and links to the log entry / source.
+     * 4. Persist the Alert using the AlertService.
+     * 5. If an email recipient is configured, send an alert email.
+     * 6. Return the DecisionOutcome containing the triggered rules and the persisted alert.
+     *
+     * @param entry the original log entry that was analyzed
+     * @param analysis the AIAnalysis result for the log entry
+     * @return the decision outcome containing triggered rules and the created alert (if any)
+     */
     @Override
     public DecisionOutcome evaluate(LogEntry entry, AIAnalysis analysis) {
 
-        // 1. Regeln gegen die fertige AI-Analyse ausführen
+        // 1. I execute all rules against the completed AI analysis
         List<Rule> triggeredRules = ruleEvaluator.evaluate(analysis);
 
-        // 2. Wenn keine Regel ausgelöst wird → kein Alert
+        // 2. If no rule is triggered → then I generate no alert
         if (triggeredRules.isEmpty()) {
             return DecisionOutcome.builder()
                     .triggeredRules(List.of())
@@ -41,26 +61,26 @@ public class DecisionEngineServiceImpl implements DecisionEngineService {
                     .build();
         }
 
-        // 3. Alert sauber ausfüllen
+        // 3. I cleanly construct the alert object
         Alert alert = Alert.builder()
                 .severity(analysis.getSeverity())
                 .message(analysis.getSummarizedIssue())
                 .ruleNames(triggeredRules.stream().map(Rule::getName).toList())
-                // Diese beiden Felder verbinden Alert → LogEntry → LogSource
+                // These two fields allow me to connect Alert → LogEntry → LogSource
                 .sourceId(entry.getSourceId())
                 .logEntryId(entry.getId())
                 .build();
 
-        // 4. Persistieren
+        // 4. I persist the alert
         Alert savedAlert = alertService.create(alert);
 
-        // 5. send email
+        // 5. I send the alert email if a recipient address is configured
         String recipient = configLoader.getConfig().getReportEmail();
         if(recipient != null && !recipient.isBlank()){
             emailService.sendAlertEmail(alert, recipient);
         }
 
-        // 6. Ergebnis zurück
+        // 6. I return the outcome
         return DecisionOutcome.builder()
                 .triggeredRules(triggeredRules)
                 .alert(savedAlert)
