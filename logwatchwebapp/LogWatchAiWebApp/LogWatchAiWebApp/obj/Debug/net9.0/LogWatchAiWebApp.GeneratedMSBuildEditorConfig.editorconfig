@@ -28,8 +28,12 @@ build_property.EnableCodeStyleSeverity =
 build_metadata.AdditionalFiles.TargetPath = QXBwLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/bbuec/OneDrive/Desktop/IHK-Projekt/project/logwatchai/logwatchwebapp/LogWatchAiWebApp/LogWatchAiWebApp/Layout/MainLayout.razor]
-build_metadata.AdditionalFiles.TargetPath = TGF5b3V0XE1haW5MYXlvdXQucmF6b3I=
+[C:/Users/bbuec/OneDrive/Desktop/IHK-Projekt/project/logwatchai/logwatchwebapp/LogWatchAiWebApp/LogWatchAiWebApp/Pages/Alerts.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWxlcnRzLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/bbuec/OneDrive/Desktop/IHK-Projekt/project/logwatchai/logwatchwebapp/LogWatchAiWebApp/LogWatchAiWebApp/Pages/DailyReport.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRGFpbHlSZXBvcnQucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/bbuec/OneDrive/Desktop/IHK-Projekt/project/logwatchai/logwatchwebapp/LogWatchAiWebApp/LogWatchAiWebApp/Pages/Home.razor]

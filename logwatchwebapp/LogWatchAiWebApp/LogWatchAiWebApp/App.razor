@@ -1,19 +1,14 @@
-﻿@using MainLayout = LogWatchAiWebApp.Layout.MainLayout
-<CascadingAuthenticationState>
-    <Router AppAssembly="@typeof(App).Assembly">
-        <Found Context="routeData">
-            <RouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)" />
-            <FocusOnNavigate RouteData="@routeData" Selector="h1" />
-        </Found>
-        <NotFound>
-            <LayoutView Layout="@typeof(MainLayout)">
-                <h1>Seite nicht gefunden</h1>
-                <p>Sorry, die angeforderte Seite wurde nicht gefunden.</p>
-            </LayoutView>
-        </NotFound>
-    </Router>
-</CascadingAuthenticationState>
+﻿@using LogWatchAiWebApp.Shared
 
-@code {
-    // Falls du AuthenticationStateProvider nicht nutzt, kannst du die CascadingAuthenticationState-Zeilen auch entfernen.
-}
+<Router AppAssembly="@typeof(App).Assembly">
+    <Found Context="routeData">
+        <RouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)" />
+    </Found>
+
+    <NotFound>
+        <LayoutView Layout="@typeof(MainLayout)">
+            <h1>Seite nicht gefunden</h1>
+            <p>Sorry, die angeforderte Seite wurde nicht gefunden.</p>
+        </LayoutView>
+    </NotFound>
+</Router>

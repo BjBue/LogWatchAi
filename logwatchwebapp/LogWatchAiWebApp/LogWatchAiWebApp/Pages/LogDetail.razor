@@ -2,20 +2,52 @@
 @inject ApiClient Api
 @inject NavigationManager Nav
 
-<h3>Log Detail</h3>
+<div class="container mt-4">
 
-@if (Entry == null)
-{
-    <p>Loading…</p>
-}
-else
-{
-    <p><b>ID:</b> @Entry.Id</p>
-    <p><b>Timestamp:</b> @Entry.Timestamp</p>
-    <p><b>Level:</b> @Entry.Level</p>
-    <pre>@Entry.RawText</pre>
-    <button @onclick="GoBack">Zurück</button>
-}
+    <div class="card shadow-sm">
+        <div class="card-header bg-dark text-white">
+            <h4 class="mb-0">Log Detail</h4>
+        </div>
+
+        <div class="card-body">
+
+            @if (Entry == null)
+            {
+                <p>Loading…</p>
+            }
+            else
+            {
+                <div class="mb-3">
+                    <label class="fw-bold">ID:</label>
+                    <div>@Entry.Id</div>
+                </div>
+
+                <div class="mb-3">
+                    <label class="fw-bold">Timestamp:</label>
+                    <div>@Entry.Timestamp</div>
+                </div>
+
+                <div class="mb-3">
+                    <label class="fw-bold">Level:</label>
+                    <div>
+                        <span class="badge bg-primary">@Entry.Level</span>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label class="fw-bold">Raw Log:</label>
+                    <pre class="p-3 bg-light border rounded">@Entry.RawText</pre>
+                </div>
+
+                <button class="btn btn-secondary" @onclick="GoBack">
+                    ← Zurück
+                </button>
+            }
+
+        </div>
+    </div>
+
+</div>
 
 @code {
     [Parameter] public string Id { get; set; }

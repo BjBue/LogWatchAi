@@ -1,0 +1,70 @@
+﻿@page "/alerts"
+@inject ApiClient Api
+@inject NavigationManager Nav
+
+<h2 class="mb-4">Alerts</h2>
+
+@if (IsLoading)
+{
+    <div class="text-center my-5">
+        <div class="spinner-border text-danger"></div>
+    </div>
+}
+else if (Alertings == null || Alertings.Count == 0)
+{
+    <div class="alert alert-warning">Keine Alerts gefunden.</div>
+}
+else
+{
+    <table class="table table-hover table-striped">
+        <thead class="table-dark">
+        <tr>
+            <th>Created</th>
+            <th>Severity</th>
+            <th>Message</th>
+            <th>Active</th>
+            <th>Source</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var a in Alertings)
+        {
+            <tr @onclick="() => OpenAlert(a.Id)" style="cursor:pointer">
+                <td>@a.CreatedAt</td>
+                <td>
+                    <span class="badge @(GetSeverityClass(a.Severity))">@a.Severity</span>
+                </td>
+                <td>@(a.Message?.Length > 60 ? a.Message.Substring(0, 60) + "…" : a.Message)</td>
+                <td>@((a.Active ?? false) ? "✔️" : "❌")</td>
+                <td>@a.SourceId</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+}
+
+@code {
+    List<LogWatchAiWebApp.Shared.Models.AlertDto> Alertings = new();
+    bool IsLoading = true;
+
+    protected override async Task OnInitializedAsync()
+    {
+        IsLoading = true;
+        Alertings = await Api.GetAlertsAsync();
+        IsLoading = false;
+    }
+
+    void OpenAlert(string id)
+    {
+        Nav.NavigateTo($"/alert/{id}");
+    }
+
+    string GetSeverityClass(string severity) => severity switch
+    {
+        "CRITICAL" => "bg-danger",
+        "HIGH"     => "bg-warning text-dark",
+        "MEDIUM"   => "bg-info text-dark",
+        "LOW"      => "bg-secondary",
+        _          => "bg-light text-dark"
+    };
+}

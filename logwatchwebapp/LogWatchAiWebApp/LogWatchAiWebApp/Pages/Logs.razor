@@ -2,56 +2,51 @@
 @inject ApiClient Api
 @inject NavigationManager Nav
 
-<h3>Log Entries</h3>
+<h2 class="mb-4">Log Entries</h2>
 
 @if (IsLoading)
 {
-    <p>Loading…</p>
+    <div class="text-center my-5">
+        <div class="spinner-border"></div>
+    </div>
 }
-else if (Loggings == null)
+else if (Loggings == null || Loggings.Count == 0)
 {
-    <p>Keine Logs gefunden oder Fehler beim Laden.</p>
+    <div class="alert alert-warning">Keine Logs gefunden.</div>
 }
 else
 {
-    <table>
-        <thead>
-        <tr><th>Timestamp</th><th>Level</th><th>Raw</th></tr>
+    <table class="table table-striped table-hover">
+        <thead class="table-dark">
+        <tr>
+            <th>Timestamp</th>
+            <th>Level</th>
+            <th>Message</th>
+        </tr>
         </thead>
         <tbody>
         @foreach (var l in Loggings)
         {
-            
-            <tr style="cursor:pointer" @onclick="() => GoToLog(l.Id)">
+            <tr @onclick="() => OpenLog(l.Id)" style="cursor:pointer">
                 <td>@l.Timestamp</td>
                 <td>@l.Level</td>
-                <td>@(l.RawText?.Length > 80 ? l.RawText.Substring(0,80) + "…" : l.RawText)</td>
+                <td>@(l.RawText?.Length > 80 ? l.RawText.Substring(0, 80) + "…" : l.RawText)</td>
             </tr>
-
         }
         </tbody>
     </table>
 }
 
 @code {
-    // Variablenname != Dateiname! => Namenskonflikte vermeiden.
-    List<LogWatchAiWebApp.Shared.Models.LogEntryDto> Loggings;
+    List<LogWatchAiWebApp.Shared.Models.LogEntryDto> Loggings = new();
     bool IsLoading = true;
 
     protected override async Task OnInitializedAsync()
     {
         IsLoading = true;
-        // Wichtig: Loggings (nicht Logs) zuweisen
         Loggings = await Api.GetLogsAsync();
         IsLoading = false;
     }
 
-    // Alternative saubere Navigation:
-    private void GoToLog(string id)
-    {
-        if (!string.IsNullOrEmpty(id))
-        {
-            Nav.NavigateTo($"/log/{id}");
-        }
-    }
+    void OpenLog(string id) => Nav.NavigateTo($"/log/{id}");
 }

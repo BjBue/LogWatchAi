@@ -1,22 +1,19 @@
 ﻿@inherits LayoutComponentBase
 
-<div class="main-layout">
-    <header>
-        <h2>LogWatch AI WebApp</h2>
-        <NavMenu />
-    </header>
+<div class="d-flex flex-column min-vh-100">
 
-    <main>
-        @Body
+    <NavMenu />
+
+    <main class="flex-fill">
+        <div class="container py-4">
+            @Body
+        </div>
     </main>
 
-    <footer style="margin-top:24px; color:#666;">
-        <small>© LogWatch — @DateTime.Now.Year</small>
+    <footer class="bg-light border-top py-3 mt-auto">
+        <div class="container text-center text-muted">
+            LogWatch AI © 2025
+        </div>
     </footer>
-</div>
 
-<style>
-    .main-layout { font-family:Segoe UI, Roboto, Arial, sans-serif; padding:16px; }
-    header { border-bottom:1px solid #ddd; padding-bottom:8px; margin-bottom:16px;}
-    main { min-height:60vh; }
-</style>
+</div>

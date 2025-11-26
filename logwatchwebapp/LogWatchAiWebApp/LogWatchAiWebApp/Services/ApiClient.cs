@@ -41,5 +41,18 @@ namespace LogWatchAiWebApp.Services
             if (!resp.IsSuccessStatusCode) return null;
             return await resp.Content.ReadAsStringAsync(ct);
         }
+        
+        public async Task<List<AlertDto>> GetAlertsAsync()
+        {
+            return await _http.GetFromJsonAsync<List<AlertDto>>("api/alerts");
+        }
+        
+        public async Task<DailyReportDto?> GetDailyReportAsync(string date)
+        {
+            var url = $"api/report/daily?date={date}&format=json";
+            Console.WriteLine($"[ApiClient] Request URL: {_http.BaseAddress}{url}");
+
+            return await _http.GetFromJsonAsync<DailyReportDto>(url);
+        }
     }
 }

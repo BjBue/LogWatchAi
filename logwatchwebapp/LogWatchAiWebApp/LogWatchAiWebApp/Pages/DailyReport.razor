@@ -1,0 +1,73 @@
+﻿@page "/dailyreports"
+@inject ApiClient Api
+
+<h2 class="mb-4">Daily Reports</h2>
+
+<div class="card shadow-sm mb-4">
+    <div class="card-body">
+
+        <div class="row g-3">
+
+            <div class="col-md-4">
+                <label class="form-label">Datum</label>
+                <input type="date" class="form-control"
+                       @bind="SelectedDateInput"
+                       @bind:format="yyyy-MM-dd" />
+            </div>
+
+            <div class="col-md-3 d-flex align-items-end">
+                <button class="btn btn-primary w-100" @onclick="LoadReport">
+                    Laden
+                </button>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+@if (IsLoading)
+{
+    <div class="text-center my-4">
+        <div class="spinner-border"></div>
+    </div>
+}
+else if (Report == null)
+{
+    <div class="alert alert-info">Bitte ein Datum auswählen um einen Report zu laden.</div>
+}
+else
+{
+    <h4 class="mb-3">Report</h4>
+
+    <div class="card">
+        <div class="card-body">
+            <pre>@FormattedJson</pre>
+        </div>
+    </div>
+}
+
+@code {
+    DateTime SelectedDateInput = DateTime.Today;
+    DailyReportDto? Report;
+    bool IsLoading = false;
+
+    string FormattedJson =>
+        System.Text.Json.JsonSerializer.Serialize(
+            Report,
+            new System.Text.Json.JsonSerializerOptions { WriteIndented = true }
+        );
+
+    async Task LoadReport()
+    {
+        IsLoading = true;
+
+        string formattedDate = SelectedDateInput.ToString("yyyy-MM-dd");
+
+        Console.WriteLine($"[DailyReports] Sending Date: {formattedDate}");
+
+        Report = await Api.GetDailyReportAsync(formattedDate);
+
+        IsLoading = false;
+    }
+}
