@@ -1,9 +1,8 @@
 package bbu.solution.logwatchai.domain.appconfig;
 
-import bbu.solution.logwatchai.application.rules.AlertingConfig;
+import bbu.solution.logwatchai.domain.rule.AlertingConfig;
 import lombok.Data;
 import java.util.List;
-import java.util.Map;
 
 @Data
 public class AppConfig {

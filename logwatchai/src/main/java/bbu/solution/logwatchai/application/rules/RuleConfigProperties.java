@@ -2,6 +2,8 @@ package bbu.solution.logwatchai.application.rules;
 
 import bbu.solution.logwatchai.domain.appconfig.AppConfig;
 import bbu.solution.logwatchai.domain.appconfig.AppConfigService;
+import bbu.solution.logwatchai.domain.rule.AlertingConfig;
+import bbu.solution.logwatchai.domain.rule.RuleDefinition;
 import org.springframework.stereotype.Component;
 
 import java.util.Collections;
@@ -9,20 +11,35 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * Adapter to expose alerting.rules from the central AppConfig (loaded by my ConfigLoader).
- * Provides null-safe accessors for AlertingConfig and rules.
+ * Provides access to the alerting rule configuration stored inside the central {@link AppConfig}.
+ *
+ * <p>I act as an adapter so that the rule engine can easily retrieve configured alerting rules
+ * without needing to directly interact with the entire application configuration object.</p>
+ *
+ * <p>I guarantee null-safe access, meaning I always return valid objects or empty lists even if
+ * parts of the configuration are missing.</p>
  */
 @Component
 public class RuleConfigProperties {
 
     private final AppConfigService appConfigService;
 
+    /**
+     * Creates the configuration accessor. I store the {@link AppConfigService} so I can retrieve
+     * the current application configuration whenever rules are requested.
+     *
+     * @param appConfigService the service used to obtain the current {@link AppConfig}
+     */
     public RuleConfigProperties(AppConfigService appConfigService) {
         this.appConfigService = appConfigService;
     }
 
     /**
-     * Returns the AlertingConfig from the AppConfig or an empty AlertingConfig if not present.
+     * Returns the {@link AlertingConfig} section from the application configuration.
+     * <p>If the configuration or alerting section is missing, I provide a new empty instance so
+     * callers never have to deal with {@code null}.</p>
+     *
+     * @return the active {@link AlertingConfig}, never {@code null}
      */
     public AlertingConfig getAlerting() {
         AppConfig cfg = appConfigService.getConfig();
@@ -32,7 +49,10 @@ public class RuleConfigProperties {
     }
 
     /**
-     * Returns the configured rules (or an empty list if none configured).
+     * Returns the list of configured rules.
+     * <p>I always return a safe, unmodifiable list. If no rules are configured, I return an empty list.</p>
+     *
+     * @return an immutable list of {@link RuleDefinition} objects
      */
     public List<RuleDefinition> getRules() {
         AlertingConfig a = getAlerting();
@@ -41,7 +61,13 @@ public class RuleConfigProperties {
     }
 
     /**
-     * Find a rule by name (case-sensitive).
+     * Finds a rule by its name.
+     *
+     * <p>I perform a case-sensitive exact match. If the name is {@code null} or no matching
+     * rule exists, I return {@code null}.</p>
+     *
+     * @param name the rule name to look for
+     * @return the matching {@link RuleDefinition}, or {@code null} if not found
      */
     public RuleDefinition findByName(String name) {
         if (name == null) return null;

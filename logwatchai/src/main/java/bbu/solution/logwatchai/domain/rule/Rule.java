@@ -1,6 +1,5 @@
 package bbu.solution.logwatchai.domain.rule;
 
-import bbu.solution.logwatchai.application.rules.RuleDefinition;
 import bbu.solution.logwatchai.domain.analysis.Severity;
 import bbu.solution.logwatchai.domain.analysis.AIAnalysis;
 import lombok.Getter;
