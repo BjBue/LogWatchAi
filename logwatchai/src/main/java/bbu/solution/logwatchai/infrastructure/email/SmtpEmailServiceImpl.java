@@ -8,6 +8,11 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
+/**
+ * SMTP-based implementation of the {@link EmailService}.
+ * This service asynchronously sends alert notification emails
+ * using the configured {@link JavaMailSender}.
+ */
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -15,6 +20,12 @@ public class SmtpEmailServiceImpl implements EmailService {
 
     private final JavaMailSender mailSender;
 
+    /**
+     * Sends an alert email asynchronously using the executor named "emailExecutor".
+     *
+     * @param alert     the alert information to include in the email body
+     * @param recipient the email address of the recipient
+     */
     @Async("emailExecutor")
     @Override
     public void sendAlertEmail(Alert alert, String recipient) {
