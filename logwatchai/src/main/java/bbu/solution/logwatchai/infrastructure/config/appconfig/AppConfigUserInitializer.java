@@ -8,6 +8,13 @@ import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+/**
+ * Initializes application users defined in the YAML configuration file.
+ * <p>
+ * When the application starts, this component loads the configured users
+ * from AppConfig and ensures they exist in the system. Missing users are
+ * automatically created with the defined username, password, and role.
+ */
 @Component
 @RequiredArgsConstructor
 public class AppConfigUserInitializer {
@@ -15,6 +22,12 @@ public class AppConfigUserInitializer {
     private final AppConfigService configService;
     private final UserService userService;
 
+    /**
+     * Loads users from the YAML configuration and creates any that do not
+     * already exist in the system. Existing users are skipped.
+     * <p>
+     * This method runs automatically at startup due to {@link PostConstruct}.
+     */
     @PostConstruct
     public void initUser() {
 
