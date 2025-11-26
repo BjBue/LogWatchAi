@@ -9,7 +9,7 @@
         <div class="row g-3">
 
             <div class="col-md-4">
-                <label class="form-label">Datum</label>
+                <label class="form-label">Date</label>
                 <input type="date" class="form-control"
                        @bind="SelectedDateInput"
                        @bind:format="yyyy-MM-dd" />
@@ -17,7 +17,7 @@
 
             <div class="col-md-3 d-flex align-items-end">
                 <button class="btn btn-primary w-100" @onclick="LoadReport">
-                    Laden
+                    Load
                 </button>
             </div>
 
@@ -34,7 +34,7 @@
 }
 else if (Report == null)
 {
-    <div class="alert alert-info">Bitte ein Datum auswählen um einen Report zu laden.</div>
+    <div class="alert alert-info">Please select a date to load a report.</div>
 }
 else
 {
@@ -48,16 +48,34 @@ else
 }
 
 @code {
+    /// <summary>
+    /// Stores the user-selected date used to request a daily report.
+    /// </summary>
     DateTime SelectedDateInput = DateTime.Today;
+
+    /// <summary>
+    /// Contains the loaded daily report from the backend.
+    /// </summary>
     DailyReportDto? Report;
+
+    /// <summary>
+    /// Indicates whether the report is currently being loaded.
+    /// </summary>
     bool IsLoading = false;
 
+    /// <summary>
+    /// Pretty-printed JSON representation of the report.
+    /// Used for visual display.
+    /// </summary>
     string FormattedJson =>
         System.Text.Json.JsonSerializer.Serialize(
             Report,
             new System.Text.Json.JsonSerializerOptions { WriteIndented = true }
         );
 
+    /// <summary>
+    /// Loads the daily report for the selected date from the API.
+    /// </summary>
     async Task LoadReport()
     {
         IsLoading = true;
