@@ -43,13 +43,6 @@ public class AIAnalysisServiceImpl implements AIAnalysisService {
         this.mapper = mapper;
     }
 
-    /*
-    @Async
-    public CompletableFuture<AIAnalysis> analyzeAsync(LogEntry logEntry) {
-        AIAnalysis result = analyze(logEntry);
-        return CompletableFuture.completedFuture(result);
-    }
-    */
     @Async("aiExecutor")
     public CompletableFuture<AIAnalysis> analyzeAsync(LogEntry logEntry) {
         AIAnalysis result = analyze(logEntry);
@@ -61,34 +54,6 @@ public class AIAnalysisServiceImpl implements AIAnalysisService {
         return aiRepository.findById(id);
     }
 
-    /*
-    @Override
-    public AIAnalysis analyze(LogEntry logEntry) {
-        // 1) create Prompt as json
-        String prompt = buildPrompt(logEntry.getRawText());
-
-        ChatMessage system = new ChatMessage("system", "You are an expert log analyst. Return a JSON object with fields: severity, category, summarizedIssue, likelyCause, recommendation, anomalyScore (0.0-1.0). Keep JSON only in response.");
-        ChatMessage user = new ChatMessage("user", prompt);
-
-        ChatCompletionRequest request = ChatCompletionRequest.builder()
-                .model(model)
-                .messages(List.of(system, user))
-                .temperature(0.0)
-                .maxTokens(700)
-                .n(1)
-                .build();
-
-        ChatCompletionResult result = openAiService.createChatCompletion(request);
-        String text = extractTextFromResult(result);
-
-        // 2) parse text -> AIAnalysis
-        AIAnalysis ai = parseAndBuildAIAnalysis(text, logEntry.getId());
-
-        // 3) persist and return
-        AIAnalysis saved = aiRepository.save(ai);
-        return saved;
-    }
-    */
     @Override
     public AIAnalysis analyze(LogEntry logEntry) {
         String prompt = buildPrompt(logEntry.getRawText());
