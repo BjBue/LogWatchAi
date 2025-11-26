@@ -1,0 +1,57 @@
+﻿@page "/logs"
+@inject ApiClient Api
+@inject NavigationManager Nav
+
+<h3>Log Entries</h3>
+
+@if (IsLoading)
+{
+    <p>Loading…</p>
+}
+else if (Loggings == null)
+{
+    <p>Keine Logs gefunden oder Fehler beim Laden.</p>
+}
+else
+{
+    <table>
+        <thead>
+        <tr><th>Timestamp</th><th>Level</th><th>Raw</th></tr>
+        </thead>
+        <tbody>
+        @foreach (var l in Loggings)
+        {
+            
+            <tr style="cursor:pointer" @onclick="() => GoToLog(l.Id)">
+                <td>@l.Timestamp</td>
+                <td>@l.Level</td>
+                <td>@(l.RawText?.Length > 80 ? l.RawText.Substring(0,80) + "…" : l.RawText)</td>
+            </tr>
+
+        }
+        </tbody>
+    </table>
+}
+
+@code {
+    // Variablenname != Dateiname! => Namenskonflikte vermeiden.
+    List<LogWatchAiWebApp.Shared.Models.LogEntryDto> Loggings;
+    bool IsLoading = true;
+
+    protected override async Task OnInitializedAsync()
+    {
+        IsLoading = true;
+        // Wichtig: Loggings (nicht Logs) zuweisen
+        Loggings = await Api.GetLogsAsync();
+        IsLoading = false;
+    }
+
+    // Alternative saubere Navigation:
+    private void GoToLog(string id)
+    {
+        if (!string.IsNullOrEmpty(id))
+        {
+            Nav.NavigateTo($"/log/{id}");
+        }
+    }
+}

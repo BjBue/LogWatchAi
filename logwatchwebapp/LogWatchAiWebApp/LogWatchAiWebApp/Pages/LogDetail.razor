@@ -1,0 +1,33 @@
+﻿@page "/log/{Id}"
+@inject ApiClient Api
+@inject NavigationManager Nav
+
+<h3>Log Detail</h3>
+
+@if (Entry == null)
+{
+    <p>Loading…</p>
+}
+else
+{
+    <p><b>ID:</b> @Entry.Id</p>
+    <p><b>Timestamp:</b> @Entry.Timestamp</p>
+    <p><b>Level:</b> @Entry.Level</p>
+    <pre>@Entry.RawText</pre>
+    <button @onclick="GoBack">Zurück</button>
+}
+
+@code {
+    [Parameter] public string Id { get; set; }
+    LogWatchAiWebApp.Shared.Models.LogEntryDto Entry;
+
+    protected override async Task OnInitializedAsync()
+    {
+        Entry = await Api.GetLogByIdAsync(Id);
+    }
+
+    private void GoBack()
+    {
+        Nav.NavigateTo("/logs");
+    }
+}

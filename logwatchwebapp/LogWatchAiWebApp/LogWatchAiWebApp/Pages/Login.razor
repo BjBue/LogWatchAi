@@ -1,0 +1,35 @@
+﻿@page "/login"
+@inject ApiClient Api
+@inject AuthService Auth
+@inject NavigationManager Nav
+
+<h3>Login</h3>
+<input @bind="Username" placeholder="Username" />
+<input @bind="Password" type="password" placeholder="Passwort" />
+<button @onclick="DoLogin">Login</button>
+
+@if (!string.IsNullOrEmpty(Error))
+{
+    <p style="color:red">@Error</p>
+}
+
+@code {
+    string Username;
+    string Password;
+    string Error;
+
+    private async Task DoLogin()
+    {
+        Error = null;
+        var res = await Api.LoginAsync(Username, Password);
+        if (res?.Token != null)
+        {
+            await Auth.SetTokenAsync(res.Token);
+            Nav.NavigateTo("/logs");
+        }
+        else
+        {
+            Error = "Login fehlgeschlagen.";
+        }
+    }
+}
