@@ -7,9 +7,20 @@ import org.springframework.mail.javamail.JavaMailSenderImpl;
 
 import java.util.Properties;
 
+/**
+ * Configuration class for setting up the application's mail sender.
+ * This configuration is tailored for a local MailHog instance.
+ */
 @Configuration
 public class MailConfig {
 
+    /**
+     * Creates and configures a {@link JavaMailSender} instance using MailHog.
+     * MailHog acts as a local SMTP server for development and testing,
+     * capturing outgoing emails without sending them externally.
+     *
+     * @return a fully configured {@link JavaMailSender} instance
+     */
     @Bean
     public JavaMailSender javaMailSender() {
         JavaMailSenderImpl sender = new JavaMailSenderImpl();
