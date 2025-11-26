@@ -23,6 +23,13 @@ import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
 
+/**
+ * Service responsible for generating and managing {@link DailyReport} entities.
+ *
+ * <p>I collect new logs, alerts, and AI analysis results since the last generated
+ * report and aggregate them into a structured {@link ReportDto}, which I then serialize
+ * into JSON and store inside a {@link DailyReport}.</p>
+ */
 @Service
 @RequiredArgsConstructor
 public class DailyReportServiceImpl implements bbu.solution.logwatchai.domain.report.DailyReportService {
@@ -35,62 +42,80 @@ public class DailyReportServiceImpl implements bbu.solution.logwatchai.domain.re
     @Autowired
     private final ObjectMapper mapper;
 
+    /**
+     * Generates a report for a specific date by delegating to {@link #generateLatestReport(LocalDate, boolean)}.
+     *
+     * <p>I keep backward compatibility by generating a report that covers logs collected
+     * since the previous report, but I explicitly set the report's date to the provided value.</p>
+     *
+     * @param date the date for which I generate the report
+     * @return the generated {@link DailyReport}
+     */
     @Override
     @Transactional
     public DailyReport generateForDate(LocalDate date) {
-        // backward-compatible: generate report that covers logs since last generatedAt and set reported_date=date
         return generateLatestReport(date, false);
     }
 
     /**
-     * Main generator used by controller:
-     * - determines since = lastReport.generatedAt (or epoch)
-     * - collects logs/alerts/analysis with timestamp > since
-     * - builds JSON content and saves DailyReport (reported_date optional)
+     * Generates a new report based on all new logs, alerts, and analysis results since the last generated report.
+     *
+     * <p>I perform the following steps:</p>
+     * <ol>
+     *     <li>Determine the timestamp of the last report (or use epoch if none exists).</li>
+     *     <li>Load all logs, alerts, and AI analyses created after that timestamp.</li>
+     *     <li>Compute the time window (period) covered by this report.</li>
+     *     <li>Convert all domain objects into flattened DTO structures.</li>
+     *     <li>Build the {@link ReportDto} with summary data and top issues.</li>
+     *     <li>Serialize the DTO into JSON and store it inside a new {@link DailyReport}.</li>
+     * </ol>
+     *
+     * <p>If no new data is available, I fall back to a period where both "from" and "to" timestamps
+     * equal the current time, ensuring that the report remains well-formed.</p>
+     *
+     * @param reportedDate   the date to assign to the report (may be null)
+     * @param forceEmptyDateIfNone unused compatibility flag
+     * @return the saved {@link DailyReport}
      */
     @Transactional
     public DailyReport generateLatestReport(LocalDate reportedDate, boolean forceEmptyDateIfNone) {
 
-        // 1) find last report
         var last = dailyReportRepository.findAll(
-                PageRequest.of(0,1, Sort.by(Sort.Direction.DESC, "generatedAt"))
+                PageRequest.of(0, 1, Sort.by(Sort.Direction.DESC, "generatedAt"))
         ).stream().findFirst();
 
         Instant since = last.map(DailyReport::getGeneratedAt).orElse(Instant.EPOCH);
 
-        // 2) load new data since (exclusive)
         List<LogEntry> logs = logEntryRepository.findByIngestionTimeAfterOrderByIngestionTimeAsc(since);
         List<Alert> alerts = alertRepository.findByCreatedAtAfterOrderByCreatedAtAsc(since);
         List<AIAnalysis> analysis = aiAnalysisRepository.findByAnalyzedAtAfterOrderByAnalyzedAtAsc(since);
 
-        // determine report period
         Instant from = null;
         Instant to = null;
+
         if (!logs.isEmpty()) {
             from = logs.get(0).getIngestionTime();
-            to = logs.get(logs.size()-1).getIngestionTime();
+            to = logs.get(logs.size() - 1).getIngestionTime();
         }
         if (!alerts.isEmpty()) {
             Instant aFrom = alerts.get(0).getCreatedAt();
-            Instant aTo = alerts.get(alerts.size()-1).getCreatedAt();
+            Instant aTo = alerts.get(alerts.size() - 1).getCreatedAt();
             from = minInstant(from, aFrom);
             to = maxInstant(to, aTo);
         }
         if (!analysis.isEmpty()) {
             Instant anFrom = analysis.get(0).getAnalyzedAt();
-            Instant anTo = analysis.get(analysis.size()-1).getAnalyzedAt();
+            Instant anTo = analysis.get(analysis.size() - 1).getAnalyzedAt();
             from = minInstant(from, anFrom);
             to = maxInstant(to, anTo);
         }
 
         if (from == null || to == null) {
-            // nothing found: choose now as both bounds
             Instant now = Instant.now();
             from = now;
             to = now;
         }
 
-        // build DTO lists (select fields only)
         List<ReportDto.LogItem> logItems = logs.stream()
                 .map(l -> new ReportDto.LogItem(
                         l.getId().toString(),
@@ -120,61 +145,72 @@ public class DailyReportServiceImpl implements bbu.solution.logwatchai.domain.re
                         Optional.ofNullable(ai.getLogEntryId()).map(UUID::toString).orElse(null)
                 )).collect(Collectors.toList());
 
-        // summary:
         long totalLogs = logItems.size();
         long totalAlerts = alertItems.size();
-        long totalanalysis = analysisItems.size();
+        long totalAnalysis = analysisItems.size();
+
         Map<String, Long> logsPerSource = logs.stream()
                 .collect(Collectors.groupingBy(
                         l -> Optional.ofNullable(l.getSourceId()).map(UUID::toString).orElse("unknown"),
                         Collectors.counting()
                 ));
 
-        ReportDto.Summary summary = new ReportDto.Summary(totalLogs, totalAlerts, totalanalysis, logsPerSource);
-
+        ReportDto.Summary summary = new ReportDto.Summary(totalLogs, totalAlerts, totalAnalysis, logsPerSource);
         ReportDto.Period period = new ReportDto.Period(from, to);
-
-        // topIssues: simple top messages per source (top 5 globally)
         List<Map<String, Object>> topIssues = buildTopIssues(logs);
 
-        // assemble report DTO
         ReportDto reportDto = new ReportDto(period, summary, logItems, alertItems, analysisItems, topIssues);
 
-        // serialize to JSON string
         try {
             String content = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(reportDto);
 
             DailyReport rep = new DailyReport();
-            rep.setReportedDate(reportedDate); // may be null
+            rep.setReportedDate(reportedDate);
             rep.setContent(content);
             rep.setTopIssues(mapper.valueToTree(topIssues));
 
-            DailyReport saved = dailyReportRepository.save(rep);
-            return saved;
+            return dailyReportRepository.save(rep);
 
         } catch (Exception e) {
             throw new RuntimeException("Failed to build report JSON", e);
         }
     }
 
+    /**
+     * Returns the earliest of the two given instants, handling null values safely.
+     */
     private Instant minInstant(Instant a, Instant b) {
         if (a == null) return b;
         if (b == null) return a;
         return a.isBefore(b) ? a : b;
     }
+
+    /**
+     * Returns the latest of the two given instants, handling null values safely.
+     */
     private Instant maxInstant(Instant a, Instant b) {
         if (a == null) return b;
         if (b == null) return a;
         return a.isAfter(b) ? a : b;
     }
 
+    /**
+     * Builds a list of the top most frequent log message fragments (up to 200 characters).
+     *
+     * <p>I aggregate messages globally across all sources and return the
+     * top 10 entries, each containing the message example and the frequency.</p>
+     */
     private List<Map<String, Object>> buildTopIssues(List<LogEntry> logs) {
-        // simple aggregation: top messages (first 200 chars) globally
         Map<String, Long> freq = new HashMap<>();
         for (LogEntry l : logs) {
-            String key = l.getRawText() == null ? "" : (l.getRawText().length() > 200 ? l.getRawText().substring(0,200) : l.getRawText());
+            String key = l.getRawText() == null
+                    ? ""
+                    : (l.getRawText().length() > 200
+                    ? l.getRawText().substring(0, 200)
+                    : l.getRawText());
             freq.merge(key, 1L, Long::sum);
         }
+
         return freq.entrySet().stream()
                 .sorted(Map.Entry.<String, Long>comparingByValue().reversed())
                 .limit(10)
@@ -187,37 +223,57 @@ public class DailyReportServiceImpl implements bbu.solution.logwatchai.domain.re
                 .collect(Collectors.toList());
     }
 
+    /**
+     * Marks a report as delivered by invoking {@link DailyReport#markDelivered()}.
+     *
+     * @param reportId the ID of the report to mark as delivered
+     */
     @Override
     public void markDelivered(UUID reportId) {
         dailyReportRepository.findById(reportId).ifPresent(DailyReport::markDelivered);
     }
 
+    /**
+     * Retrieves a report by its assigned reported date.
+     *
+     * @param date the date for which I search for a report
+     * @return an optional containing the report if present
+     */
     @Override
     public Optional<DailyReport> getByDate(LocalDate date) {
         return dailyReportRepository.findByReportedDate(date);
     }
 
+    /**
+     * Retrieves a report for the given date, creating it if necessary.
+     *
+     * <p>If a race condition occurs (multiple threads generating reports simultaneously),
+     * I catch the integrity exception and simply fetch the report that the other thread saved.</p>
+     *
+     * @param date the date for which I retrieve or create a report
+     * @return the report for the given date
+     */
     @Override
     @Transactional
     public DailyReport getOrCreateReport(LocalDate date) {
-
-        // 1) Falls Report für Datum existiert → zurückgeben
         Optional<DailyReport> existing = dailyReportRepository.findByReportedDate(date);
         if (existing.isPresent()) {
             return existing.get();
         }
 
-        // 2) Falls nicht → neuen generieren
         try {
             return generateLatestReport(date, false);
-        }
-        catch (DataIntegrityViolationException ex) {
-            // 3) Falls Race-Condition → anderen Report zurückgeben
+        } catch (DataIntegrityViolationException ex) {
             return dailyReportRepository.findByReportedDate(date)
                     .orElseThrow(() -> ex);
         }
     }
 
+    /**
+     * Returns all daily reports sorted by reported date in descending order.
+     *
+     * @return a list of all reports
+     */
     @Override
     public List<DailyReport> getAll() {
         return dailyReportRepository.findAll(Sort.by("reportedDate").descending());
