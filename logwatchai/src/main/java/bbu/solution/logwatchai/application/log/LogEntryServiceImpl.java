@@ -10,7 +10,6 @@ import bbu.solution.logwatchai.domain.report.DailyReport;
 import bbu.solution.logwatchai.domain.logsource.LogSource;
 import bbu.solution.logwatchai.infrastructure.persistence.log.LogEntryRepository;
 import jakarta.transaction.Transactional;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.scheduling.annotation.Async;
@@ -45,7 +44,6 @@ public class LogEntryServiceImpl implements LogEntryService {
 
     @Override
     public List<LogEntry> ingestLog(LogSource logSource) {
-        // vorhandene methoden bleiben minimal; optional später erweitern
         return List.of();
     }
 
@@ -147,19 +145,6 @@ public class LogEntryServiceImpl implements LogEntryService {
         return logEntryRepository.findAll(pageable);
     }
 
-    /**
-     * Neu: ingestFileUpdate wird vom FileLogSourceWorker (oder anderen Workern) gerufen,
-     * wenn eine Datei neu eingelesen bzw. gescannt werden soll.
-     *
-     * Diese Implementation:
-     *  - liest alle Zeilen der Datei
-     *  - für jede Zeile prüft sie auf Duplikat (existsBySourceIdAndRawText)
-     *  - wenn nicht vorhanden -> speichert LogEntry + startet async Analyse
-     *
-     * Hinweis: TailReader/DirectoryWatcher erzeugen bereits einzelne Zeilen-Events und
-     * rufen handleEvent() in LogWatcherServiceImpl. ingestFileUpdate ist ein zusätzlicher,
-     * einfacher Adapter, den FileWorker verwenden kann.
-     */
     @Override
     @Transactional
     public void ingestFileUpdate(LogSource source, Path filePath) {

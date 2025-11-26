@@ -23,7 +23,7 @@ import java.util.UUID;
                 @Index(name = "idx_log_entries_level", columnList = "level")
         }
 )
-@DynamicUpdate  // nur geänderte Felder updaten → Performance
+@DynamicUpdate
 public class LogEntry {
 
     @Id
@@ -41,15 +41,9 @@ public class LogEntry {
     @Column(nullable = false, length = 65535)  // TEXT in MariaDB
     private String rawText;
 
-    // Optional: Log-Level aus Parsing (INFO, ERROR, WARN, DEBUG...)
     @Column(length = 16)
     private String level;
 
-    // Optimistische Sperre für parallele Analysen
-    //@Version
-    //private Long version;
-
-    // Status-Flags
     @Column(nullable = false)
     private boolean analyzed = false;
 
