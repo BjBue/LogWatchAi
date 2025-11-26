@@ -5,7 +5,7 @@
 
 <h3>Login</h3>
 <input @bind="Username" placeholder="Username" />
-<input @bind="Password" type="password" placeholder="Passwort" />
+<input @bind="Password" type="password" placeholder="Password" />
 <button @onclick="DoLogin">Login</button>
 
 @if (!string.IsNullOrEmpty(Error))
@@ -14,14 +14,31 @@
 }
 
 @code {
+    /// <summary>
+    /// Username entered by the user.
+    /// </summary>
     string Username;
+
+    /// <summary>
+    /// Password entered by the user.
+    /// </summary>
     string Password;
+
+    /// <summary>
+    /// Error message displayed when login fails.
+    /// </summary>
     string Error;
 
+    /// <summary>
+    /// Attempts to authenticate the user using the API.
+    /// If successful, stores the JWT and navigates to the logs page.
+    /// </summary>
     private async Task DoLogin()
     {
         Error = null;
+
         var res = await Api.LoginAsync(Username, Password);
+
         if (res?.Token != null)
         {
             await Auth.SetTokenAsync(res.Token);
