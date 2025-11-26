@@ -15,6 +15,7 @@ namespace LogWatchAiWebApp.Services
 
         public async Task<LoginResponse?> LoginAsync(string user, string pass, CancellationToken ct = default)
         {
+            _http.DefaultRequestHeaders.Authorization = null;
             var body = new LoginRequest { Username = user, Password = pass };
             var resp = await _http.PostAsJsonAsync("auth/login", body, ct);
             if (!resp.IsSuccessStatusCode) return null;

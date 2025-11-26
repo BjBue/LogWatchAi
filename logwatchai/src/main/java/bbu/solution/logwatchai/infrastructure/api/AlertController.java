@@ -51,7 +51,7 @@ public class AlertController {
             @RequestParam(required = false) Severity severity,
             @RequestParam(required = false) String message,
             @RequestParam(required = false) List<String> ruleNames,
-            @RequestParam(required = false) Boolean active,
+            @RequestParam(required = false) boolean active,
             @RequestParam(required = false) UUID sourceId,
             @RequestParam(required = false) UUID logEntryId
     ) {
@@ -92,7 +92,7 @@ public class AlertController {
             @RequestParam(required = false) Severity severity,
             @RequestParam(required = false) String message,
             @RequestParam(required = false) List<String> ruleNames,
-            @RequestParam(required = false) Boolean active,
+            @RequestParam(required = false) boolean active,
             @RequestParam(required = false) UUID sourceId,
             @RequestParam(required = false) UUID logEntryId,
             Pageable pageable

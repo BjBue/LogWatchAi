@@ -18,16 +18,22 @@ public class JwtService {
     }
 
     public String generateToken(String username, String role) {
+        long now = System.currentTimeMillis();
+
         return Jwts.builder()
                 .setSubject(username)
                 .claim("role", role)
-                .setExpiration(new Date(System.currentTimeMillis() + 3600_000)) // 1h
-                .signWith(key)
+                .setIssuedAt(new Date(now))
+                .setExpiration(new Date(now + 3600_000))
+                .signWith(key, SignatureAlgorithm.HS256)
                 .compact();
     }
 
     public String extractUsername(String token) {
-        return Jwts.parserBuilder().setSigningKey(key).build()
+        return Jwts.parserBuilder()
+                .setSigningKey(key)
+                .setAllowedClockSkewSeconds(60)
+                .build()
                 .parseClaimsJws(token)
                 .getBody()
                 .getSubject();
