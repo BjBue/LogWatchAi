@@ -40,7 +40,7 @@
                 </div>
 
                 <button class="btn btn-secondary" @onclick="GoBack">
-                    ← Zurück
+                    ← Back
                 </button>
             }
 
@@ -50,14 +50,27 @@
 </div>
 
 @code {
+    /// <summary>
+    /// The ID of the log entry to display, provided through routing.
+    /// </summary>
     [Parameter] public string Id { get; set; }
-    LogWatchAiWebApp.Shared.Models.LogEntryDto Entry;
 
+    /// <summary>
+    /// Contains the loaded log entry data.
+    /// </summary>
+    LogEntryDto Entry;
+
+    /// <summary>
+    /// Loads the log entry from the backend when the component initializes.
+    /// </summary>
     protected override async Task OnInitializedAsync()
     {
         Entry = await Api.GetLogByIdAsync(Id);
     }
 
+    /// <summary>
+    /// Navigates back to the log list page.
+    /// </summary>
     private void GoBack()
     {
         Nav.NavigateTo("/logs");
