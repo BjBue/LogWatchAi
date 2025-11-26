@@ -12,7 +12,7 @@
 }
 else if (Loggings == null || Loggings.Count == 0)
 {
-    <div class="alert alert-warning">Keine Logs gefunden.</div>
+    <div class="alert alert-warning">No logs found.</div>
 }
 else
 {
@@ -38,9 +38,20 @@ else
 }
 
 @code {
-    List<LogWatchAiWebApp.Shared.Models.LogEntryDto> Loggings = new();
+
+    /// <summary>
+    /// Contains all log entries loaded from the backend.
+    /// </summary>
+    List<LogEntryDto> Loggings = new();
+
+    /// <summary>
+    /// Indicates whether the log list is currently being loaded.
+    /// </summary>
     bool IsLoading = true;
 
+    /// <summary>
+    /// Loads all logs from the API when the page is initialized.
+    /// </summary>
     protected override async Task OnInitializedAsync()
     {
         IsLoading = true;
@@ -48,5 +59,9 @@ else
         IsLoading = false;
     }
 
+    /// <summary>
+    /// Navigates to the detailed view for the selected log entry.
+    /// </summary>
+    /// <param name="id">The ID of the log entry to view.</param>
     void OpenLog(string id) => Nav.NavigateTo($"/log/{id}");
 }
