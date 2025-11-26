@@ -12,7 +12,7 @@
 }
 else if (Alertings == null || Alertings.Count == 0)
 {
-    <div class="alert alert-warning">Keine Alerts gefunden.</div>
+    <div class="alert alert-warning">No alerts found.</div>
 }
 else
 {
@@ -44,9 +44,20 @@ else
 }
 
 @code {
-    List<LogWatchAiWebApp.Shared.Models.AlertDto> Alertings = new();
+
+    /// <summary>
+    /// Stores the list of retrieved alerts.
+    /// </summary>
+    List<AlertDto> Alertings = new();
+
+    /// <summary>
+    /// Indicates whether the component is currently loading data from the API.
+    /// </summary>
     bool IsLoading = true;
 
+    /// <summary>
+    /// Loads all alerts on component initialization.
+    /// </summary>
     protected override async Task OnInitializedAsync()
     {
         IsLoading = true;
@@ -54,11 +65,19 @@ else
         IsLoading = false;
     }
 
+    /// <summary>
+    /// Navigates to the alert details page for the specified alert ID.
+    /// </summary>
     void OpenAlert(string id)
     {
         Nav.NavigateTo($"/alert/{id}");
     }
 
+    /// <summary>
+    /// Returns the Bootstrap badge class based on severity.
+    /// </summary>
+    /// <param name="severity">The alert severity.</param>
+    /// <returns>CSS class for severity badge.</returns>
     string GetSeverityClass(string severity) => severity switch
     {
         "CRITICAL" => "bg-danger",
