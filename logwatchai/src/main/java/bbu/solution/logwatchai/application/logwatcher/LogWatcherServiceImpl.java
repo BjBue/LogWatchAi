@@ -8,7 +8,6 @@ import bbu.solution.logwatchai.domain.logwatcher.LogEvent;
 import bbu.solution.logwatchai.domain.logwatcher.LogWatcherService;
 import bbu.solution.logwatchai.domain.appconfig.AppConfigService;
 import bbu.solution.logwatchai.domain.appconfig.AppConfig;
-import bbu.solution.logwatchai.domain.analysis.AIAnalysisService;
 import bbu.solution.logwatchai.infrastructure.logwatcher.DirectoryWatcher;
 import jakarta.annotation.PostConstruct;
 import jakarta.transaction.Transactional;
