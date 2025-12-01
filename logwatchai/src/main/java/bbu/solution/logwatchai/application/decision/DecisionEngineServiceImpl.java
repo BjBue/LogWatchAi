@@ -3,15 +3,15 @@ package bbu.solution.logwatchai.application.decision;
 import bbu.solution.logwatchai.application.rules.RuleEvaluator;
 import bbu.solution.logwatchai.domain.alert.Alert;
 import bbu.solution.logwatchai.domain.alert.AlertService;
+import bbu.solution.logwatchai.domain.alert.events.AlertCreatedEvent;
 import bbu.solution.logwatchai.domain.analysis.AIAnalysis;
 import bbu.solution.logwatchai.domain.decision.DecisionOutcome;
 import bbu.solution.logwatchai.domain.decision.DecisionEngineService;
 import bbu.solution.logwatchai.domain.log.LogEntry;
 import bbu.solution.logwatchai.domain.rule.Rule;
-import bbu.solution.logwatchai.infrastructure.config.appconfig.ConfigLoader;
-import bbu.solution.logwatchai.infrastructure.email.EmailService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -27,9 +27,10 @@ public class DecisionEngineServiceImpl implements DecisionEngineService {
 
     private final RuleEvaluator ruleEvaluator;
     private final AlertService alertService;
+    private final ApplicationEventPublisher eventPublisher;
 
-    private final ConfigLoader configLoader;
-    private final EmailService emailService;
+//    private final ConfigLoader configLoader;
+//    private final EmailService emailService;
 
     /**
      * Evaluates a log entry together with its AI analysis to determine if any rules are triggered.
@@ -74,11 +75,13 @@ public class DecisionEngineServiceImpl implements DecisionEngineService {
         // 4. I persist the alert
         Alert savedAlert = alertService.create(alert);
 
-        // 5. I send the alert email if a recipient address is configured
-        String recipient = configLoader.getConfig().getReportEmail();
-        if(recipient != null && !recipient.isBlank()){
-            emailService.sendAlertEmail(alert, recipient);
-        }
+        // 5. I send the alert email via listener
+        eventPublisher.publishEvent(new AlertCreatedEvent(savedAlert));
+
+//        String recipient = configLoader.getConfig().getReportEmail();
+//        if(recipient != null && !recipient.isBlank()){
+//            emailService.sendAlertEmail(savedAlert, recipient);
+//        }
 
         // 6. I return the outcome
         return DecisionOutcome.builder()

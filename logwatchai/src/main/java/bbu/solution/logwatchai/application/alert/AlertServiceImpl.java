@@ -4,6 +4,7 @@ import bbu.solution.logwatchai.domain.alert.Alert;
 import bbu.solution.logwatchai.domain.alert.AlertFilter;
 import bbu.solution.logwatchai.domain.alert.AlertService;
 import bbu.solution.logwatchai.infrastructure.persistence.alert.AlertRepository;
+import org.springframework.transaction.annotation.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -25,6 +26,7 @@ public class AlertServiceImpl implements AlertService {
      * @param alert the alert to create
      * @return the created alert
      */
+    @Transactional
     @Override
     public Alert create(Alert alert) {
         return alertRepository.save(alert);
