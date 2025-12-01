@@ -54,6 +54,7 @@ public class CorsConfig {
                 "http://localhost:5278",
                 "http://localhost:5173",
                 "http://localhost:8080",   // optional dev port
+                "http://localhost:8081",   // optional dev port
                 "http://127.0.0.1:5000"
         ));
 

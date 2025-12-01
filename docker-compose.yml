@@ -1,9 +1,7 @@
-version: "3.9"
-
 services:
   db:
     image: mariadb:11
-    container_name: logwatchai-db
+    container_name: logwatch-db
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: rootpassword
@@ -21,10 +19,10 @@ services:
       retries: 10
       start_period: 30s
 
-  app:
+  logwatch-api:
     build:
-      context: .
-    container_name: logwatchai-app
+      context: logwatchai
+    container_name: logwatch-api
     restart: always
     environment:
       # Database
@@ -47,22 +45,34 @@ services:
       db:
         condition: service_healthy
     volumes:
-      - ../shared-logs:/shared-logs
+      - ./shared-logs:/shared-logs
 
-  log-generator:
+  logwatch-generator:
     build:
-      context: ../loggenerator
-    container_name: loggenerator-app
+      context: loggenerator
+    container_name: logwatch-generator
     restart: always
     ports:
       - "9090:8080"
     environment:
       LOG_OUTPUT: /logs/test.log
     volumes:
-      - ../shared-logs:/shared-logs     # Shared logs
+      - ./shared-logs:/shared-logs     # Shared logs
     depends_on:
       db:
         condition: service_healthy
+
+  logwatch-webapp:
+    build:
+      context: ./logwatchwebapp/LogWatchAiWebApp/LogWatchAiWebApp
+      dockerfile: Dockerfile
+    container_name: logwatch-webapp
+    ports:
+      - "8081:80"
+    depends_on:
+      - logwatch-api
+    environment:
+      BackendBase: "http://localhost:8080/"
 
   mailhog:
     image: mailhog/mailhog
