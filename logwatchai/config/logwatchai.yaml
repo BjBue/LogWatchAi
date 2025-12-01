@@ -1,5 +1,5 @@
 watchPaths:
-  - "/shared-logs/test.log"
+  - "../shared-logs/test.log"
 
 alerting:
   rules:
@@ -15,9 +15,28 @@ alerting:
 
 reportEmail: "admin@example.com"
 
-aiEnabled: true
-aiModel: "gpt-4.1"
-#aiKey
+ai:
+  models:
+    - name: "openai"
+      enabled: true
+      model: "gpt-4o-mini"
+      key: "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"
+
+    - name: "perplexity"
+      enabled: false
+      model: "mixtral-small"
+      key: "not available yet"
+
+    - name: "anthropic"
+      enabled: false
+      model: "anotherone-small"
+      key: "not available yet"
+
+    - name: "local"
+      enabled: false
+      model: "any"
+      key: "not available yet"
+
 
 security:
   users:

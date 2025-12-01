@@ -65,11 +65,6 @@ jwt:
   secret: ${JWT_SECRET}
   expiration-ms: 3600000 # 1 Stunde
 
-ai:
-  api-key: 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
-  model: gpt-4o-mini
-  enabled: true # kann bei Bedarf deaktiviert werden
-
 app:
   config-file: /app/config/logwatchai.yaml
 

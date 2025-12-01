@@ -47,7 +47,7 @@ services:
       db:
         condition: service_healthy
     volumes:
-      - ./shared-logs:/shared-logs
+      - ../shared-logs:/shared-logs
 
   log-generator:
     build:
@@ -59,7 +59,7 @@ services:
     environment:
       LOG_OUTPUT: /logs/test.log
     volumes:
-      - ./shared-logs:/shared-logs     # Shared logs
+      - ../shared-logs:/shared-logs     # Shared logs
     depends_on:
       db:
         condition: service_healthy

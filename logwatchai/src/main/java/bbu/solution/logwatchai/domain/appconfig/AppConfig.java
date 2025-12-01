@@ -26,16 +26,10 @@ public class AppConfig {
     private AlertingConfig alerting;
 
     /**
-     * Determines whether I should enable AI-based log analysis.
-     * If false, all AI analysis calls are bypassed.
+     * Holds the entire AI configuration block.
+     * This may include multiple enabled and disabled models.
      */
-    private boolean aiEnabled;
-
-    /**
-     * Specifies the model identifier I should use for AI processing.
-     * This may be a provider-specific model string or version.
-     */
-    private String aiModel;
+    private AiConfig ai;
 
     /**
      * Defines the email address that receives generated reports.
@@ -46,43 +40,6 @@ public class AppConfig {
     /**
      * Encapsulates security-related configuration such as static user definitions.
      */
-    private Security security;
+    private ConfigSecurity security;
 
-    /**
-     * Represents the security configuration section. I use it to load static users,
-     * predefined roles, or basic authentication rules depending on environment.
-     */
-    @Data
-    public static class Security {
-
-        /**
-         * Contains the list of predefined user entries.
-         * If empty, no static users are loaded.
-         */
-        private List<UserEntry> users;
-    }
-
-    /**
-     * Represents a user definition from the configuration. I use this object to
-     * construct initial in-memory users or to seed the persistence layer.
-     */
-    @Data
-    public static class UserEntry {
-
-        /**
-         * The username of the configured user.
-         */
-        private String username;
-
-        /**
-         * The raw password for the configured user. I assume the caller will hash
-         * or secure this value before persistence or authentication use.
-         */
-        private String password;
-
-        /**
-         * The list of roles assigned to the user. I treat unspecified roles as empty.
-         */
-        private List<String> roles;
-    }
 }

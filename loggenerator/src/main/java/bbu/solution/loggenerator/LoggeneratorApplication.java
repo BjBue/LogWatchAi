@@ -23,7 +23,7 @@ import java.util.Random;
 public class LoggeneratorApplication {
 
 	/** Path to the shared log file where generated logs will be appended. */
-	private static final String LOG_FILE = "/shared-logs/test.log";
+	private static final String LOG_FILE = "../shared-logs/test.log";
 
 	/** Random generator used for producing pseudo-random log messages. */
 	private static final Random RANDOM = new Random();
@@ -47,7 +47,9 @@ public class LoggeneratorApplication {
 	@PostMapping("/write")
 	public String writeMessage(@RequestParam String message) throws IOException {
 		try (FileWriter fw = new FileWriter(LOG_FILE, true)) {
-			fw.write(message + "\n");
+			String log = message.replaceAll("^\"+|\"+$", "");
+			String timestamp = java.time.Instant.now().toString();
+			fw.write(timestamp + " " + log + "\n");
 		}
 		return "Message written";
 	}

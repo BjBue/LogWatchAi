@@ -1,6 +1,9 @@
 package bbu.solution.logwatchai.application.analysis;
 
+import bbu.solution.logwatchai.application.analysis.strategy.AiStrategy;
+import bbu.solution.logwatchai.application.analysis.strategy.AiStrategyFactory;
 import bbu.solution.logwatchai.domain.analysis.*;
+import bbu.solution.logwatchai.domain.appconfig.AppConfigService;
 import bbu.solution.logwatchai.domain.log.LogEntry;
 import bbu.solution.logwatchai.infrastructure.persistence.analysis.AIAnalysisRepository;
 import com.theokanning.openai.service.OpenAiService;
@@ -17,16 +20,21 @@ import org.springframework.stereotype.Service;
 
 import java.time.Duration;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 
+/**
+ * AIAnalysisService implementation that uses pluggable AiStrategy implementations.
+ * Initially this uses a single enabled strategy (the first one found). Later we can
+ * run multiple strategies in parallel and aggregate results.
+ */
 @Service
 public class AIAnalysisServiceImpl implements AIAnalysisService {
 
-    private final OpenAiService openAiService;
+    private final Map<String, AiStrategy> strategies;
     private final AIAnalysisRepository aiRepository;
-    private final String model;
 
     @Autowired
     private final ObjectMapper mapper;
@@ -34,21 +42,22 @@ public class AIAnalysisServiceImpl implements AIAnalysisService {
     /**
      * Constructs the AIAnalysisService with an OpenAI client, repository, and object mapper.
      *
-     * @param apiKey the API key for the OpenAI service
-     * @param model the model identifier for OpenAI requests
+     * aparam configService the configuration
      * @param aiRepository the repository used to persist and retrieve AI analyses
      * @param mapper the JSON object mapper
      */
+    @Autowired
     public AIAnalysisServiceImpl(
-            @Value("${ai.api-key}") String apiKey,
-            @Value("${ai.model:gpt-4o-mini}") String model,
+            AppConfigService configService,
             AIAnalysisRepository aiRepository,
             ObjectMapper mapper
     ) {
-        this.openAiService = new OpenAiService(apiKey, Duration.ofSeconds(60));
         this.aiRepository = aiRepository;
-        this.model = model;
         this.mapper = mapper;
+        // Build provider strategies from config
+        this.strategies = AiStrategyFactory.buildStrategies(configService.getConfig().getAi());
+
+        System.out.println("Initialized AI strategies: " + strategies.keySet());
     }
 
     /**
@@ -82,67 +91,31 @@ public class AIAnalysisServiceImpl implements AIAnalysisService {
      */
     @Override
     public AIAnalysis analyze(LogEntry logEntry) {
-        String prompt = buildPrompt(logEntry.getRawText());
 
-        ChatMessage system = new ChatMessage("system", """
-            You are an expert log analyst. 
-            Return only JSON with fields:
-            severity, category, summarizedIssue, likelyCause, recommendation, anomalyScore
-            """);
+        // choose a strategy: for now, pick the first available one
+        if (strategies.isEmpty()) {
+            // no AI configured -> return fallback minimal analysis
+            return fallbackAnalysis(logEntry.getId());
+        }
 
-        ChatMessage user = new ChatMessage("user", prompt);
+        AiStrategy strategy = strategies.values().iterator().next();
 
-        ChatCompletionRequest request = ChatCompletionRequest.builder()
-                .model(model)
-                .messages(List.of(system, user))
-                .temperature(0.0)
-                .maxTokens(700)
-                .n(1)
-                .build();
-
-        ChatCompletionResult result = callOpenAIWithRetry(request);
-
-        String text = extractTextFromResult(result);
-
-        AIAnalysis ai = parseAndBuildAIAnalysis(text, logEntry.getId());
-        return aiRepository.save(ai);
+        try {
+            String prompt = buildPrompt(logEntry.getRawText());
+            String rawText = strategy.analyze(prompt);
+            AIAnalysis ai = parseAndBuildAIAnalysis(rawText, logEntry.getId());
+            return aiRepository.save(ai);
+        } catch (Exception ex) {
+            // if strategy fails, log and return fallback
+            System.err.println("AI strategy '" + strategy.getName() + "' failed: " + ex.getMessage());
+            ex.printStackTrace();
+            AIAnalysis ai = fallbackAnalysis(logEntry.getId());
+            return aiRepository.save(ai);
+        }
     }
 
-    /**
-     * Calls OpenAI and retries on rate-limit errors with exponential backoff.
-     *
-     * @param request the OpenAI chat completion request
-     * @return the model result
-     */
-    private ChatCompletionResult callOpenAIWithRetry(ChatCompletionRequest request) {
-        int maxRetries = 5;
-        int attempt = 0;
-        long backoff = 2000; // Initial backoff in milliseconds
-
-        while (true) {
-            try {
-                return openAiService.createChatCompletion(request);
-            }
-            catch (com.theokanning.openai.OpenAiHttpException ex) {
-                String msg = ex.getMessage();
-                if (msg != null && msg.contains("Rate limit")) {
-                    attempt++;
-                    if (attempt > maxRetries) {
-                        throw ex;
-                    }
-
-                    try {
-                        Thread.sleep(backoff);
-                    } catch (InterruptedException ignored) {}
-
-                    backoff *= 2; // exponential backoff
-                    continue;
-                }
-
-                // If it's not a rate-limit issue, rethrow
-                throw ex;
-            }
-        }
+    private AIAnalysis fallbackAnalysis(UUID logEntryId) {
+        return new AIAnalysis(logEntryId, Severity.INFO, "unknown", "no summary", "no cause", "no recommendation", 0.0);
     }
 
     /**

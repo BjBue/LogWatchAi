@@ -2,6 +2,7 @@ package bbu.solution.logwatchai.infrastructure.config.appconfig;
 
 import bbu.solution.logwatchai.domain.appconfig.AppConfig;
 import bbu.solution.logwatchai.domain.appconfig.AppConfigService;
+import bbu.solution.logwatchai.domain.appconfig.UserEntry;
 import bbu.solution.logwatchai.domain.user.Role;
 import bbu.solution.logwatchai.domain.user.UserService;
 import jakarta.annotation.PostConstruct;
@@ -38,7 +39,7 @@ public class AppConfigUserInitializer {
             return;
         }
 
-        for (AppConfig.UserEntry entry : cfg.getSecurity().getUsers()) {
+        for (UserEntry entry : cfg.getSecurity().getUsers()) {
 
             if (!userService.existsByUsername(entry.getUsername())) {
 

@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("LogWatchAiWebApp")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+872fd253b8c058b7262d3642035e2696458d7267")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+70c7e0cdd17dd2f0a30840d0f395176ae329c9df")]
 [assembly: System.Reflection.AssemblyProductAttribute("LogWatchAiWebApp")]
 [assembly: System.Reflection.AssemblyTitleAttribute("LogWatchAiWebApp")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
