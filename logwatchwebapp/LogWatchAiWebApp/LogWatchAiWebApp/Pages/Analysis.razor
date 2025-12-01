@@ -1,0 +1,133 @@
+﻿@page "/analysis"
+@inject ApiClient Api
+@inject NavigationManager Nav
+
+<h2 class="mb-4">AI Analysis</h2>
+
+<div class="card mb-4">
+    <div class="card-body">
+        <div class="row g-2">
+
+            <div class="col-md-2">
+                <label class="form-label">From</label>
+                <input type="date" class="form-control"
+                       @bind="FromDate"
+                       @bind:format="yyyy-MM-dd" />
+            </div>
+
+            <div class="col-md-2">
+                <label class="form-label">To</label>
+                <input type="date" class="form-control"
+                       @bind="ToDate"
+                       @bind:format="yyyy-MM-dd" />
+            </div>
+
+            <div class="col-md-2">
+                <label class="form-label">Severity</label>
+                <select class="form-select" @bind="SelectedSeverity">
+                    <option value="">(any)</option>
+                    <option>INFO</option>
+                    <option>LOW</option>
+                    <option>MEDIUM</option>
+                    <option>HIGH</option>
+                    <option>CRITICAL</option>
+                    <option>UNKNOWN_CRITICAL</option>
+                </select>
+            </div>
+
+            <div class="col-md-3">
+                <label class="form-label">Text contains</label>
+                <input class="form-control" @bind="TextContains" placeholder="search in summary/cause" />
+            </div>
+
+            <div class="col-md-2 d-flex align-items-end">
+                <button class="btn btn-primary w-100" @onclick="Load">Apply</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+@if (IsLoading)
+{
+    <div class="text-center"><div class="spinner-border"></div></div>
+}
+else if (Analyses == null || Analyses.Count == 0)
+{
+    <div class="alert alert-info">No analysis found for the selected filters.</div>
+}
+else
+{
+    <table class="table table-striped table-hover">
+        <thead class="table-dark">
+            <tr>
+                <th>AnalyzedAt</th>
+                <th>Severity</th>
+                <th>Anomaly</th>
+                <th>Summary</th>
+                <th>Link</th>
+            </tr>
+        </thead>
+        <tbody>
+        @foreach (var a in Analyses)
+        {
+            <tr>
+                <td>@(a.AnalyzedAt?.ToLocalTime().ToString("yyyy-MM-dd HH:mm"))</td>
+                <td>@a.Severity</td>
+                <td>@(a.AnomalyScore?.ToString("F2") ?? "-")</td>
+                <td>@(a.SummarizedIssue?.Length > 120 ? a.SummarizedIssue.Substring(0,120) + "…" : a.SummarizedIssue)</td>
+                <td>
+                    @if (!string.IsNullOrEmpty(a.Id))
+                    {
+                        <button class="btn btn-sm btn-outline-primary" @onclick="() => Open(a.Id)">View</button>
+                    }
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+}
+
+@code {
+    List<AnalysisDto> Analyses = new();
+    bool IsLoading = false;
+
+    // Filters
+    string SelectedSeverity = "";
+    string TextContains = "";
+    DateTime? FromDate { get; set; }
+    DateTime? ToDate { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await Load();
+    }
+
+    async Task Load()
+    {
+        IsLoading = true;
+
+        // Convert to date range if provided
+        DateTimeOffset? from = FromDate.HasValue ? new DateTimeOffset(FromDate.Value.Date, TimeSpan.Zero) : null;
+        DateTimeOffset? to = ToDate.HasValue ? new DateTimeOffset(ToDate.Value.Date.AddDays(1).AddTicks(-1), TimeSpan.Zero) : null;
+
+        Analyses = (await Api.GetAnalysisAsync(
+            id: null,
+            logEntryId: null,
+            severity: string.IsNullOrWhiteSpace(SelectedSeverity) ? null : SelectedSeverity,
+            category: null,
+            summarizedIssue: string.IsNullOrWhiteSpace(TextContains) ? null : TextContains,
+            likelyCause: null,
+            recommendation: null,
+            anomalyScore: null,
+            analyzedAt: null
+        )) ?? new List<AnalysisDto>();
+
+        IsLoading = false;
+    }
+
+    void Open(string id)
+    {
+        Nav.NavigateTo($"/analysis/{id}");
+    }
+}

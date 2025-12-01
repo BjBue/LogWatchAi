@@ -1,4 +1,5 @@
 ﻿using System.Net.Http.Json;
+using System.Text;
 using LogWatchAiWebApp.Shared.Models;
 
 namespace LogWatchAiWebApp.Services
@@ -94,5 +95,76 @@ namespace LogWatchAiWebApp.Services
 
             return await _http.GetFromJsonAsync<DailyReportDto>(url);
         }
+        
+         /// <summary>
+        /// Builds a query string from key/value pairs (skips null/empty).
+        /// </summary>
+        private static string BuildQueryString(Dictionary<string, string?> parameters)
+        {
+            var sb = new StringBuilder();
+            bool first = true;
+            foreach (var kv in parameters)
+            {
+                if (string.IsNullOrEmpty(kv.Value)) continue;
+                var encodedKey = Uri.EscapeDataString(kv.Key);
+                var encodedValue = Uri.EscapeDataString(kv.Value);
+                sb.Append(first ? "?" : "&");
+                sb.Append(encodedKey).Append("=").Append(encodedValue);
+                first = false;
+            }
+            return sb.ToString();
+        }
+
+        /// <summary>
+        /// Retrieves analysis entries applying optional filters.
+        /// Uses the GET /api/analysis endpoint and appends query params when provided.
+        /// </summary>
+        public async Task<List<AnalysisDto>?> GetAnalysisAsync(
+            string? id = null,
+            string? logEntryId = null,
+            string? severity = null,
+            string? category = null,
+            string? summarizedIssue = null,
+            string? likelyCause = null,
+            string? recommendation = null,
+            double? anomalyScore = null,
+            DateTimeOffset? analyzedAt = null,
+            CancellationToken ct = default)
+        {
+            var parameters = new Dictionary<string, string?>
+            {
+                ["id"] = id,
+                ["logEntryId"] = logEntryId,
+                ["severity"] = severity,
+                ["category"] = category,
+                ["summarizedIssue"] = summarizedIssue,
+                ["likelyCause"] = likelyCause,
+                ["recommendation"] = recommendation,
+                ["anomalyScore"] = anomalyScore?.ToString(System.Globalization.CultureInfo.InvariantCulture),
+                ["analyzedAt"] = analyzedAt?.ToString("o")
+            };
+
+            var url = "api/analysis" + BuildQueryString(parameters);
+
+            try
+            {
+                return await _http.GetFromJsonAsync<List<AnalysisDto>>(url, cancellationToken: ct);
+            }
+            catch (HttpRequestException)
+            {
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Retrieves a single analysis by id via GET /api/analysis/{id}
+        /// </summary>
+        public async Task<AnalysisDto?> GetAnalysisByIdAsync(string id, CancellationToken ct = default)
+        {
+            var resp = await _http.GetAsync($"api/analysis/{Uri.EscapeDataString(id)}", ct);
+            if (!resp.IsSuccessStatusCode) return null;
+            return await resp.Content.ReadFromJsonAsync<AnalysisDto>(cancellationToken: ct);
+        }
+        
     }
 }

@@ -1,0 +1,55 @@
+﻿@page "/analysis/{Id}"
+@inject ApiClient Api
+@inject NavigationManager Nav
+
+<div class="container mt-4">
+    <div class="card shadow-sm">
+        <div class="card-header bg-dark text-white">
+            <h4 class="mb-0">AI Analysis</h4>
+        </div>
+
+        <div class="card-body">
+            @if (Entry == null)
+            {
+                <p>Loading…</p>
+            }
+            else
+            {
+                <div class="mb-2"><strong>ID:</strong> @Entry.Id</div>
+                <div class="mb-2"><strong>LogEntryId:</strong> @Entry.LogEntryId</div>
+                <div class="mb-2"><strong>AnalyzedAt:</strong> @Entry.AnalyzedAt</div>
+                <div class="mb-2"><strong>Severity:</strong> @Entry.Severity</div>
+                <div class="mb-2"><strong>Category:</strong> @Entry.Category</div>
+
+                <div class="mb-3">
+                    <label class="fw-bold">Summary</label>
+                    <pre class="p-3 bg-light border rounded">@Entry.SummarizedIssue</pre>
+                </div>
+
+                <div class="mb-3">
+                    <label class="fw-bold">Likely Cause</label>
+                    <pre class="p-3 bg-light border rounded">@Entry.LikelyCause</pre>
+                </div>
+
+                <div class="mb-3">
+                    <label class="fw-bold">Recommendation</label>
+                    <pre class="p-3 bg-light border rounded">@Entry.Recommendation</pre>
+                </div>
+
+                <button class="btn btn-secondary" @onclick="GoBack">← Back</button>
+            }
+        </div>
+    </div>
+</div>
+
+@code {
+    [Parameter] public string Id { get; set; }
+    AnalysisDto Entry;
+
+    protected override async Task OnInitializedAsync()
+    {
+        Entry = await Api.GetAnalysisByIdAsync(Id);
+    }
+
+    void GoBack() => Nav.NavigateTo("/analysis");
+}

@@ -32,6 +32,14 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWxlcnRzLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/bbuec/OneDrive/Desktop/IHK-Projekt/project/logwatchai/logwatchwebapp/LogWatchAiWebApp/LogWatchAiWebApp/Pages/Analysis.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQW5hbHlzaXMucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/bbuec/OneDrive/Desktop/IHK-Projekt/project/logwatchai/logwatchwebapp/LogWatchAiWebApp/LogWatchAiWebApp/Pages/AnalysisDetail.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQW5hbHlzaXNEZXRhaWwucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/bbuec/OneDrive/Desktop/IHK-Projekt/project/logwatchai/logwatchwebapp/LogWatchAiWebApp/LogWatchAiWebApp/Pages/DailyReport.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRGFpbHlSZXBvcnQucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
