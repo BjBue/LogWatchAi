@@ -20,7 +20,7 @@ $ docker-compose build
 $ docker-compose up -d
 
 
-Projket mit loggenerattor
+Projekt mit loggenerattor
 $ cd logwatchai
 $ .\mvnw.cmd clean package
 $ cd loggenerator
