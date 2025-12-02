@@ -28,3 +28,9 @@ $ .\mvnw.cmd clean package
 $ cd ..\logwatchai
 $ docker-compose up --build
 
+## POSTMAN
+urls um mit postman und dem log-generator zu interagieren:
+
+http://localhost:9090/write?message="ERROR AuthService Fatal system failure: database not reachable"
+
+http://localhost:9090/generate?count=3
