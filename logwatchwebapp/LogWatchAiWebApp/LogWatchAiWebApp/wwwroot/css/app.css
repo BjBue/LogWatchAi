@@ -86,3 +86,49 @@ code {
 .form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
     text-align: start;
 }
+
+.github-container {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+}
+
+.github-card {
+    background: #fff;
+    border: 1px solid #d0d7de;
+    border-radius: 6px;
+    padding: 20px;
+}
+
+.github-stat {
+    border: 1px solid #e1e4e8;
+    border-radius: 6px;
+    padding: 12px;
+    text-align: center;
+}
+
+.github-stat .stat-label {
+    font-size: 12px;
+    color: #57606a;
+}
+
+.github-stat .stat-value {
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.github-log-entry {
+    padding: 10px;
+    border: 1px solid #e1e4e8;
+    border-radius: 6px;
+    background: #f6f8fa;
+}
+
+.github-log-time {
+    font-size: 12px;
+    color: #57606a;
+}
+
+.github-log-text {
+    font-family: monospace;
+    white-space: pre-wrap;
+    margin-top: 4px;
+}

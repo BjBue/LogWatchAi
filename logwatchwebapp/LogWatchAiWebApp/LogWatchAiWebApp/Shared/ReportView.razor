@@ -1,0 +1,111 @@
+﻿@using System.Globalization
+@code {
+    [Parameter] public DailyReportDto Report { get; set; }
+}
+
+<div class="github-container">
+
+    <!-- Summary -->
+    <div class="github-card mb-4">
+        <h4 class="mb-3">Summary</h4>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="github-stat">
+                    <div class="stat-label">Logs</div>
+                    <div class="stat-value">@Report.summary.totalLogs</div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="github-stat">
+                    <div class="stat-label">Alerts</div>
+                    <div class="stat-value">@Report.summary.totalAlerts</div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="github-stat">
+                    <div class="stat-label">Analysis</div>
+                    <div class="stat-value">@Report.summary.totalAnalysis</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Alerts -->
+    <div class="github-card mb-4">
+        <h4 class="mb-3">Alerts</h4>
+
+        @if (Report.alerts?.Count == 0)
+        {
+            <div class="alert alert-secondary">No alerts.</div>
+        }
+        else
+        {
+            <table class="table table-hover align-middle">
+                <thead>
+                    <tr>
+                        <th>Time</th>
+                        <th>Severity</th>
+                        <th>Message</th>
+                    </tr>
+                </thead>
+                <tbody>
+                @foreach (var a in Report.alerts)
+                {
+                    <tr>
+                        <td>@a.createdAt.ToLocalTime()</td>
+                        <td>
+                            <span class="@GetSeverityLabel(a.severity)">
+                                @a.severity
+                            </span>
+                        </td>
+                        <td>@a.message</td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        }
+    </div>
+
+    <!-- Logs -->
+    <div class="github-card mb-4">
+        <h4 class="mb-3">Logs</h4>
+
+        @foreach (var log in Report.logs)
+        {
+            <div class="github-log-entry mb-2">
+                <div class="github-log-time">@log.ingestionTime.ToLocalTime()</div>
+                <div class="github-log-text">@log.rawText</div>
+            </div>
+        }
+    </div>
+
+    <!-- Top Issues -->
+    <div class="github-card">
+        <h4 class="mb-3">Top Issues</h4>
+        <ul class="list-group">
+        @foreach (var issue in Report.topIssues)
+        {
+            <li class="list-group-item">
+                <span class="badge bg-secondary me-2">@issue.count×</span>
+                @issue.example
+            </li>
+        }
+        </ul>
+    </div>
+
+</div>
+
+@code {
+    string GetSeverityLabel(string severity)
+    {
+        return severity switch
+        {
+            "HIGH" => "badge bg-danger",
+            "MEDIUM" => "badge bg-warning text-dark",
+            "INFO" => "badge bg-info text-dark",
+            _ => "badge bg-secondary"
+        };
+    }
+}

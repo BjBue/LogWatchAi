@@ -1,26 +1,16 @@
 ﻿using System.Text.Json.Serialization;
+using LogWatchAiWebApp.Shared.Models;
 
-namespace LogWatchAiWebApp.Shared.Models
+public class DailyReportDto
 {
-    /// <summary>
-    /// Represents a flexible daily report structure returned by the backend.
-    /// This class uses <see cref="JsonExtensionDataAttribute"/> to capture
-    /// any arbitrary JSON fields provided by the server.
-    /// </summary>
-    public class DailyReportDto
-    {
-        /// <summary>
-        /// Holds all additional JSON properties returned by the backend.
-        /// This allows dynamic report fields such as:
-        /// <example>
-        /// {
-        ///   "errors": 12,
-        ///   "warnings": 5,
-        ///   "byService": { "svc1": 3 }
-        /// }
-        /// </example>
-        /// </summary>
-        [JsonExtensionData]
-        public Dictionary<string, object?>? Data { get; set; }
-    }
+    public Period period { get; set; }
+    public Summary summary { get; set; }
+    public List<LogEntry> logs { get; set; }
+    public List<Alert> alerts { get; set; }
+    public List<AnalysisEntry> analysis { get; set; }
+    public List<TopIssue> topIssues { get; set; }
+
+    // Falls zusätzliche Felder kommen sollten:
+    [JsonExtensionData]
+    public Dictionary<string, object?>? Extra { get; set; }
 }
