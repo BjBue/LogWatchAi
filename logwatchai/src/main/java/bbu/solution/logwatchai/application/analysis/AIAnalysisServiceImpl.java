@@ -6,19 +6,16 @@ import bbu.solution.logwatchai.domain.analysis.*;
 import bbu.solution.logwatchai.domain.appconfig.AppConfigService;
 import bbu.solution.logwatchai.domain.log.LogEntry;
 import bbu.solution.logwatchai.infrastructure.persistence.analysis.AIAnalysisRepository;
-import com.theokanning.openai.service.OpenAiService;
+import bbu.solution.logwatchai.infrastructure.persistence.analysis.AIAnalysisSpecifications;
 
 import com.theokanning.openai.completion.chat.*;
-import com.theokanning.openai.completion.chat.ChatCompletionRequest;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
-import java.time.Duration;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -170,7 +167,7 @@ public class AIAnalysisServiceImpl implements AIAnalysisService {
             String recommendation = node.path("recommendation").asText(null);
             double score = node.path("anomalyScore").asDouble(0.0);
 
-            AIAnalysis ai = new AIAnalysis(logEntryId,
+            return new AIAnalysis(logEntryId,
                     severity != null ? SeverityUtil.valueOfOrNull(severity) : Severity.INFO,
                     category,
                     summarized,
@@ -178,10 +175,8 @@ public class AIAnalysisServiceImpl implements AIAnalysisService {
                     recommendation,
                     score
             );
-
-            return ai;
         } catch (Exception e) {
-            AIAnalysis ai = new AIAnalysis(
+            return new AIAnalysis(
                     logEntryId,
                     Severity.INFO,
                     "unknown",
@@ -190,7 +185,6 @@ public class AIAnalysisServiceImpl implements AIAnalysisService {
                     "no recommendation",
                     0.0
             );
-            return ai;
         }
     }
 
@@ -203,7 +197,7 @@ public class AIAnalysisServiceImpl implements AIAnalysisService {
      */
     @Override
     public List<AIAnalysis> getAnalysis(AIAnalysisFilter filter) {
-        return aiRepository.findAll();
+        return aiRepository.findAll(AIAnalysisSpecifications.applyFilter(filter));
     }
 
     /**
@@ -216,6 +210,6 @@ public class AIAnalysisServiceImpl implements AIAnalysisService {
      */
     @Override
     public Page<AIAnalysis> getAIAnalysisPageable(AIAnalysisFilter filter, Pageable pageable) {
-        return aiRepository.findAll(pageable);
+        return aiRepository.findAll(AIAnalysisSpecifications.applyFilter(filter), pageable);
     }
 }
