@@ -88,27 +88,27 @@ public class LogWatcherServiceImpl implements LogWatcherService {
     public void startWatching() {
         System.out.println("Starting LogWatcher...");
 
-        for (String path : config.getWatchPaths()) {
-            LogSource src = logSourceService.findByPath(path)
-                    .orElseGet(() -> logSourceService.createSource(path));
-            fileSourceMap.put(path, src.getId());
+        for (String path : config.getWatchPaths()) { // Loop over all configured watch paths (each path is a String)
+            LogSource src = logSourceService.findByPath(path)   // Try to find an existing LogSource for this path
+                    .orElseGet(() -> logSourceService.createSource(path)); // If none exists, create a new LogSource for this path
+            fileSourceMap.put(path, src.getId()); // Store a mapping from the path to the LogSource ID in fileSourceMap
         }
 
-        Map<Path, List<Path>> grouped = groupByDirectory(config.getWatchPaths());
+        Map<Path, List<Path>> grouped = groupByDirectory(config.getWatchPaths()); // Group all watch paths by their parent directory; result: directory -> list of files
 
-        grouped.forEach((dir, files) -> {
-            executor.submit(() -> {
+        grouped.forEach((dir, files) -> { // For each directory and its associated list of files
+            executor.submit(() -> { // Submit a new asynchronous task to the executor for this directory
                 try {
-                    DirectoryWatcher watcher = new DirectoryWatcher(dir, self::handleEvent);
+                    DirectoryWatcher watcher = new DirectoryWatcher(dir, self::handleEvent); // Create a DirectoryWatcher for this directory, using handleEvent as callback
 
-                    for (Path file : files) {
-                        watcher.addFile(file);
-                        System.out.println("Watching file: " + file);
+                    for (Path file : files) { // Loop over all files that belong to this directory
+                        watcher.addFile(file); // Tell the watcher to observe this specific file
+                        System.out.println("Watching file: " + file); // Log to the console which file is being watched
                     }
 
-                    watcher.run();
-                } catch (Exception e) {
-                    System.err.println("Failed to watch dir " + dir + ": " + e.getMessage());
+                    watcher.run(); // Start the watcher; this will block and listen for file system events
+                } catch (Exception e) { // Catch any exception that occurs in this task
+                    System.err.println("Failed to watch dir " + dir + ": " + e.getMessage()); // Log an error to stderr if the directory cannot be watched
                 }
             });
         });
