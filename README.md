@@ -1,36 +1,56 @@
 # LogWatchAi
 
-Ein lokales Java-Tool überwacht Logdateien, analysiert
-neue Einträge in Echtzeit mithilfe von KI und leitet
-automatisch passende Maßnahmen oder Warnungen
+**LogWatchAi** ist ein lokales Java-Tool zur Überwachung von Logdateien.  
+Es analysiert neue Einträge in Echtzeit mithilfe von KI und dokumentiert oder meldet automatisch passende Maßnahmen oder Warnungen.
 
+---
 
-## wichtige urls
-http://localhost:9090/health <- log-generator
-http://localhost:8080/health <- logwatch health
-http://localhost:8080/swagger-ui/index.html#/ <- logwatch-swagger
-http://localhost:8025/ <- mailhog
-http://localhost:8081 <- logwatch webapp
+## Wichtige URLs
 
-Projekt neu erstellen:
-ind der konsole im verzecihniss mit dem pom.xml:
-$ .\mvnw.cmd clean package
-$ docker-compose down   //evtl. mit -v (löscht volumes) nur wenn datenbank weggeworfen werden kann!!!
-$ docker-compose build
-$ docker-compose up -d
+- Log-Generator Healthcheck: `http://localhost:9090/health`
+- LogWatch-AI Healthcheck: `http://localhost:8080/health`
+- LogWatch-AI Swagger: `http://localhost:8080/swagger-ui/index.html#/`
+- Mailhog (Mail Testing): `http://localhost:8025/`
+- LogWatch Webapp: `http://localhost:8081`  
+(Zugangsdaten in der ./config/logwatchai.yaml, oder admin:secret123)
 
+---
 
-Projekt mit loggenerattor
-$ cd logwatchai
-$ .\mvnw.cmd clean package
-$ cd loggenerator
-$ .\mvnw.cmd clean package
-$ cd ..\logwatchai
-$ docker-compose up --build
+## Projekt neu erstellen
 
-## POSTMAN
-urls um mit postman und dem log-generator zu interagieren:
+Führe die folgenden Schritte in der Konsole in beiden Verzeichnissen mit der `pom.xml` (`logwatchai` und `loggenerator`) aus:
 
+```bash
+# Projekt bauen
+.\mvnw.cmd clean package
+
+# Docker-Container herunterfahren (ggf. mit -v, um auch Volumes zu löschen)
+docker-compose down
+
+# Docker-Container bauen
+docker-compose build
+
+# Docker-Container starten
+docker-compose up -d
+```
+> Hinweis: Das Löschen von Volumes (-v) entfernt alle gespeicherten Datenbanken.
+
+## POSTMAN / API Interaktionen
+
+Du kannst den Log-Generator verwenden, um Testmeldungen zu erzeugen:
+
+- **Eine Logmeldung mit E-Mail generieren:**
+
+```text
 http://localhost:9090/write?message="ERROR AuthService Fatal system failure: database not reachable"
-
+```
+- **Mehrere pseudozufällige Meldungen generieren (maximal 5 empfohlen):**
+```text
 http://localhost:9090/generate?count=3
+```
+> Hinweis: Mehr als 5 Meldungen können die Wartezeit für eine Analyse verlängern,
+da nur ein kleines LLM-Modell mit begrenzten Abfragen verwendet wird.
+
+
+
+
