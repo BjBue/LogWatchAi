@@ -1,7 +1,7 @@
 {
   "mainAssemblyName": "LogWatchAiWebApp",
   "resources": {
-    "hash": "sha256-rjEIcURT/OA0nQvQEW+YJ4wI5NgviSdhwlSfAQ11rd0=",
+    "hash": "sha256-zVcwISbdiCDbWo/LDEF3QNhj9YTyboIt05yCV7zRQLo=",
     "fingerprinting": {
       "Microsoft.AspNetCore.Authorization.tnyc7xpluy.wasm": "Microsoft.AspNetCore.Authorization.wasm",
       "Microsoft.AspNetCore.Components.t32damlu4o.wasm": "Microsoft.AspNetCore.Components.wasm",
@@ -201,8 +201,8 @@
       "icudt_CJK.tjcz0u77k5.dat": "icudt_CJK.dat",
       "icudt_EFIGS.tptq2av103.dat": "icudt_EFIGS.dat",
       "icudt_no_CJK.lfu7j35m59.dat": "icudt_no_CJK.dat",
-      "LogWatchAiWebApp.xj1fm5edk5.wasm": "LogWatchAiWebApp.wasm",
-      "LogWatchAiWebApp.9sxraabe91.pdb": "LogWatchAiWebApp.pdb"
+      "LogWatchAiWebApp.t97htvyis9.wasm": "LogWatchAiWebApp.wasm",
+      "LogWatchAiWebApp.5sh2k5cmif.pdb": "LogWatchAiWebApp.pdb"
     },
     "jsModuleNative": {
       "dotnet.native.50iqa8w3ys.js": "sha256-pQdXuxfVeqYHOwd5HUM2ERd7OnXirj9JTF37b6OdTAc="
@@ -412,10 +412,10 @@
       "WindowsBase.361km0836k.wasm": "sha256-FacUCEIJYTnbOWgX/R9QP2QnurqRZwRIkDAH0N9z69s=",
       "mscorlib.qiu3j3msqk.wasm": "sha256-QvztpxTOEw4aMIl7zP3QtsPLNv/IWaK5wq22J4ReGrA=",
       "netstandard.lp03u0xxi4.wasm": "sha256-WVQsxULiAiEbyXLKolS7txnWVT82SsvsuMe4jJ+SqqI=",
-      "LogWatchAiWebApp.xj1fm5edk5.wasm": "sha256-YyDYBGwfFq7UUKfJeF3KRyHgQStNoG8JRb9s2LWPjU0="
+      "LogWatchAiWebApp.t97htvyis9.wasm": "sha256-EfjNyhqIo8xnXIOaU1ktPROXhODDWSEduPFSFHoi5qw="
     },
     "pdb": {
-      "LogWatchAiWebApp.9sxraabe91.pdb": "sha256-Nzp3mjv4f/7fzuZqbdHK6pZiVwx/KF/qMuwPVbj9Rg8="
+      "LogWatchAiWebApp.5sh2k5cmif.pdb": "sha256-hc6DegYjUfAa28ReVabOe16wynp5mNUbTOmotoix9Lg="
     }
   },
   "cacheBootResources": true,
