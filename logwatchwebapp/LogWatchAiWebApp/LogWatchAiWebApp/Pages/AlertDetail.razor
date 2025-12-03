@@ -1,0 +1,60 @@
+﻿@page "/alert/{Id}"
+@inject ApiClient Api
+@inject NavigationManager Nav
+
+<div class="container mt-4">
+    <div class="card shadow-sm">
+        <div class="card-header bg-dark text-white">
+            <h4 class="mb-0">Alert Details</h4>
+        </div>
+
+        <div class="card-body">
+            @if (AlertEntry == null)
+            {
+                <p>Loading…</p>
+            }
+            else
+            {
+                <div class="mb-2"><strong>ID:</strong> @AlertEntry.Id</div>
+                <div class="mb-2"><strong>Created At:</strong> @(
+                                                               AlertEntry.CreatedAt.HasValue
+                                                                   ? AlertEntry.CreatedAt.Value.LocalDateTime.ToString("yyyy-MM-dd HH:mm:ss")
+                                                                   : "-"
+                                                               )</div>
+                <div class="mb-2"><strong>Severity:</strong> @AlertEntry.Severity</div>
+                <div class="mb-2"><strong>Message:</strong></div>
+                <pre class="p-3 bg-light border rounded">@AlertEntry.Message</pre>
+                <div class="mb-2"><strong>Source ID:</strong> @AlertEntry.SourceId</div>
+                <div class="mb-2"><strong>Log Entry ID:</strong> @AlertEntry.LogEntryId</div>
+
+                <button class="btn btn-secondary mt-3" @onclick="GoBack">← Back</button>
+            }
+        </div>
+    </div>
+</div>
+
+@code {
+    /// <summary>
+    /// The alert ID provided via the route parameter.
+    /// </summary>
+    [Parameter] public string Id { get; set; }
+
+    /// <summary>
+    /// The loaded alert entry from the API.
+    /// </summary>
+    AlertDto AlertEntry;
+
+    /// <summary>
+    /// Loads the alert details when the component initializes.
+    /// </summary>
+    protected override async Task OnInitializedAsync()
+    {
+        // Assuming your ApiClient has a GetAlertByIdAsync method.
+        AlertEntry = await Api.GetAlertByIdAsync(Id);
+    }
+
+    /// <summary>
+    /// Navigates back to the alert list page.
+    /// </summary>
+    void GoBack() => Nav.NavigateTo("/alerts");
+}

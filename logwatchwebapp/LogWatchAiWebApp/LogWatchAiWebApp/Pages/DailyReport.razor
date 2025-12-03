@@ -42,10 +42,28 @@ else
 }
 
 @code {
+    /// <summary>
+    /// The date selected by the user to fetch the daily report for.
+    /// Defaults to today's date.
+    /// </summary>
     DateTime SelectedDateInput = DateTime.Today;
+
+    /// <summary>
+    /// The daily report loaded from the backend API.
+    /// Null if no report has been loaded yet.
+    /// </summary>
     DailyReportDto? Report;
+
+    /// <summary>
+    /// Indicates whether the report is currently being loaded.
+    /// Controls display of the loading spinner.
+    /// </summary>
     bool IsLoading = false;
 
+    /// <summary>
+    /// Loads the daily report for the currently selected date.
+    /// Calls the ApiClient's GetDailyReportAsync method and updates the Report field.
+    /// </summary>
     async Task LoadReport()
     {
         IsLoading = true;

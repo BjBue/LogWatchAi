@@ -811,7 +811,6 @@ C:\Users\bbuec\OneDrive\Desktop\IHK-Projekt\project\logwatchai\logwatchwebapp\Lo
 C:\Users\bbuec\OneDrive\Desktop\IHK-Projekt\project\logwatchai\logwatchwebapp\LogWatchAiWebApp\LogWatchAiWebApp\obj\Debug\net9.0\scopedcss\bundle\LogWatchAiWebApp.styles.css
 C:\Users\bbuec\OneDrive\Desktop\IHK-Projekt\project\logwatchai\logwatchwebapp\LogWatchAiWebApp\LogWatchAiWebApp\obj\Debug\net9.0\blazor.build.boot-extension.json
 C:\Users\bbuec\OneDrive\Desktop\IHK-Projekt\project\logwatchai\logwatchwebapp\LogWatchAiWebApp\LogWatchAiWebApp\obj\Debug\net9.0\blazor.boot.json
-C:\Users\bbuec\OneDrive\Desktop\IHK-Projekt\project\logwatchai\logwatchwebapp\LogWatchAiWebApp\LogWatchAiWebApp\obj\Debug\net9.0\compressed\6ajjp83vk7-81sotqnb8s.gz
 C:\Users\bbuec\OneDrive\Desktop\IHK-Projekt\project\logwatchai\logwatchwebapp\LogWatchAiWebApp\LogWatchAiWebApp\obj\Debug\net9.0\compressed\jr8g72pnic-nuqqvsiq2f.gz
 C:\Users\bbuec\OneDrive\Desktop\IHK-Projekt\project\logwatchai\logwatchwebapp\LogWatchAiWebApp\LogWatchAiWebApp\obj\Debug\net9.0\compressed\7c190ohj1o-c35cdgt0ua.gz
 C:\Users\bbuec\OneDrive\Desktop\IHK-Projekt\project\logwatchai\logwatchwebapp\LogWatchAiWebApp\LogWatchAiWebApp\obj\Debug\net9.0\compressed\97esdrsu5d-md9yvkcqlf.gz
@@ -1024,10 +1023,11 @@ C:\Users\bbuec\OneDrive\Desktop\IHK-Projekt\project\logwatchai\logwatchwebapp\Lo
 C:\Users\bbuec\OneDrive\Desktop\IHK-Projekt\project\logwatchai\logwatchwebapp\LogWatchAiWebApp\LogWatchAiWebApp\obj\Debug\net9.0\refint\LogWatchAiWebApp.dll
 C:\Users\bbuec\OneDrive\Desktop\IHK-Projekt\project\logwatchai\logwatchwebapp\LogWatchAiWebApp\LogWatchAiWebApp\obj\Debug\net9.0\LogWatchAiWebApp.pdb
 C:\Users\bbuec\OneDrive\Desktop\IHK-Projekt\project\logwatchai\logwatchwebapp\LogWatchAiWebApp\LogWatchAiWebApp\obj\Debug\net9.0\ref\LogWatchAiWebApp.dll
-C:\Users\bbuec\OneDrive\Desktop\IHK-Projekt\project\logwatchai\logwatchwebapp\LogWatchAiWebApp\LogWatchAiWebApp\bin\Debug\net9.0\wwwroot\_framework\LogWatchAiWebApp.lbqgywvxkd.wasm
-C:\Users\bbuec\OneDrive\Desktop\IHK-Projekt\project\logwatchai\logwatchwebapp\LogWatchAiWebApp\LogWatchAiWebApp\bin\Debug\net9.0\wwwroot\_framework\LogWatchAiWebApp.c4auyes547.pdb
-C:\Users\bbuec\OneDrive\Desktop\IHK-Projekt\project\logwatchai\logwatchwebapp\LogWatchAiWebApp\LogWatchAiWebApp\bin\Debug\net9.0\wwwroot\_framework\LogWatchAiWebApp.lbqgywvxkd.wasm.gz
-C:\Users\bbuec\OneDrive\Desktop\IHK-Projekt\project\logwatchai\logwatchwebapp\LogWatchAiWebApp\LogWatchAiWebApp\bin\Debug\net9.0\wwwroot\_framework\LogWatchAiWebApp.c4auyes547.pdb.gz
-C:\Users\bbuec\OneDrive\Desktop\IHK-Projekt\project\logwatchai\logwatchwebapp\LogWatchAiWebApp\LogWatchAiWebApp\obj\Debug\net9.0\compressed\b2moe7jmik-lbqgywvxkd.gz
-C:\Users\bbuec\OneDrive\Desktop\IHK-Projekt\project\logwatchai\logwatchwebapp\LogWatchAiWebApp\LogWatchAiWebApp\obj\Debug\net9.0\compressed\mr5i7okh1c-c4auyes547.gz
-C:\Users\bbuec\OneDrive\Desktop\IHK-Projekt\project\logwatchai\logwatchwebapp\LogWatchAiWebApp\LogWatchAiWebApp\obj\Debug\net9.0\compressed\bh9wfyy426-0l0iitv2vt.gz
+C:\Users\bbuec\OneDrive\Desktop\IHK-Projekt\project\logwatchai\logwatchwebapp\LogWatchAiWebApp\LogWatchAiWebApp\obj\Debug\net9.0\compressed\6ajjp83vk7-ae0jtcwsxx.gz
+C:\Users\bbuec\OneDrive\Desktop\IHK-Projekt\project\logwatchai\logwatchwebapp\LogWatchAiWebApp\LogWatchAiWebApp\bin\Debug\net9.0\wwwroot\_framework\LogWatchAiWebApp.xj1fm5edk5.wasm
+C:\Users\bbuec\OneDrive\Desktop\IHK-Projekt\project\logwatchai\logwatchwebapp\LogWatchAiWebApp\LogWatchAiWebApp\bin\Debug\net9.0\wwwroot\_framework\LogWatchAiWebApp.9sxraabe91.pdb
+C:\Users\bbuec\OneDrive\Desktop\IHK-Projekt\project\logwatchai\logwatchwebapp\LogWatchAiWebApp\LogWatchAiWebApp\bin\Debug\net9.0\wwwroot\_framework\LogWatchAiWebApp.xj1fm5edk5.wasm.gz
+C:\Users\bbuec\OneDrive\Desktop\IHK-Projekt\project\logwatchai\logwatchwebapp\LogWatchAiWebApp\LogWatchAiWebApp\bin\Debug\net9.0\wwwroot\_framework\LogWatchAiWebApp.9sxraabe91.pdb.gz
+C:\Users\bbuec\OneDrive\Desktop\IHK-Projekt\project\logwatchai\logwatchwebapp\LogWatchAiWebApp\LogWatchAiWebApp\obj\Debug\net9.0\compressed\b2moe7jmik-xj1fm5edk5.gz
+C:\Users\bbuec\OneDrive\Desktop\IHK-Projekt\project\logwatchai\logwatchwebapp\LogWatchAiWebApp\LogWatchAiWebApp\obj\Debug\net9.0\compressed\mr5i7okh1c-9sxraabe91.gz
+C:\Users\bbuec\OneDrive\Desktop\IHK-Projekt\project\logwatchai\logwatchwebapp\LogWatchAiWebApp\LogWatchAiWebApp\obj\Debug\net9.0\compressed\bh9wfyy426-seqfmwhd4l.gz

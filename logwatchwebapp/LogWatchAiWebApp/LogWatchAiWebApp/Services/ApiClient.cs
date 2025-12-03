@@ -82,6 +82,20 @@ namespace LogWatchAiWebApp.Services
         {
             return await _http.GetFromJsonAsync<List<AlertDto>>("api/alerts");
         }
+        /// <summary>
+        /// Retrieves a single alert by its unique identifier from the backend API.
+        /// </summary>
+        /// <param name="id">The unique identifier of the alert to retrieve.</param>
+        /// <returns>
+        /// An <see cref="AlertDto"/> representing the alert if found; otherwise, <c>null</c> 
+        /// if the request fails or the alert does not exist.
+        /// </returns>
+        public async Task<AlertDto?> GetAlertByIdAsync(string id)
+        {
+            var resp = await _http.GetAsync($"api/alerts/{Uri.EscapeDataString(id)}");
+            if (!resp.IsSuccessStatusCode) return null;
+            return await resp.Content.ReadFromJsonAsync<AlertDto>();
+        }
 
         /// <summary>
         /// Retrieves the daily report for the specified date.
@@ -91,8 +105,6 @@ namespace LogWatchAiWebApp.Services
         public async Task<DailyReportDto?> GetDailyReportAsync(string date)
         {
             var url = $"api/report/daily?date={date}&format=json";
-            Console.WriteLine($"[ApiClient] Request URL: {_http.BaseAddress}{url}");
-
             return await _http.GetFromJsonAsync<DailyReportDto>(url);
         }
         
