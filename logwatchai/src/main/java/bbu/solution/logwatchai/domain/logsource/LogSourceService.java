@@ -21,6 +21,7 @@ public interface LogSourceService {
     LogSource create(LogSource source);
 
     /**
+     * TODO:
      * Updates an existing {@link LogSource}.
      *
      * @param source the updated source entity
@@ -43,6 +44,7 @@ public interface LogSourceService {
     List<LogSource> getActiveSources();
 
     /**
+     * TODO:
      * Activates a specific log source by ID.
      *
      * @param id the identifier of the source to activate
@@ -50,6 +52,7 @@ public interface LogSourceService {
     void activate(UUID id);
 
     /**
+     * TODO:
      * Deactivates a specific log source by ID.
      *
      * @param id the identifier of the source to deactivate
