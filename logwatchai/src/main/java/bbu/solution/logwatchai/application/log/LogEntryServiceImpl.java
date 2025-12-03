@@ -188,33 +188,6 @@ public class LogEntryServiceImpl implements LogEntryService {
     }
 
     /**
-     * Generates a daily report for the given date.
-     *
-     * Note: This method currently returns null and needs implementation.
-     *
-     * @param date the date for which to generate the report
-     * @return the generated DailyReport or null if unimplemented
-     */
-    @Override
-    public DailyReport generateReport(LocalDate date) {
-        return null;
-    }
-
-    /**
-     * Generates a report for the given date range.
-     *
-     * Note: This method currently returns null and needs implementation.
-     *
-     * @param from the start date (inclusive)
-     * @param to   the end date (inclusive)
-     * @return the generated DailyReport or null if unimplemented
-     */
-    @Override
-    public DailyReport generateReport(LocalDate from, LocalDate to) {
-        return null;
-    }
-
-    /**
      * Retrieves logs that match the provided filter.
      *
      * @param filter filtering criteria for logs

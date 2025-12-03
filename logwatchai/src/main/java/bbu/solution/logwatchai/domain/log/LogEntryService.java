@@ -2,9 +2,7 @@ package bbu.solution.logwatchai.domain.log;
 
 import bbu.solution.logwatchai.domain.logsource.LogSource;
 import org.springframework.data.domain.Page;
-import bbu.solution.logwatchai.domain.report.DailyReport;
 import org.springframework.data.domain.Pageable;
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -36,6 +34,7 @@ public interface LogEntryService {
     boolean doesLogEntryExistsBySourceIdRawText(UUID sourceId, String rawText);
 
     /**
+     * TODO:
      * Ingests log entries for the provided log source. Typically used
      * when reading logs from a directory or external system.
      *
@@ -61,12 +60,14 @@ public interface LogEntryService {
     void analyzeAsync(LogEntry logEntry);
 
     /**
+     * TODO:
      * Processes all pending, unanalyzed log entries and triggers
      * AI-based analysis for each.
      */
     void analyzePendingLogs();
 
     /**
+     * TODO:
      * Marks the log entry with the given ID as analyzed.
      *
      * @param id the UUID of the log entry
@@ -81,23 +82,6 @@ public interface LogEntryService {
      * @param filePath the updated file path
      */
     void ingestFileUpdate(LogSource source, Path filePath);
-
-    /**
-     * Generates a daily report for a specific date.
-     *
-     * @param date the date for which to generate the report
-     * @return the generated DailyReport
-     */
-    DailyReport generateReport(LocalDate date);
-
-    /**
-     * Generates a report over a date range.
-     *
-     * @param from start date (inclusive)
-     * @param to end date (inclusive)
-     * @return the generated DailyReport
-     */
-    DailyReport generateReport(LocalDate from, LocalDate to);
 
     /**
      * Retrieves log entries by applying the given filter criteria.
