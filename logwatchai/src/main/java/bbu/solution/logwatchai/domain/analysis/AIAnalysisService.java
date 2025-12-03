@@ -7,7 +7,6 @@ import org.springframework.data.domain.Pageable;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
-import java.util.concurrent.CompletableFuture;
 
 /**
  * Service interface for managing and executing AI-based log analysis.
@@ -39,18 +38,6 @@ public interface AIAnalysisService {
      * @return the resulting {@link AIAnalysis} entity
      */
     AIAnalysis analyze(LogEntry entry);
-
-    /**
-     * Performs an asynchronous AI analysis for the given {@link LogEntry}.
-     * <p>
-     * I use this when I want to trigger analysis execution without blocking
-     * the current thread. The result is returned as a {@link CompletableFuture}.
-     * </p>
-     *
-     * @param entry the log entry I want to analyze asynchronously
-     * @return a future containing the resulting {@link AIAnalysis}
-     */
-    CompletableFuture<AIAnalysis> analyzeAsync(LogEntry entry);
 
     /**
      * Retrieves all stored AI analyses matching the provided filter criteria.

@@ -8,19 +8,16 @@ import bbu.solution.logwatchai.domain.log.LogEntry;
 import bbu.solution.logwatchai.infrastructure.persistence.analysis.AIAnalysisRepository;
 import bbu.solution.logwatchai.infrastructure.persistence.analysis.AIAnalysisSpecifications;
 
-import com.theokanning.openai.completion.chat.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
-import java.util.concurrent.CompletableFuture;
 
 /**
  * AIAnalysisService implementation that uses pluggable AiStrategy implementations.
@@ -51,33 +48,9 @@ public class AIAnalysisServiceImpl implements AIAnalysisService {
     ) {
         this.aiRepository = aiRepository;
         this.mapper = mapper;
-        // Build provider strategies from config
         this.strategies = AiStrategyFactory.buildStrategies(configService.getConfig().getAi());
 
         System.out.println("Initialized AI strategies: " + strategies.keySet());
-    }
-
-    /**
-     * Performs an asynchronous log analysis using the OpenAI model.
-     *
-     * @param logEntry the log entry to analyze
-     * @return a CompletableFuture containing the AIAnalysis result
-     */
-    @Async("aiExecutor")
-    public CompletableFuture<AIAnalysis> analyzeAsync(LogEntry logEntry) {
-        AIAnalysis result = analyze(logEntry);
-        return CompletableFuture.completedFuture(result);
-    }
-
-    /**
-     * Retrieves an AIAnalysis entry by its ID.
-     *
-     * @param id the unique identifier of the AIAnalysis
-     * @return an optional containing the analysis if found
-     */
-    @Override
-    public Optional<AIAnalysis> getAIAnalysisById(UUID id) {
-        return aiRepository.findById(id);
     }
 
     /**
@@ -88,26 +61,16 @@ public class AIAnalysisServiceImpl implements AIAnalysisService {
      */
     @Override
     public AIAnalysis analyze(LogEntry logEntry) {
-
-        // choose a strategy: for now, pick the first available one
-        if (strategies.isEmpty()) {
-            // no AI configured -> return fallback minimal analysis
-            return fallbackAnalysis(logEntry.getId());
-        }
+        if (strategies.isEmpty()) return fallbackAnalysis(logEntry.getId());
 
         AiStrategy strategy = strategies.values().iterator().next();
-
         try {
             String prompt = buildPrompt(logEntry.getRawText());
-            String rawText = strategy.analyze(prompt);
-            AIAnalysis ai = parseAndBuildAIAnalysis(rawText, logEntry.getId());
+            AIAnalysis ai = parseAndBuildAIAnalysis(strategy.analyze(prompt), logEntry.getId());
             return aiRepository.save(ai);
         } catch (Exception ex) {
-            // if strategy fails, log and return fallback
-            System.err.println("AI strategy '" + strategy.getName() + "' failed: " + ex.getMessage());
             ex.printStackTrace();
-            AIAnalysis ai = fallbackAnalysis(logEntry.getId());
-            return aiRepository.save(ai);
+            return aiRepository.save(fallbackAnalysis(logEntry.getId()));
         }
     }
 
@@ -122,30 +85,13 @@ public class AIAnalysisServiceImpl implements AIAnalysisService {
      * @return the full prompt text
      */
     private String buildPrompt(String rawLog) {
-        StringBuilder sb = new StringBuilder();
-        sb.append("Analyze the following log line and return a JSON object exactly with fields: ");
-        sb.append("[\"severity\",\"category\",\"summarizedIssue\",\"likelyCause\",\"recommendation\",\"anomalyScore\"] ");
-        sb.append("where severity is one of INFO/WARN/ERROR/DEBUG, anomalyScore is a number between 0.0 and 1.0.\n\n");
-        sb.append("Log:\n");
-        sb.append(rawLog);
-        sb.append("\n\nReturn JSON only.");
-        return sb.toString();
-    }
+        return """
+                Analyze the following log line and return a JSON object exactly with fields:
+                ["severity","category","summarizedIssue","likelyCause","recommendation","anomalyScore"]
+                where severity is one of INFO/WARN/ERROR/DEBUG, anomalyScore is a number between 0.0 and 1.0.
 
-    /**
-     * Extracts the plain text content returned by the model from the completion result.
-     *
-     * @param result the chat completion result
-     * @return the text content or an empty JSON object if unavailable
-     */
-    private String extractTextFromResult(ChatCompletionResult result) {
-        if (result == null || result.getChoices() == null || result.getChoices().isEmpty()) {
-            return "{}";
-        }
-        ChatCompletionChoice choice = result.getChoices().getFirst();
-        ChatMessage msg = choice.getMessage();
-        if (msg == null) return "{}";
-        return msg.getContent();
+                Log:
+                """ + rawLog + "\n\nReturn JSON only.";
     }
 
     /**
@@ -159,7 +105,6 @@ public class AIAnalysisServiceImpl implements AIAnalysisService {
     private AIAnalysis parseAndBuildAIAnalysis(String rawResponse, UUID logEntryId) {
         try {
             var node = mapper.readTree(rawResponse);
-
             String severity = node.path("severity").asText(null);
             String category = node.path("category").asText(null);
             String summarized = node.path("summarizedIssue").asText(null);
@@ -169,23 +114,22 @@ public class AIAnalysisServiceImpl implements AIAnalysisService {
 
             return new AIAnalysis(logEntryId,
                     severity != null ? SeverityUtil.valueOfOrNull(severity) : Severity.INFO,
-                    category,
-                    summarized,
-                    likelyCause,
-                    recommendation,
-                    score
-            );
+                    category, summarized, likelyCause, recommendation, score);
         } catch (Exception e) {
-            return new AIAnalysis(
-                    logEntryId,
-                    Severity.INFO,
-                    "unknown",
-                    "no summary",
-                    "no cause",
-                    "no recommendation",
-                    0.0
-            );
+            e.printStackTrace();
+            return fallbackAnalysis(logEntryId);
         }
+    }
+
+    /**
+     * Retrieves an AIAnalysis entry by its ID.
+     *
+     * @param id the unique identifier of the AIAnalysis
+     * @return an optional containing the analysis if found
+     */
+    @Override
+    public Optional<AIAnalysis> getAIAnalysisById(UUID id) {
+        return aiRepository.findById(id);
     }
 
     /**

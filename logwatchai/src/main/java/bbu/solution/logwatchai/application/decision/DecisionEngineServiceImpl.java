@@ -78,10 +78,6 @@ public class DecisionEngineServiceImpl implements DecisionEngineService {
         // 5. I send the alert email via listener
         eventPublisher.publishEvent(new AlertCreatedEvent(savedAlert));
 
-//        String recipient = configLoader.getConfig().getReportEmail();
-//        if(recipient != null && !recipient.isBlank()){
-//            emailService.sendAlertEmail(savedAlert, recipient);
-//        }
 
         // 6. I return the outcome
         return DecisionOutcome.builder()

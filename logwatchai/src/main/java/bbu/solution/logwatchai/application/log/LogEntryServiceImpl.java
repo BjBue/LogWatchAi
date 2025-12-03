@@ -6,7 +6,6 @@ import bbu.solution.logwatchai.domain.decision.DecisionEngineService;
 import bbu.solution.logwatchai.domain.log.LogEntry;
 import bbu.solution.logwatchai.domain.log.LogEntryService;
 import bbu.solution.logwatchai.domain.log.LogFilter;
-import bbu.solution.logwatchai.domain.report.DailyReport;
 import bbu.solution.logwatchai.domain.logsource.LogSource;
 import bbu.solution.logwatchai.infrastructure.persistence.log.LogEntryRepository;
 import jakarta.transaction.Transactional;
@@ -19,7 +18,6 @@ import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -42,6 +40,43 @@ public class LogEntryServiceImpl implements LogEntryService {
         this.logEntryRepository = logEntryRepository;
         this.aiAnalysisService = aiAnalysisService;
         this.decisionEngineService = decisionEngineService;
+    }
+
+    /**
+     * Asynchronously performs AI analysis for the provided LogEntry.
+     *
+     * Steps executed:
+     * 1. I reload the latest entity to avoid working on a stale detached instance.
+     * 2. I skip analysis if another thread already processed this entry.
+     * 3. I call the AI analysis service to produce an AIAnalysis object.
+     * 4. I mark the entry as analyzed and persist the updated entity.
+     * 5. I invoke the decision engine to evaluate the analysis and possibly create alerts.
+     *
+     * Any exceptions are caught and printed to stderr to avoid crashing the async executor.
+     *
+     * @param entry the log entry to analyze asynchronously
+     */
+    @Async("aiExecutor")
+    @Override
+    @Transactional
+    public void analyzeAsync(LogEntry entry) {
+        synchronized (entry.getId().toString().intern()) {
+            LogEntry current = logEntryRepository.findById(entry.getId()).orElse(null);
+            if (current == null || current.isAnalyzed()) return;
+            try {
+                AIAnalysis ai = aiAnalysisService.analyze(current);
+
+                // Mark LogEntry as analyzed and persist
+                current.markAsAnalyzed(ai);
+                logEntryRepository.save(current);
+
+                // Trigger DecisionEngine
+                decisionEngineService.evaluate(current, ai);
+            } catch (Exception e) {
+                System.err.println("Error during async analysis for log " + entry.getId());
+                e.printStackTrace();
+            }
+        }
     }
 
     /**
@@ -121,47 +156,7 @@ public class LogEntryServiceImpl implements LogEntryService {
     }
 
     /**
-     * Asynchronously performs AI analysis for the provided LogEntry.
-     *
-     * Steps executed:
-     * 1. I reload the latest entity to avoid working on a stale detached instance.
-     * 2. I skip analysis if another thread already processed this entry.
-     * 3. I call the AI analysis service to produce an AIAnalysis object.
-     * 4. I mark the entry as analyzed and persist the updated entity.
-     * 5. I invoke the decision engine to evaluate the analysis and possibly create alerts.
-     *
-     * Any exceptions are caught and printed to stderr to avoid crashing the async executor.
-     *
-     * @param entry the log entry to analyze asynchronously
-     */
-    @Async
-    @Override
-    public void analyzeAsync(LogEntry entry) {
-        try {
-            // I reload the latest entity so I don't work with stale data
-            var maybe = logEntryRepository.findById(entry.getId());
-            if (maybe.isEmpty()) return;
-            LogEntry current = maybe.get();
-
-            // I skip analysis if another thread already processed it
-            if (current.isAnalyzed()) {
-                return; // debug log possible here
-            }
-
-            AIAnalysis ai = aiAnalysisService.analyze(current);
-
-            current.markAsAnalyzed(ai);
-            logEntryRepository.save(current);
-
-            decisionEngineService.evaluate(current, ai);
-
-        } catch (Exception e) {
-            System.err.println("Error during async analysis: " + e.getMessage());
-            e.printStackTrace();
-        }
-    }
-
-    /**
+     * TODO:
      * Triggers analysis on pending logs.
      *
      * Note: This method is a placeholder and currently not implemented.
