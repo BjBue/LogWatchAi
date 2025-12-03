@@ -44,7 +44,7 @@ Du kannst den Log-Generator verwenden, um Testmeldungen zu erzeugen:
 ```text
 http://localhost:9090/write?message="ERROR AuthService Fatal system failure: database not reachable"
 ```
-- **Mehrere pseudozufällige Meldungen generieren (maximal 5 empfohlen):**
+- **Mehrere pseudozufällige Meldungen generieren (maximal 3 empfohlen):**
 ```text
 http://localhost:9090/generate?count=3
 ```
