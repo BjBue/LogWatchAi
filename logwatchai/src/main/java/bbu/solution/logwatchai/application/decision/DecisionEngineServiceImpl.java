@@ -50,10 +50,8 @@ public class DecisionEngineServiceImpl implements DecisionEngineService {
      */
     @Override
     public DecisionOutcome evaluate(LogEntry entry, AIAnalysis analysis) {
-
         // 1. I execute all rules against the completed AI analysis
         List<Rule> triggeredRules = ruleEvaluator.evaluate(analysis);
-
         // 2. If no rule is triggered → then I generate no alert
         if (triggeredRules.isEmpty()) {
             return DecisionOutcome.builder()
@@ -61,7 +59,6 @@ public class DecisionEngineServiceImpl implements DecisionEngineService {
                     .alert(null)
                     .build();
         }
-
         // 3. I cleanly construct the alert object
         Alert alert = Alert.builder()
                 .severity(analysis.getSeverity())
@@ -71,14 +68,10 @@ public class DecisionEngineServiceImpl implements DecisionEngineService {
                 .sourceId(entry.getSourceId())
                 .logEntryId(entry.getId())
                 .build();
-
         // 4. I persist the alert
         Alert savedAlert = alertService.create(alert);
-
         // 5. I send the alert email via listener
         eventPublisher.publishEvent(new AlertCreatedEvent(savedAlert));
-
-
         // 6. I return the outcome
         return DecisionOutcome.builder()
                 .triggeredRules(triggeredRules)

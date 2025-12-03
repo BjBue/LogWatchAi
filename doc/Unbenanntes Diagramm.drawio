@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:145.0) Gecko/20100101 Firefox/145.0" version="29.1.1">
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:145.0) Gecko/20100101 Firefox/145.0" version="29.2.3">
   <diagram name="Seite-1" id="DSgjXvce4OSk9JTiaBnI">
-    <mxGraphModel dx="7984" dy="4664" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="3316" dy="2242" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -80,142 +80,93 @@
           <mxGeometry height="470" width="1160" as="geometry" />
         </mxCell>
         <mxCell id="-yDL4FUEpPGul9dOSaSx-188" connectable="0" parent="1" style="group" value="" vertex="1">
-          <mxGeometry height="980" width="1330" x="2230" y="710" as="geometry" />
-        </mxCell>
-        <mxCell id="-yDL4FUEpPGul9dOSaSx-38" parent="-yDL4FUEpPGul9dOSaSx-188" style="swimlane;whiteSpace=wrap;html=1;" value="Log Parser" vertex="1">
-          <mxGeometry height="860" width="480" x="100" y="80" as="geometry" />
-        </mxCell>
-        <mxCell id="-yDL4FUEpPGul9dOSaSx-48" edge="1" parent="-yDL4FUEpPGul9dOSaSx-38" source="-yDL4FUEpPGul9dOSaSx-39" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="-yDL4FUEpPGul9dOSaSx-40" value="">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="-yDL4FUEpPGul9dOSaSx-39" parent="-yDL4FUEpPGul9dOSaSx-38" style="rounded=0;whiteSpace=wrap;html=1;" value="&lt;div&gt;CLI / Console Tool&lt;/div&gt;- Start/Stop&amp;nbsp; &amp;nbsp; &amp;nbsp;" vertex="1">
-          <mxGeometry height="60" width="120" x="40" y="60" as="geometry" />
-        </mxCell>
-        <mxCell id="-yDL4FUEpPGul9dOSaSx-49" edge="1" parent="-yDL4FUEpPGul9dOSaSx-38" source="-yDL4FUEpPGul9dOSaSx-40" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="-yDL4FUEpPGul9dOSaSx-41" value="">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="-yDL4FUEpPGul9dOSaSx-40" parent="-yDL4FUEpPGul9dOSaSx-38" style="rounded=0;whiteSpace=wrap;html=1;" value="File Watcher Service&lt;br&gt;- Überwacht Dateien" vertex="1">
-          <mxGeometry height="60" width="120" x="40" y="190" as="geometry" />
-        </mxCell>
-        <mxCell id="-yDL4FUEpPGul9dOSaSx-50" edge="1" parent="-yDL4FUEpPGul9dOSaSx-38" source="-yDL4FUEpPGul9dOSaSx-41" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="-yDL4FUEpPGul9dOSaSx-42" value="">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="-yDL4FUEpPGul9dOSaSx-56" edge="1" parent="-yDL4FUEpPGul9dOSaSx-38" source="-yDL4FUEpPGul9dOSaSx-41" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.25;entryY=0;entryDx=0;entryDy=0;" target="-yDL4FUEpPGul9dOSaSx-47">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="-yDL4FUEpPGul9dOSaSx-41" parent="-yDL4FUEpPGul9dOSaSx-38" style="rounded=0;whiteSpace=wrap;html=1;" value="Log Parser&lt;br&gt;- Extrahiert LogText" vertex="1">
-          <mxGeometry height="60" width="120" x="40" y="320" as="geometry" />
-        </mxCell>
-        <mxCell id="-yDL4FUEpPGul9dOSaSx-51" edge="1" parent="-yDL4FUEpPGul9dOSaSx-38" source="-yDL4FUEpPGul9dOSaSx-42" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="-yDL4FUEpPGul9dOSaSx-43" value="">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="-yDL4FUEpPGul9dOSaSx-53" edge="1" parent="-yDL4FUEpPGul9dOSaSx-38" source="-yDL4FUEpPGul9dOSaSx-42" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="-yDL4FUEpPGul9dOSaSx-47" value="">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="-yDL4FUEpPGul9dOSaSx-42" parent="-yDL4FUEpPGul9dOSaSx-38" style="rounded=0;whiteSpace=wrap;html=1;" value="KI Analysis Service&lt;br&gt;&amp;nbsp;- JSON Requests&lt;br&gt;- Analyse Interpretation" vertex="1">
-          <mxGeometry height="80" width="120" x="40" y="450" as="geometry" />
-        </mxCell>
-        <mxCell id="-yDL4FUEpPGul9dOSaSx-52" edge="1" parent="-yDL4FUEpPGul9dOSaSx-38" source="-yDL4FUEpPGul9dOSaSx-43" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="-yDL4FUEpPGul9dOSaSx-44" value="">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="-yDL4FUEpPGul9dOSaSx-43" parent="-yDL4FUEpPGul9dOSaSx-38" style="rounded=0;whiteSpace=wrap;html=1;" value="Decision Engine&lt;br&gt;- Regelwerk&lt;br&gt;- Schwellwerte" vertex="1">
-          <mxGeometry height="60" width="120" x="40" y="600" as="geometry" />
-        </mxCell>
-        <mxCell id="-yDL4FUEpPGul9dOSaSx-44" parent="-yDL4FUEpPGul9dOSaSx-38" style="rounded=0;whiteSpace=wrap;html=1;" value="Alert Service&lt;br&gt;- Konsole / E-Mail" vertex="1">
-          <mxGeometry height="60" width="120" x="40" y="730" as="geometry" />
-        </mxCell>
-        <mxCell id="-yDL4FUEpPGul9dOSaSx-54" edge="1" parent="-yDL4FUEpPGul9dOSaSx-38" source="-yDL4FUEpPGul9dOSaSx-45" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="-yDL4FUEpPGul9dOSaSx-46" value="">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="-yDL4FUEpPGul9dOSaSx-45" parent="-yDL4FUEpPGul9dOSaSx-38" style="rounded=0;whiteSpace=wrap;html=1;" value="Configuration File&lt;div&gt;(JSON/YAML)&lt;/div&gt;" vertex="1">
-          <mxGeometry height="60" width="120" x="240" y="60" as="geometry" />
-        </mxCell>
-        <mxCell id="-yDL4FUEpPGul9dOSaSx-46" parent="-yDL4FUEpPGul9dOSaSx-38" style="rounded=0;whiteSpace=wrap;html=1;" value="Persistence Layer&lt;br&gt;- MariaDB-Connector&lt;br&gt;- SQL Queries&lt;div&gt;&lt;br/&gt;&lt;/div&gt;" vertex="1">
-          <mxGeometry height="80" width="120" x="240" y="190" as="geometry" />
-        </mxCell>
-        <mxCell id="-yDL4FUEpPGul9dOSaSx-55" edge="1" parent="-yDL4FUEpPGul9dOSaSx-38" source="-yDL4FUEpPGul9dOSaSx-47" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="-yDL4FUEpPGul9dOSaSx-46">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="-yDL4FUEpPGul9dOSaSx-47" parent="-yDL4FUEpPGul9dOSaSx-38" style="rounded=0;whiteSpace=wrap;html=1;" value="MariaDB (externer DB-Container)&lt;br&gt;- Tabellen: logs, ai_results, alerts" vertex="1">
-          <mxGeometry height="80" width="120" x="240" y="450" as="geometry" />
-        </mxCell>
-        <mxCell id="-yDL4FUEpPGul9dOSaSx-136" parent="-yDL4FUEpPGul9dOSaSx-188" style="text;html=1;whiteSpace=wrap;overflow=hidden;rounded=0;" value="&lt;h1 style=&quot;margin-top: 0px;&quot;&gt;System Container View&lt;/h1&gt;&lt;p&gt;Die großen Bausteine des Systems:&lt;/p&gt;&lt;p&gt;&lt;/p&gt;&lt;li data-end=&quot;1583&quot; data-start=&quot;1541&quot;&gt;&lt;p data-end=&quot;1583&quot; data-start=&quot;1543&quot;&gt;&lt;strong data-end=&quot;1558&quot; data-start=&quot;1543&quot;&gt;FileWatcher&lt;/strong&gt; (überwacht Logdateien)&lt;/p&gt;&lt;/li&gt;&lt;li data-end=&quot;1631&quot; data-start=&quot;1584&quot;&gt;&lt;p data-end=&quot;1631&quot; data-start=&quot;1586&quot;&gt;&lt;strong data-end=&quot;1599&quot; data-start=&quot;1586&quot;&gt;LogParser&lt;/strong&gt; (bereitet neue Logzeilen auf)&lt;/p&gt;&lt;/li&gt;&lt;li data-end=&quot;1683&quot; data-start=&quot;1632&quot;&gt;&lt;p data-end=&quot;1683&quot; data-start=&quot;1634&quot;&gt;&lt;strong data-end=&quot;1656&quot; data-start=&quot;1634&quot;&gt;KI-Analyse-Service&lt;/strong&gt; (spricht mit der KI-API)&lt;/p&gt;&lt;/li&gt;&lt;li data-end=&quot;1741&quot; data-start=&quot;1684&quot;&gt;&lt;p data-end=&quot;1741&quot; data-start=&quot;1686&quot;&gt;&lt;strong data-end=&quot;1705&quot; data-start=&quot;1686&quot;&gt;Decision Engine&lt;/strong&gt; (Logik für Schwellwerte &amp;amp; Alarme)&lt;/p&gt;&lt;/li&gt;&lt;li data-end=&quot;1796&quot; data-start=&quot;1742&quot;&gt;&lt;p data-end=&quot;1796&quot; data-start=&quot;1744&quot;&gt;&lt;strong data-end=&quot;1765&quot; data-start=&quot;1744&quot;&gt;Persistenzschicht&lt;/strong&gt; (speichert Daten in MariaDB)&lt;/p&gt;&lt;/li&gt;&lt;li data-end=&quot;1854&quot; data-start=&quot;1797&quot;&gt;&lt;p data-end=&quot;1854&quot; data-start=&quot;1799&quot;&gt;&lt;strong data-end=&quot;1818&quot; data-start=&quot;1799&quot;&gt;CLI/Console-App&lt;/strong&gt; (die Oberfläche für den IT-Admin)&lt;/p&gt;&lt;/li&gt;&lt;li data-end=&quot;1903&quot; data-start=&quot;1855&quot;&gt;&lt;p data-end=&quot;1903&quot; data-start=&quot;1857&quot;&gt;&lt;strong data-end=&quot;1868&quot; data-start=&quot;1857&quot;&gt;MariaDB&lt;/strong&gt; als externer Datenbank-Container&lt;/p&gt;&lt;/li&gt;&lt;li data-end=&quot;1903&quot; data-start=&quot;1855&quot;&gt;&lt;p data-end=&quot;1903&quot; data-start=&quot;1857&quot;&gt;&lt;b&gt;Alert Service&amp;nbsp;&lt;/b&gt;meldet an die angegebenen Stellen&lt;br&gt;&lt;br&gt;&lt;/p&gt;&lt;/li&gt;&lt;p&gt;&lt;/p&gt;&lt;div&gt;Wie ist der Ablauf:&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;li data-end=&quot;2148&quot; data-start=&quot;2076&quot;&gt;&lt;p data-end=&quot;2148&quot; data-start=&quot;2078&quot;&gt;Der Log Parser wird via Console/GUI configuriert und gestartet&lt;/p&gt;&lt;/li&gt;&lt;li data-end=&quot;2148&quot; data-start=&quot;2076&quot;&gt;&lt;p data-end=&quot;2148&quot; data-start=&quot;2078&quot;&gt;Der &lt;strong data-end=&quot;2097&quot; data-start=&quot;2082&quot;&gt;FileWatcher&lt;/strong&gt; erkennt, dass eine Logdatei neue Zeilen enthält.&lt;/p&gt;&lt;/li&gt;&lt;li data-end=&quot;2241&quot; data-start=&quot;2149&quot;&gt;&lt;p data-end=&quot;2241&quot; data-start=&quot;2151&quot;&gt;Der &lt;strong data-end=&quot;2165&quot; data-start=&quot;2155&quot;&gt;Parser&lt;/strong&gt; bereitet diese Zeilen so auf, dass sie an die KI geschickt werden können.&lt;/p&gt;&lt;/li&gt;&lt;li data-end=&quot;2323&quot; data-start=&quot;2242&quot;&gt;&lt;p data-end=&quot;2323&quot; data-start=&quot;2244&quot;&gt;Der &lt;strong data-end=&quot;2261&quot; data-start=&quot;2248&quot;&gt;KI-Analyze_Service&amp;nbsp;&lt;/strong&gt;sendet die Logzeile zur KI und bekommt eine Analyse zurück.&lt;/p&gt;&lt;/li&gt;&lt;li data-end=&quot;2432&quot; data-start=&quot;2324&quot;&gt;&lt;p data-end=&quot;2432&quot; data-start=&quot;2326&quot;&gt;Die &lt;strong data-end=&quot;2351&quot; data-start=&quot;2330&quot;&gt;Persistenzschicht&lt;/strong&gt; speichert sowohl die Original-Logzeile als auch die Antwort der KI in MariaDB.&lt;/p&gt;&lt;/li&gt;&lt;li data-end=&quot;2573&quot; data-start=&quot;2433&quot;&gt;&lt;p data-end=&quot;2467&quot; data-start=&quot;2435&quot;&gt;Die &lt;strong data-end=&quot;2458&quot; data-start=&quot;2439&quot;&gt;Decision Engine&lt;/strong&gt; prüft:&lt;/p&gt;&lt;ul data-end=&quot;2573&quot; data-start=&quot;2470&quot;&gt;&lt;li data-end=&quot;2500&quot; data-start=&quot;2470&quot;&gt;&lt;p data-end=&quot;2500&quot; data-start=&quot;2472&quot;&gt;„Ist der Fehler kritisch?“&lt;/p&gt;&lt;/li&gt;&lt;li data-end=&quot;2529&quot; data-start=&quot;2503&quot;&gt;&lt;p data-end=&quot;2529&quot; data-start=&quot;2505&quot;&gt;„Passiert das zu oft?“&lt;/p&gt;&lt;/li&gt;&lt;li data-end=&quot;2573&quot; data-start=&quot;2532&quot;&gt;&lt;p data-end=&quot;2573&quot; data-start=&quot;2534&quot;&gt;„Muss eine Warnung ausgelöst werden?“&lt;/p&gt;&lt;/li&gt;&lt;/ul&gt;&lt;/li&gt;&lt;li data-end=&quot;2636&quot; data-start=&quot;2574&quot;&gt;&lt;p data-end=&quot;2636&quot; data-start=&quot;2576&quot;&gt;Der &lt;strong data-end=&quot;2597&quot; data-start=&quot;2580&quot;&gt;Alert Service&lt;/strong&gt; benachrichtigt den IT-Administrator.&lt;/p&gt;&lt;/li&gt;&lt;li data-end=&quot;2687&quot; data-start=&quot;2637&quot;&gt;&lt;p data-end=&quot;2687&quot; data-start=&quot;2639&quot;&gt;Die &lt;strong data-end=&quot;2650&quot; data-start=&quot;2643&quot;&gt;CLI&lt;/strong&gt; zeigt Status, Fehler, Berichte, etc.&lt;/p&gt;&lt;/li&gt;&lt;br&gt;&lt;/div&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;" vertex="1">
-          <mxGeometry height="680" width="660" x="670" y="80" as="geometry" />
+          <mxGeometry height="950" width="1370" x="2220" y="730" as="geometry" />
         </mxCell>
         <mxCell id="-yDL4FUEpPGul9dOSaSx-187" parent="-yDL4FUEpPGul9dOSaSx-188" style="swimlane;whiteSpace=wrap;html=1;" value="C4 - Level 2 Container-View" vertex="1">
-          <mxGeometry height="980" width="1280" as="geometry" />
+          <mxGeometry height="950.0000000000001" width="1370" as="geometry" />
         </mxCell>
-        <mxCell id="-yDL4FUEpPGul9dOSaSx-190" connectable="0" parent="1" style="group" value="" vertex="1">
-          <mxGeometry height="490" width="1780" x="351" y="710" as="geometry" />
+        <mxCell id="-yDL4FUEpPGul9dOSaSx-38" parent="-yDL4FUEpPGul9dOSaSx-187" style="swimlane;whiteSpace=wrap;html=1;container=0;movable=1;resizable=1;rotatable=1;deletable=1;editable=1;locked=0;connectable=1;" value="Logwatcher" vertex="1">
+          <mxGeometry height="407.1428571428572" width="651.9310344827586" x="19.999655172413796" y="82.39795918367348" as="geometry" />
         </mxCell>
-        <mxCell id="-yDL4FUEpPGul9dOSaSx-58" parent="-yDL4FUEpPGul9dOSaSx-190" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" value="FileWatcher Component" vertex="1">
-          <mxGeometry height="90" width="210" x="70" y="60" as="geometry" />
+        <mxCell id="-yDL4FUEpPGul9dOSaSx-136" parent="-yDL4FUEpPGul9dOSaSx-187" style="text;html=1;whiteSpace=wrap;overflow=hidden;rounded=0;" value="&lt;h1 style=&quot;margin-top: 0px;&quot;&gt;System Container View&lt;/h1&gt;&lt;p&gt;Die großen Bausteine des Systems:&lt;/p&gt;&lt;p&gt;&lt;/p&gt;&lt;li data-end=&quot;1583&quot; data-start=&quot;1541&quot;&gt;&lt;p data-end=&quot;1583&quot; data-start=&quot;1543&quot;&gt;&lt;strong data-end=&quot;1558&quot; data-start=&quot;1543&quot;&gt;FileWatcher&lt;/strong&gt; (überwacht Logdateien)&lt;/p&gt;&lt;/li&gt;&lt;li data-end=&quot;1631&quot; data-start=&quot;1584&quot;&gt;&lt;p data-end=&quot;1631&quot; data-start=&quot;1586&quot;&gt;&lt;strong data-end=&quot;1599&quot; data-start=&quot;1586&quot;&gt;LogParser&lt;/strong&gt; (bereitet neue Logzeilen auf)&lt;/p&gt;&lt;/li&gt;&lt;li data-end=&quot;1683&quot; data-start=&quot;1632&quot;&gt;&lt;p data-end=&quot;1683&quot; data-start=&quot;1634&quot;&gt;&lt;strong data-end=&quot;1656&quot; data-start=&quot;1634&quot;&gt;KI-Analyse-Service&lt;/strong&gt; (spricht mit der KI-API)&lt;/p&gt;&lt;/li&gt;&lt;li data-end=&quot;1741&quot; data-start=&quot;1684&quot;&gt;&lt;p data-end=&quot;1741&quot; data-start=&quot;1686&quot;&gt;&lt;strong data-end=&quot;1705&quot; data-start=&quot;1686&quot;&gt;Decision Engine&lt;/strong&gt; (Logik für Schwellwerte &amp;amp; Alarme)&lt;/p&gt;&lt;/li&gt;&lt;li data-end=&quot;1796&quot; data-start=&quot;1742&quot;&gt;&lt;p data-end=&quot;1796&quot; data-start=&quot;1744&quot;&gt;&lt;strong data-end=&quot;1765&quot; data-start=&quot;1744&quot;&gt;Persistenzschicht&lt;/strong&gt; (speichert Daten in MariaDB)&lt;/p&gt;&lt;/li&gt;&lt;li data-end=&quot;1854&quot; data-start=&quot;1797&quot;&gt;&lt;p data-end=&quot;1854&quot; data-start=&quot;1799&quot;&gt;&lt;strong data-end=&quot;1818&quot; data-start=&quot;1799&quot;&gt;CLI/Console-App&lt;/strong&gt; (die Oberfläche für den IT-Admin)&lt;/p&gt;&lt;/li&gt;&lt;li data-end=&quot;1903&quot; data-start=&quot;1855&quot;&gt;&lt;p data-end=&quot;1903&quot; data-start=&quot;1857&quot;&gt;&lt;strong data-end=&quot;1868&quot; data-start=&quot;1857&quot;&gt;MariaDB&lt;/strong&gt; als externer Datenbank-Container&lt;/p&gt;&lt;/li&gt;&lt;li data-end=&quot;1903&quot; data-start=&quot;1855&quot;&gt;&lt;p data-end=&quot;1903&quot; data-start=&quot;1857&quot;&gt;&lt;b&gt;Alert Service&amp;nbsp;&lt;/b&gt;meldet an die angegebenen Stellen&lt;br&gt;&lt;br&gt;&lt;/p&gt;&lt;/li&gt;&lt;p&gt;&lt;/p&gt;&lt;div&gt;Wie ist der Ablauf:&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;li data-end=&quot;2148&quot; data-start=&quot;2076&quot;&gt;&lt;p data-end=&quot;2148&quot; data-start=&quot;2078&quot;&gt;Der Log Parser wird via Console/GUI configuriert und gestartet&lt;/p&gt;&lt;/li&gt;&lt;li data-end=&quot;2148&quot; data-start=&quot;2076&quot;&gt;&lt;p data-end=&quot;2148&quot; data-start=&quot;2078&quot;&gt;Der &lt;strong data-end=&quot;2097&quot; data-start=&quot;2082&quot;&gt;FileWatcher&lt;/strong&gt; erkennt, dass eine Logdatei neue Zeilen enthält.&lt;/p&gt;&lt;/li&gt;&lt;li data-end=&quot;2241&quot; data-start=&quot;2149&quot;&gt;&lt;p data-end=&quot;2241&quot; data-start=&quot;2151&quot;&gt;Der &lt;strong data-end=&quot;2165&quot; data-start=&quot;2155&quot;&gt;Parser&lt;/strong&gt; bereitet diese Zeilen so auf, dass sie an die KI geschickt werden können.&lt;/p&gt;&lt;/li&gt;&lt;li data-end=&quot;2323&quot; data-start=&quot;2242&quot;&gt;&lt;p data-end=&quot;2323&quot; data-start=&quot;2244&quot;&gt;Der &lt;strong data-end=&quot;2261&quot; data-start=&quot;2248&quot;&gt;KI-Analyze_Service&amp;nbsp;&lt;/strong&gt;sendet die Logzeile zur KI und bekommt eine Analyse zurück.&lt;/p&gt;&lt;/li&gt;&lt;li data-end=&quot;2432&quot; data-start=&quot;2324&quot;&gt;&lt;p data-end=&quot;2432&quot; data-start=&quot;2326&quot;&gt;Die &lt;strong data-end=&quot;2351&quot; data-start=&quot;2330&quot;&gt;Persistenzschicht&lt;/strong&gt; speichert sowohl die Original-Logzeile als auch die Antwort der KI in MariaDB.&lt;/p&gt;&lt;/li&gt;&lt;li data-end=&quot;2573&quot; data-start=&quot;2433&quot;&gt;&lt;p data-end=&quot;2467&quot; data-start=&quot;2435&quot;&gt;Die &lt;strong data-end=&quot;2458&quot; data-start=&quot;2439&quot;&gt;Decision Engine&lt;/strong&gt; prüft:&lt;/p&gt;&lt;ul data-end=&quot;2573&quot; data-start=&quot;2470&quot;&gt;&lt;li data-end=&quot;2500&quot; data-start=&quot;2470&quot;&gt;&lt;p data-end=&quot;2500&quot; data-start=&quot;2472&quot;&gt;„Ist der Fehler kritisch?“&lt;/p&gt;&lt;/li&gt;&lt;li data-end=&quot;2529&quot; data-start=&quot;2503&quot;&gt;&lt;p data-end=&quot;2529&quot; data-start=&quot;2505&quot;&gt;„Passiert das zu oft?“&lt;/p&gt;&lt;/li&gt;&lt;li data-end=&quot;2573&quot; data-start=&quot;2532&quot;&gt;&lt;p data-end=&quot;2573&quot; data-start=&quot;2534&quot;&gt;„Muss eine Warnung ausgelöst werden?“&lt;/p&gt;&lt;/li&gt;&lt;/ul&gt;&lt;/li&gt;&lt;li data-end=&quot;2636&quot; data-start=&quot;2574&quot;&gt;&lt;p data-end=&quot;2636&quot; data-start=&quot;2576&quot;&gt;Der &lt;strong data-end=&quot;2597&quot; data-start=&quot;2580&quot;&gt;Alert Service&lt;/strong&gt; benachrichtigt den IT-Administrator.&lt;/p&gt;&lt;/li&gt;&lt;li data-end=&quot;2687&quot; data-start=&quot;2637&quot;&gt;&lt;p data-end=&quot;2687&quot; data-start=&quot;2639&quot;&gt;Die &lt;strong data-end=&quot;2650&quot; data-start=&quot;2643&quot;&gt;CLI&lt;/strong&gt; zeigt Status, Fehler, Berichte, etc.&lt;/p&gt;&lt;/li&gt;&lt;br&gt;&lt;/div&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;" vertex="1">
+          <mxGeometry height="659.1836734693878" width="623.5862068965517" x="746.4137931034483" y="82.39795918367348" as="geometry" />
         </mxCell>
-        <mxCell id="-yDL4FUEpPGul9dOSaSx-59" parent="-yDL4FUEpPGul9dOSaSx-58" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" value="- FileSystemWatcher" vertex="1">
-          <mxGeometry height="30" width="210" y="30" as="geometry" />
+        <mxCell id="-yDL4FUEpPGul9dOSaSx-48" edge="1" parent="-yDL4FUEpPGul9dOSaSx-187" source="-yDL4FUEpPGul9dOSaSx-39" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;movable=1;resizable=1;rotatable=1;deletable=1;editable=1;locked=0;connectable=1;" target="-yDL4FUEpPGul9dOSaSx-40" value="">
+          <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="-yDL4FUEpPGul9dOSaSx-60" parent="-yDL4FUEpPGul9dOSaSx-58" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" value="- Übergibt neue Zeilen&amp;nbsp;&amp;nbsp;" vertex="1">
-          <mxGeometry height="30" width="210" y="60" as="geometry" />
+        <mxCell id="-yDL4FUEpPGul9dOSaSx-39" parent="-yDL4FUEpPGul9dOSaSx-187" style="rounded=0;whiteSpace=wrap;html=1;container=0;movable=1;resizable=1;rotatable=1;deletable=1;editable=1;locked=0;connectable=1;" value="&lt;div&gt;CLI / Console Tool&lt;/div&gt;- Start/Stop&amp;nbsp; &amp;nbsp; &amp;nbsp;" vertex="1">
+          <mxGeometry height="58.16326530612246" width="113.37931034482759" x="75.58620689655189" y="121.17346938775513" as="geometry" />
         </mxCell>
-        <mxCell id="-yDL4FUEpPGul9dOSaSx-82" parent="-yDL4FUEpPGul9dOSaSx-190" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" value="LogParser Component&amp;nbsp;" vertex="1">
-          <mxGeometry height="90" width="245" x="365" y="60" as="geometry" />
+        <mxCell id="-yDL4FUEpPGul9dOSaSx-49" edge="1" parent="-yDL4FUEpPGul9dOSaSx-187" source="-yDL4FUEpPGul9dOSaSx-40" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;movable=1;resizable=1;rotatable=1;deletable=1;editable=1;locked=0;connectable=1;" target="-yDL4FUEpPGul9dOSaSx-41" value="">
+          <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="-yDL4FUEpPGul9dOSaSx-83" parent="-yDL4FUEpPGul9dOSaSx-82" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" value="&amp;nbsp;- Normalisierung&amp;nbsp;" vertex="1">
-          <mxGeometry height="30" width="245" y="30" as="geometry" />
+        <mxCell id="-yDL4FUEpPGul9dOSaSx-40" parent="-yDL4FUEpPGul9dOSaSx-187" style="rounded=0;whiteSpace=wrap;html=1;container=0;movable=1;resizable=1;rotatable=1;deletable=1;editable=1;locked=0;connectable=1;" value="File Watcher Service&lt;br&gt;- Überwacht Dateien" vertex="1">
+          <mxGeometry height="58.16326530612246" width="113.37931034482759" x="75.58620689655189" y="247.19387755102045" as="geometry" />
         </mxCell>
-        <mxCell id="-yDL4FUEpPGul9dOSaSx-84" parent="-yDL4FUEpPGul9dOSaSx-82" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" value="- Extraktion von Timestamp / Level / Msg" vertex="1">
-          <mxGeometry height="30" width="245" y="60" as="geometry" />
+        <mxCell id="-yDL4FUEpPGul9dOSaSx-50" edge="1" parent="-yDL4FUEpPGul9dOSaSx-187" source="-yDL4FUEpPGul9dOSaSx-41" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;movable=1;resizable=1;rotatable=1;deletable=1;editable=1;locked=0;connectable=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" target="-yDL4FUEpPGul9dOSaSx-42" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="132.2758620689657" y="470.1530612244899" />
+              <mxPoint x="472.4137931034484" y="470.1530612244899" />
+            </Array>
+          </mxGeometry>
         </mxCell>
-        <mxCell id="-yDL4FUEpPGul9dOSaSx-86" parent="-yDL4FUEpPGul9dOSaSx-190" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" value="AIClient Component" vertex="1">
-          <mxGeometry height="120" width="245" x="700" y="60" as="geometry" />
+        <mxCell id="58FN8cktWuzG_OCEjCKJ-6" edge="1" parent="-yDL4FUEpPGul9dOSaSx-187" source="-yDL4FUEpPGul9dOSaSx-41" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="-yDL4FUEpPGul9dOSaSx-46">
+          <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="-yDL4FUEpPGul9dOSaSx-87" parent="-yDL4FUEpPGul9dOSaSx-86" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" value="- Baut OpenAI" vertex="1">
-          <mxGeometry height="30" width="245" y="30" as="geometry" />
+        <mxCell id="-yDL4FUEpPGul9dOSaSx-41" parent="-yDL4FUEpPGul9dOSaSx-187" style="rounded=0;whiteSpace=wrap;html=1;container=0;movable=1;resizable=1;rotatable=1;deletable=1;editable=1;locked=0;connectable=1;" value="Log Parser&lt;br&gt;- Extrahiert LogText" vertex="1">
+          <mxGeometry height="58.16326530612246" width="113.37931034482759" x="75.58620689655189" y="373.2142857142858" as="geometry" />
         </mxCell>
-        <mxCell id="-yDL4FUEpPGul9dOSaSx-88" parent="-yDL4FUEpPGul9dOSaSx-86" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" value="- REST-API Request + JSON-Response" vertex="1">
-          <mxGeometry height="30" width="245" y="60" as="geometry" />
+        <mxCell id="-yDL4FUEpPGul9dOSaSx-54" edge="1" parent="-yDL4FUEpPGul9dOSaSx-187" source="-yDL4FUEpPGul9dOSaSx-45" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;movable=1;resizable=1;rotatable=1;deletable=1;editable=1;locked=0;connectable=1;" target="-yDL4FUEpPGul9dOSaSx-46" value="">
+          <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="-yDL4FUEpPGul9dOSaSx-89" parent="-yDL4FUEpPGul9dOSaSx-86" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" value="- Liefert AIResult" vertex="1">
-          <mxGeometry height="30" width="245" y="90" as="geometry" />
+        <mxCell id="58FN8cktWuzG_OCEjCKJ-5" edge="1" parent="-yDL4FUEpPGul9dOSaSx-187" source="-yDL4FUEpPGul9dOSaSx-45" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="-yDL4FUEpPGul9dOSaSx-39" value="">
+          <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="-yDL4FUEpPGul9dOSaSx-90" parent="-yDL4FUEpPGul9dOSaSx-190" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" value="DecisionEngine Component&amp;nbsp;" vertex="1">
-          <mxGeometry height="120" width="245" x="70" y="250" as="geometry" />
+        <mxCell id="-yDL4FUEpPGul9dOSaSx-45" parent="-yDL4FUEpPGul9dOSaSx-187" style="rounded=0;whiteSpace=wrap;html=1;container=0;movable=1;resizable=1;rotatable=1;deletable=1;editable=1;locked=0;connectable=1;" value="Configuration File&lt;div&gt;(JSON/YAML)&lt;/div&gt;" vertex="1">
+          <mxGeometry height="58.16326530612246" width="113.37931034482759" x="264.55172413793116" y="121.17346938775513" as="geometry" />
         </mxCell>
-        <mxCell id="-yDL4FUEpPGul9dOSaSx-91" parent="-yDL4FUEpPGul9dOSaSx-90" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" value="- Severity-Thresholds&amp;nbsp;" vertex="1">
-          <mxGeometry height="30" width="245" y="30" as="geometry" />
+        <mxCell id="-yDL4FUEpPGul9dOSaSx-46" parent="-yDL4FUEpPGul9dOSaSx-187" style="rounded=0;whiteSpace=wrap;html=1;container=0;movable=1;resizable=1;rotatable=1;deletable=1;editable=1;locked=0;connectable=1;" value="Persistence Layer&lt;br&gt;- MariaDB-Connector&lt;br&gt;- SQL Queries&lt;div&gt;&lt;br/&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="77.55102040816328" width="113.37931034482759" x="264.55172413793116" y="247.19387755102045" as="geometry" />
         </mxCell>
-        <mxCell id="-yDL4FUEpPGul9dOSaSx-92" parent="-yDL4FUEpPGul9dOSaSx-90" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" value="- Statistische Regeln (Error-Rate etc.)" vertex="1">
-          <mxGeometry height="30" width="245" y="60" as="geometry" />
+        <mxCell id="-yDL4FUEpPGul9dOSaSx-55" edge="1" parent="-yDL4FUEpPGul9dOSaSx-187" source="-yDL4FUEpPGul9dOSaSx-47" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;movable=1;resizable=1;rotatable=1;deletable=1;editable=1;locked=0;connectable=1;startArrow=classic;startFill=1;" target="-yDL4FUEpPGul9dOSaSx-46">
+          <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="-yDL4FUEpPGul9dOSaSx-93" parent="-yDL4FUEpPGul9dOSaSx-90" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" value="- Liefert AIResult" vertex="1">
-          <mxGeometry height="30" width="245" y="90" as="geometry" />
+        <mxCell id="-yDL4FUEpPGul9dOSaSx-47" parent="-yDL4FUEpPGul9dOSaSx-187" style="rounded=0;whiteSpace=wrap;html=1;container=0;movable=1;resizable=1;rotatable=1;deletable=1;editable=1;locked=0;connectable=1;" value="MariaDB (externer DB-Container)&lt;br&gt;- Tabellen: logs, ai_results, alerts" vertex="1">
+          <mxGeometry height="77.55102040816328" width="113.37931034482759" x="264.55172413793116" y="363.4897959183674" as="geometry" />
         </mxCell>
-        <mxCell id="-yDL4FUEpPGul9dOSaSx-94" parent="-yDL4FUEpPGul9dOSaSx-190" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" value="Database Repository Component (MariaDB)" vertex="1">
-          <mxGeometry height="180" width="370" x="410" y="250" as="geometry" />
+        <mxCell id="-yDL4FUEpPGul9dOSaSx-53" edge="1" parent="-yDL4FUEpPGul9dOSaSx-187" source="-yDL4FUEpPGul9dOSaSx-42" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;movable=1;resizable=1;rotatable=1;deletable=1;editable=1;locked=0;connectable=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;" target="-yDL4FUEpPGul9dOSaSx-46" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="416" y="159" />
+              <mxPoint x="397" y="159" />
+              <mxPoint x="397" y="286" />
+            </Array>
+          </mxGeometry>
         </mxCell>
-        <mxCell id="-yDL4FUEpPGul9dOSaSx-95" parent="-yDL4FUEpPGul9dOSaSx-94" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" value="- MySqlConnector (Java)" vertex="1">
-          <mxGeometry height="30" width="370" y="30" as="geometry" />
+        <mxCell id="58FN8cktWuzG_OCEjCKJ-8" edge="1" parent="-yDL4FUEpPGul9dOSaSx-187" source="-yDL4FUEpPGul9dOSaSx-42" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="-yDL4FUEpPGul9dOSaSx-43">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="567" y="169" />
+              <mxPoint x="567" y="220" />
+              <mxPoint x="567" y="220" />
+            </Array>
+          </mxGeometry>
         </mxCell>
-        <mxCell id="-yDL4FUEpPGul9dOSaSx-96" parent="-yDL4FUEpPGul9dOSaSx-94" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" value="- CRUD für:&lt;div&gt;&lt;ul&gt;&lt;li&gt;Logs&lt;/li&gt;&lt;li&gt;KI-Analysen&lt;/li&gt;&lt;li&gt;Alerts&lt;/li&gt;&lt;/ul&gt;&lt;/div&gt;" vertex="1">
-          <mxGeometry height="90" width="370" y="60" as="geometry" />
+        <mxCell id="-yDL4FUEpPGul9dOSaSx-42" parent="-yDL4FUEpPGul9dOSaSx-187" style="rounded=0;whiteSpace=wrap;html=1;container=0;movable=1;resizable=1;rotatable=1;deletable=1;editable=1;locked=0;connectable=1;" value="KI Analysis Service&lt;br&gt;&amp;nbsp;- JSON Requests&lt;br&gt;- Analyse Interpretation" vertex="1">
+          <mxGeometry height="77.55102040816328" width="113.37931034482759" x="415.72413793103465" y="129.8979591836735" as="geometry" />
         </mxCell>
-        <mxCell id="-yDL4FUEpPGul9dOSaSx-98" parent="-yDL4FUEpPGul9dOSaSx-94" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" value="- SQL-Migrationen&amp;nbsp;" vertex="1">
-          <mxGeometry height="30" width="370" y="150" as="geometry" />
+        <mxCell id="58FN8cktWuzG_OCEjCKJ-9" edge="1" parent="-yDL4FUEpPGul9dOSaSx-187" source="-yDL4FUEpPGul9dOSaSx-44" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.75;entryDx=0;entryDy=0;" target="-yDL4FUEpPGul9dOSaSx-46">
+          <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="-yDL4FUEpPGul9dOSaSx-99" parent="-yDL4FUEpPGul9dOSaSx-190" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" value="&amp;nbsp;AlertService Component" vertex="1">
-          <mxGeometry height="90" width="210" x="860" y="250" as="geometry" />
+        <mxCell id="-yDL4FUEpPGul9dOSaSx-44" parent="-yDL4FUEpPGul9dOSaSx-187" style="rounded=0;whiteSpace=wrap;html=1;container=0;movable=1;resizable=1;rotatable=1;deletable=1;editable=1;locked=0;connectable=1;" value="Alert Service&lt;br&gt;- Konsole / E-Mail" vertex="1">
+          <mxGeometry height="58.16326530612246" width="113.37931034482759" x="509.9965517241381" y="365.92183673469395" as="geometry" />
         </mxCell>
-        <mxCell id="-yDL4FUEpPGul9dOSaSx-100" parent="-yDL4FUEpPGul9dOSaSx-99" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" value="- SMTP-Mail" vertex="1">
-          <mxGeometry height="30" width="210" y="30" as="geometry" />
+        <mxCell id="-yDL4FUEpPGul9dOSaSx-43" parent="-yDL4FUEpPGul9dOSaSx-187" style="rounded=0;whiteSpace=wrap;html=1;container=0;movable=1;resizable=1;rotatable=1;deletable=1;editable=1;locked=0;connectable=1;" value="Decision Engine&lt;br&gt;- Regelwerk&lt;br&gt;- Schwellwerte" vertex="1">
+          <mxGeometry height="58.16326530612246" width="113.37931034482759" x="509.99655172413804" y="240.0018367346939" as="geometry" />
         </mxCell>
-        <mxCell id="-yDL4FUEpPGul9dOSaSx-101" parent="-yDL4FUEpPGul9dOSaSx-99" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" value="- CLI-Ausgabe&amp;nbsp;" vertex="1">
-          <mxGeometry height="30" width="210" y="60" as="geometry" />
-        </mxCell>
-        <mxCell id="-yDL4FUEpPGul9dOSaSx-137" parent="-yDL4FUEpPGul9dOSaSx-190" style="text;html=1;whiteSpace=wrap;overflow=hidden;rounded=0;" value="&lt;h1 style=&quot;margin-top: 0px;&quot;&gt;System Component View&lt;/h1&gt;&lt;p&gt;Zerlegung des Containers in seine Einzel-Bausteine&lt;br&gt;&lt;strong data-end=&quot;2990&quot; data-start=&quot;2968&quot;&gt;&lt;br&gt;&lt;/strong&gt;&lt;/p&gt;&lt;ul&gt;&lt;li&gt;&lt;strong data-end=&quot;2990&quot; data-start=&quot;2968&quot;&gt;FileWatcherComponent&lt;/strong&gt;&lt;span data-end=&quot;2990&quot; data-start=&quot;2968&quot;&gt; überwacht die Logdateien und stösst den eigentlichen Prozess bei Änderung an.&lt;/span&gt;&lt;strong data-end=&quot;2990&quot; data-start=&quot;2968&quot;&gt;&lt;br&gt;&lt;/strong&gt;&lt;/li&gt;&lt;li&gt;&lt;strong data-end=&quot;2990&quot; data-start=&quot;2968&quot;&gt;AIClient Component&lt;/strong&gt; (Kommunikation mit KI)baut die Anfrage an die KI korrekt zusammen, verschickt sie und verarbeitet die JSON-Antwort.&lt;/li&gt;&lt;li&gt;&lt;strong data-end=&quot;3041&quot; data-start=&quot;3018&quot;&gt;LogParser Component&lt;/strong&gt;&amp;nbsp;sorgt dafür, dass nur relevante Teile einer Logzeile extrahiert werden.&lt;/li&gt;&lt;li&gt;&lt;strong data-end=&quot;3157&quot; data-start=&quot;3129&quot;&gt;DecisionEngine Component&amp;nbsp;&lt;/strong&gt;entscheidet anhand der KI-Daten und des Regelwerkes, ob eine Warnung ausgelöst wird oder nicht&lt;/li&gt;&lt;li&gt;&lt;strong data-end=&quot;3041&quot; data-start=&quot;3018&quot;&gt;Database Repository Component&lt;/strong&gt; (für MariaDB)&amp;nbsp;kennt die SQL-Befehle und kümmert sich um alles, was mit MariaDB zu tun hat.&lt;/li&gt;&lt;li&gt;Die &lt;strong data-end=&quot;3830&quot; data-start=&quot;3803&quot;&gt;AlertService-Komponente&lt;/strong&gt; informiert den Administrator z. B. per Konsole oder E-Mail über einen Vorfall&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;&lt;/p&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;p&gt;&lt;br&gt;&lt;br&gt;&lt;/p&gt;" vertex="1">
-          <mxGeometry height="340" width="550" x="1130" y="60" as="geometry" />
-        </mxCell>
-        <mxCell id="-yDL4FUEpPGul9dOSaSx-189" parent="-yDL4FUEpPGul9dOSaSx-190" style="swimlane;whiteSpace=wrap;html=1;" value="C4 - Level 3 Component View" vertex="1">
-          <mxGeometry height="490" width="1780" as="geometry" />
+        <mxCell id="-yDL4FUEpPGul9dOSaSx-52" edge="1" parent="-yDL4FUEpPGul9dOSaSx-187" source="-yDL4FUEpPGul9dOSaSx-43" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;movable=1;resizable=1;rotatable=1;deletable=1;editable=1;locked=0;connectable=1;" target="-yDL4FUEpPGul9dOSaSx-44" value="">
+          <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="-yDL4FUEpPGul9dOSaSx-192" connectable="0" parent="1" style="group" value="" vertex="1">
           <mxGeometry height="920" width="1880" x="250" y="-270" as="geometry" />
@@ -1244,6 +1195,96 @@
         </mxCell>
         <mxCell id="HPOY5e5Dr17PVAI3R-9M-205" parent="1" style="rounded=1;whiteSpace=wrap;html=1;" value="REST-API (JWT)" vertex="1">
           <mxGeometry height="60" width="200" x="1400" y="1930" as="geometry" />
+        </mxCell>
+        <mxCell id="58FN8cktWuzG_OCEjCKJ-16" connectable="0" parent="1" style="group" value="" vertex="1">
+          <mxGeometry height="490" width="1479" x="630" y="710" as="geometry" />
+        </mxCell>
+        <mxCell id="-yDL4FUEpPGul9dOSaSx-189" parent="58FN8cktWuzG_OCEjCKJ-16" style="swimlane;whiteSpace=wrap;html=1;container=0;" value="C4 - Level 3 Component View" vertex="1">
+          <mxGeometry height="490" width="1479" as="geometry" />
+        </mxCell>
+        <mxCell id="58FN8cktWuzG_OCEjCKJ-12" connectable="0" parent="-yDL4FUEpPGul9dOSaSx-189" style="group" value="" vertex="1">
+          <mxGeometry height="120" width="245" x="549" y="50" as="geometry" />
+        </mxCell>
+        <mxCell id="-yDL4FUEpPGul9dOSaSx-86" parent="58FN8cktWuzG_OCEjCKJ-12" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;container=0;" value="AIClient Component" vertex="1">
+          <mxGeometry height="120" width="245" as="geometry" />
+        </mxCell>
+        <mxCell id="-yDL4FUEpPGul9dOSaSx-87" parent="58FN8cktWuzG_OCEjCKJ-12" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;container=0;" value="- Baut OpenAI" vertex="1">
+          <mxGeometry height="30" width="245" y="30" as="geometry" />
+        </mxCell>
+        <mxCell id="-yDL4FUEpPGul9dOSaSx-88" parent="58FN8cktWuzG_OCEjCKJ-12" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;container=0;" value="- REST-API Request + JSON-Response" vertex="1">
+          <mxGeometry height="30" width="245" y="60" as="geometry" />
+        </mxCell>
+        <mxCell id="-yDL4FUEpPGul9dOSaSx-89" parent="58FN8cktWuzG_OCEjCKJ-12" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;container=0;" value="- Liefert AIResult" vertex="1">
+          <mxGeometry height="30" width="245" y="90" as="geometry" />
+        </mxCell>
+        <mxCell id="58FN8cktWuzG_OCEjCKJ-15" connectable="0" parent="-yDL4FUEpPGul9dOSaSx-189" style="group" value="" vertex="1">
+          <mxGeometry height="90" width="210" x="309" y="159.99999999999994" as="geometry" />
+        </mxCell>
+        <mxCell id="-yDL4FUEpPGul9dOSaSx-99" parent="58FN8cktWuzG_OCEjCKJ-15" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;container=0;" value="&amp;nbsp;AlertService Component" vertex="1">
+          <mxGeometry height="90" width="210" as="geometry" />
+        </mxCell>
+        <mxCell id="-yDL4FUEpPGul9dOSaSx-100" parent="58FN8cktWuzG_OCEjCKJ-15" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;container=0;" value="- SMTP-Mail" vertex="1">
+          <mxGeometry height="30" width="210" y="30" as="geometry" />
+        </mxCell>
+        <mxCell id="-yDL4FUEpPGul9dOSaSx-101" parent="58FN8cktWuzG_OCEjCKJ-15" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;container=0;" value="- CLI-Ausgabe&amp;nbsp;" vertex="1">
+          <mxGeometry height="30" width="210" y="60" as="geometry" />
+        </mxCell>
+        <mxCell id="58FN8cktWuzG_OCEjCKJ-14" connectable="0" parent="-yDL4FUEpPGul9dOSaSx-189" style="group" value="" vertex="1">
+          <mxGeometry height="180" width="271" x="549" y="190" as="geometry" />
+        </mxCell>
+        <mxCell id="-yDL4FUEpPGul9dOSaSx-94" parent="58FN8cktWuzG_OCEjCKJ-14" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;container=0;" value="Database Repository Component (MariaDB)" vertex="1">
+          <mxGeometry height="180" width="271" as="geometry" />
+        </mxCell>
+        <mxCell id="-yDL4FUEpPGul9dOSaSx-95" parent="58FN8cktWuzG_OCEjCKJ-14" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;container=0;" value="- MySqlConnector (Java)" vertex="1">
+          <mxGeometry height="30" width="271" y="30" as="geometry" />
+        </mxCell>
+        <mxCell id="-yDL4FUEpPGul9dOSaSx-96" parent="58FN8cktWuzG_OCEjCKJ-14" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;container=0;" value="- CRUD für:&lt;div&gt;&lt;ul&gt;&lt;li&gt;Logs&lt;/li&gt;&lt;li&gt;KI-Analysen&lt;/li&gt;&lt;li&gt;Alerts&lt;/li&gt;&lt;/ul&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="90" width="271" y="60" as="geometry" />
+        </mxCell>
+        <mxCell id="-yDL4FUEpPGul9dOSaSx-98" parent="58FN8cktWuzG_OCEjCKJ-14" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;container=0;" value="- SQL-Migrationen&amp;nbsp;" vertex="1">
+          <mxGeometry height="30" width="271" y="150" as="geometry" />
+        </mxCell>
+        <mxCell id="58FN8cktWuzG_OCEjCKJ-13" connectable="0" parent="-yDL4FUEpPGul9dOSaSx-189" style="group" value="" vertex="1">
+          <mxGeometry height="120" width="245" x="39" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="-yDL4FUEpPGul9dOSaSx-90" parent="58FN8cktWuzG_OCEjCKJ-13" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;container=0;" value="DecisionEngine Component&amp;nbsp;" vertex="1">
+          <mxGeometry height="120" width="245" as="geometry" />
+        </mxCell>
+        <mxCell id="-yDL4FUEpPGul9dOSaSx-91" parent="58FN8cktWuzG_OCEjCKJ-13" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;container=0;" value="- Severity-Thresholds&amp;nbsp;" vertex="1">
+          <mxGeometry height="30" width="245" y="30" as="geometry" />
+        </mxCell>
+        <mxCell id="-yDL4FUEpPGul9dOSaSx-92" parent="58FN8cktWuzG_OCEjCKJ-13" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;container=0;" value="- Statistische Regeln (Error-Rate etc.)" vertex="1">
+          <mxGeometry height="30" width="245" y="60" as="geometry" />
+        </mxCell>
+        <mxCell id="-yDL4FUEpPGul9dOSaSx-93" parent="58FN8cktWuzG_OCEjCKJ-13" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;container=0;" value="- Liefert AIResult" vertex="1">
+          <mxGeometry height="30" width="245" y="90" as="geometry" />
+        </mxCell>
+        <mxCell id="-yDL4FUEpPGul9dOSaSx-137" parent="-yDL4FUEpPGul9dOSaSx-189" style="text;html=1;whiteSpace=wrap;overflow=hidden;rounded=0;container=0;" value="&lt;h1 style=&quot;margin-top: 0px;&quot;&gt;System Component View&lt;/h1&gt;&lt;p&gt;Zerlegung des Containers in seine Einzel-Bausteine&lt;br&gt;&lt;strong data-end=&quot;2990&quot; data-start=&quot;2968&quot;&gt;&lt;br&gt;&lt;/strong&gt;&lt;/p&gt;&lt;ul&gt;&lt;li&gt;&lt;strong data-end=&quot;2990&quot; data-start=&quot;2968&quot;&gt;FileWatcherComponent&lt;/strong&gt;&lt;span data-end=&quot;2990&quot; data-start=&quot;2968&quot;&gt; überwacht die Logdateien und stösst den eigentlichen Prozess bei Änderung an.&lt;/span&gt;&lt;strong data-end=&quot;2990&quot; data-start=&quot;2968&quot;&gt;&lt;br&gt;&lt;/strong&gt;&lt;/li&gt;&lt;li&gt;&lt;strong data-end=&quot;2990&quot; data-start=&quot;2968&quot;&gt;AIClient Component&lt;/strong&gt; (Kommunikation mit KI)baut die Anfrage an die KI korrekt zusammen, verschickt sie und verarbeitet die JSON-Antwort.&lt;/li&gt;&lt;li&gt;&lt;strong data-end=&quot;3041&quot; data-start=&quot;3018&quot;&gt;LogParser Component&lt;/strong&gt;&amp;nbsp;sorgt dafür, dass nur relevante Teile einer Logzeile extrahiert werden.&lt;/li&gt;&lt;li&gt;&lt;strong data-end=&quot;3157&quot; data-start=&quot;3129&quot;&gt;DecisionEngine Component&amp;nbsp;&lt;/strong&gt;entscheidet anhand der KI-Daten und des Regelwerkes, ob eine Warnung ausgelöst wird oder nicht&lt;/li&gt;&lt;li&gt;&lt;strong data-end=&quot;3041&quot; data-start=&quot;3018&quot;&gt;Database Repository Component&lt;/strong&gt; (für MariaDB)&amp;nbsp;kennt die SQL-Befehle und kümmert sich um alles, was mit MariaDB zu tun hat.&lt;/li&gt;&lt;li&gt;Die &lt;strong data-end=&quot;3830&quot; data-start=&quot;3803&quot;&gt;AlertService-Komponente&lt;/strong&gt; informiert den Administrator z. B. per Konsole oder E-Mail über einen Vorfall&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;&lt;/p&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;p&gt;&lt;br&gt;&lt;br&gt;&lt;/p&gt;" vertex="1">
+          <mxGeometry height="340" width="550" x="869" y="50" as="geometry" />
+        </mxCell>
+        <mxCell id="58FN8cktWuzG_OCEjCKJ-10" connectable="0" parent="58FN8cktWuzG_OCEjCKJ-16" style="group" value="" vertex="1">
+          <mxGeometry height="90" width="210" x="39" y="50" as="geometry" />
+        </mxCell>
+        <mxCell id="-yDL4FUEpPGul9dOSaSx-58" parent="58FN8cktWuzG_OCEjCKJ-10" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;container=0;" value="FileWatcher Component" vertex="1">
+          <mxGeometry height="90" width="210" as="geometry" />
+        </mxCell>
+        <mxCell id="-yDL4FUEpPGul9dOSaSx-59" parent="58FN8cktWuzG_OCEjCKJ-10" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;container=0;" value="- FileSystemWatcher" vertex="1">
+          <mxGeometry height="30" width="210" y="30" as="geometry" />
+        </mxCell>
+        <mxCell id="-yDL4FUEpPGul9dOSaSx-60" parent="58FN8cktWuzG_OCEjCKJ-10" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;container=0;" value="- Übergibt neue Zeilen&amp;nbsp;&amp;nbsp;" vertex="1">
+          <mxGeometry height="30" width="210" y="60" as="geometry" />
+        </mxCell>
+        <mxCell id="58FN8cktWuzG_OCEjCKJ-11" connectable="0" parent="58FN8cktWuzG_OCEjCKJ-16" style="group" value="" vertex="1">
+          <mxGeometry height="90" width="245" x="279" y="50" as="geometry" />
+        </mxCell>
+        <mxCell id="-yDL4FUEpPGul9dOSaSx-82" parent="58FN8cktWuzG_OCEjCKJ-11" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;container=0;" value="LogParser Component&amp;nbsp;" vertex="1">
+          <mxGeometry height="90" width="245" as="geometry" />
+        </mxCell>
+        <mxCell id="-yDL4FUEpPGul9dOSaSx-83" parent="58FN8cktWuzG_OCEjCKJ-11" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;container=0;" value="&amp;nbsp;- Normalisierung&amp;nbsp;" vertex="1">
+          <mxGeometry height="30" width="245" y="30" as="geometry" />
+        </mxCell>
+        <mxCell id="-yDL4FUEpPGul9dOSaSx-84" parent="58FN8cktWuzG_OCEjCKJ-11" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;container=0;" value="- Extraktion von Timestamp / Level / Msg" vertex="1">
+          <mxGeometry height="30" width="245" y="60" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>

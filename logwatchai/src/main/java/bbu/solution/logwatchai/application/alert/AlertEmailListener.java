@@ -27,8 +27,6 @@ public class AlertEmailListener {
     /**
      * Sends an alert e-mail only after the transaction was committed.
      */
-    //@EventListener
-    //@TransactionalEventListener(phase = TransactionPhase.BEFORE_COMMIT)
     @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
     public void onAlertCreated(AlertCreatedEvent event) {
 
