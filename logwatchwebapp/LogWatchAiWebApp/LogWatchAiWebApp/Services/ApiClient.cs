@@ -1,6 +1,8 @@
 ﻿using System.Net.Http.Json;
 using System.Text;
-using LogWatchAiWebApp.Shared.Models;
+using LogWatchAiWebApp.Shared.Models.Dtos;
+using LogWatchAiWebApp.Shared.Models.Login;
+
 
 namespace LogWatchAiWebApp.Services
 {

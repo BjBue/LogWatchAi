@@ -1,4 +1,4 @@
-﻿namespace LogWatchAiWebApp.Shared.Models
+﻿namespace LogWatchAiWebApp.Shared.Models.Dtos
 {
     /// <summary>
     /// Represents a single log entry as provided by the backend system.

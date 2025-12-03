@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
-using LogWatchAiWebApp.Shared.Models;
-
+using LogWatchAiWebApp.Shared.Models.Entities;
+namespace LogWatchAiWebApp.Shared.Models.Dtos;
 /// <summary>
 /// Data Transfer Object (DTO) representing a daily report
 /// returned by the backend API. Contains logs, alerts,

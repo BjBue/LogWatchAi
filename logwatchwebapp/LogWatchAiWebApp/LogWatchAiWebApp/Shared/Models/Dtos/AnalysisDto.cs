@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text.Json.Serialization;
 
-namespace LogWatchAiWebApp.Shared.Models
+namespace LogWatchAiWebApp.Shared.Models.Dtos
 {
     /// <summary>
     /// Data Transfer Object (DTO) representing an AI analysis entry

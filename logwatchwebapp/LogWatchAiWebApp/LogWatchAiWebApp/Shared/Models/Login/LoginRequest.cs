@@ -1,4 +1,4 @@
-﻿namespace LogWatchAiWebApp.Shared.Models
+﻿namespace LogWatchAiWebApp.Shared.Models.Login
 {
     /// <summary>
     /// Represents the login request payload containing user credentials.

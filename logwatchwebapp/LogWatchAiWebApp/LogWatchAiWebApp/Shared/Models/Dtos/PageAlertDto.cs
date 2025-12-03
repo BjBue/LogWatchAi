@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace LogWatchAiWebApp.Shared.Models
+namespace LogWatchAiWebApp.Shared.Models.Dtos
 {
     /// <summary>
     /// Represents a paginated response containing alert entries.
