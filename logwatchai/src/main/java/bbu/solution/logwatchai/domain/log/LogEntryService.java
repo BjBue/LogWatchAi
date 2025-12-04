@@ -25,6 +25,7 @@ public interface LogEntryService {
     Optional<LogEntry> getLogEntryById(UUID logEntryId);
 
     /**
+     * TODO:
      * Checks whether a log entry already exists for a given source and raw text.
      *
      * @param sourceId the UUID of the log source
