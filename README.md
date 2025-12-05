@@ -3,9 +3,12 @@
 **LogWatchAi** ist ein lokales Java-Tool zur Überwachung von Logdateien.  
 Es analysiert neue Einträge in Echtzeit mithilfe von KI und dokumentiert oder meldet automatisch passende Maßnahmen oder Warnungen.
 
----
+# Hinweis
+### Einen OpenAi-Key erhält man unter  https://platform.openai.com/
+Diesen dann in ./logwatchai/config/logwatchai.yaml unter ai:
 
-## Wichtige URLs
+
+## Projekt-URLs
 
 - Log-Generator Healthcheck: `http://localhost:9090/health`
 - LogWatch-AI Healthcheck: `http://localhost:8080/health`
