@@ -1,5 +1,7 @@
 # LogWatchAi
 
+**Dokumentation: ./doc**
+
 **LogWatchAi** ist ein lokales Java-Tool zur Überwachung von Logdateien.  
 Es analysiert neue Einträge in Echtzeit mithilfe von KI und dokumentiert oder meldet automatisch passende Maßnahmen oder Warnungen.
 
