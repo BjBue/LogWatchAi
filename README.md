@@ -3,9 +3,9 @@
 **LogWatchAi** ist ein lokales Java-Tool zur Überwachung von Logdateien.  
 Es analysiert neue Einträge in Echtzeit mithilfe von KI und dokumentiert oder meldet automatisch passende Maßnahmen oder Warnungen.
 
-# Hinweis
-### Einen OpenAi-Key erhält man unter  https://platform.openai.com/
-Diesen dann in ./logwatchai/config/logwatchai.yaml unter ai:
+**Hinweis**:
+Einen OpenAi-Key erhält man unter  https://platform.openai.com/  
+Diesen dann in ./logwatchai/config/logwatchai.yaml unter 'ai:key:' einfügen.  Entsprechende Typen sind vorbereitet.
 
 
 ## Projekt-URLs
@@ -19,10 +19,12 @@ Diesen dann in ./logwatchai/config/logwatchai.yaml unter ai:
 
 ---
 
-## Projekt neu erstellen
+## Projekt starten
+**Hinweis**: Das Projekt läuft innerhalb einer Docker-Umgebung.  
+Dies setzt zwingend eine Docker-Desktop- oder eine andere Docker-Installation voraus.  
+Siehe hier: https://docs.docker.com/get-started/get-docker/ zur Installation.
 
-Führe die folgenden Schritte in der Konsole in beiden Verzeichnissen mit der `pom.xml` (`logwatchai` und `loggenerator`) aus:
-
+Führe die folgenden Schritte in der Konsole in beiden Verzeichnissen mit der `pom.xml` (`logwatchai` und `loggenerator`) aus:  
 ```bash
 # Projekt bauen
 .\mvnw.cmd clean package
