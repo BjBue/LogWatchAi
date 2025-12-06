@@ -40,6 +40,11 @@
                 <input class="form-control" @bind="TextContains" placeholder="search in summary/cause" />
             </div>
 
+            <div class="col-md-3">
+                <label class="form-label">Log-ID</label>
+                <input class="form-control" @bind="LogEntryIdFilter" placeholder="search for id" />
+            </div>
+
             <div class="col-md-2 d-flex align-items-end">
                 <button class="btn btn-primary w-100" @onclick="Load">Apply</button>
             </div>
@@ -95,6 +100,7 @@ else
     // Filters
     string SelectedSeverity = "";
     string TextContains = "";
+    string? LogEntryIdFilter { get; set; } = string.Empty;
     DateTime? FromDate { get; set; }
     DateTime? ToDate { get; set; }
 
@@ -113,7 +119,7 @@ else
 
         Analyses = (await Api.GetAnalysisAsync(
             id: null,
-            logEntryId: null,
+            logEntryId: string.IsNullOrWhiteSpace(LogEntryIdFilter) ? null : LogEntryIdFilter,
             severity: string.IsNullOrWhiteSpace(SelectedSeverity) ? null : SelectedSeverity,
             category: null,
             summarizedIssue: string.IsNullOrWhiteSpace(TextContains) ? null : TextContains,
