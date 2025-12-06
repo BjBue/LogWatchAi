@@ -104,6 +104,14 @@ public class AIAnalysisServiceImpl implements AIAnalysisService {
      */
     private AIAnalysis parseAndBuildAIAnalysis(String rawResponse, UUID logEntryId) {
         try {
+            // clean rawResponse from backticks or markdown
+            rawResponse = rawResponse.strip();
+            if (rawResponse.startsWith("`") && rawResponse.endsWith("`")) {
+                rawResponse = rawResponse.substring(1, rawResponse.length()-1);
+            }
+            if (rawResponse.startsWith("```") && rawResponse.endsWith("```")) {
+                rawResponse = rawResponse.substring(rawResponse.indexOf('\n') + 1, rawResponse.lastIndexOf("```"));
+            }
             var node = mapper.readTree(rawResponse);
             String severity = node.path("severity").asText(null);
             String category = node.path("category").asText(null);
@@ -116,6 +124,7 @@ public class AIAnalysisServiceImpl implements AIAnalysisService {
                     severity != null ? SeverityUtil.valueOfOrNull(severity) : Severity.INFO,
                     category, summarized, likelyCause, recommendation, score);
         } catch (Exception e) {
+            System.err.println("Failed to parse AI response: " + rawResponse);
             e.printStackTrace();
             return fallbackAnalysis(logEntryId);
         }
