@@ -1,0 +1,23 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="LogwatchaiApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+    <envs>
+      <env name="APP_CONFIG_FILE" value="$PROJECT_DIR$/logwatchai/config/logwatchai.yaml" />
+      <env name="JWT_SECRET" value="a87f8d9c6bb04a65d4af77fd8c9b15eaa73729c3fae243bda85ef31c59d19f72" />
+      <env name="SPRING_DATASOURCE_PASSWORD" value="logpass" />
+      <env name="SPRING_DATASOURCE_URL" value="jdbc:mariadb://localhost:3306/logwatchai" />
+      <env name="SPRING_DATASOURCE_USERNAME" value="loguser" />
+      <env name="SPRING_MAIL_HOST" value="localhost" />
+      <env name="SPRING_MAIL_PASSWORD" value="" />
+      <env name="SPRING_MAIL_PORT" value="1025" />
+      <env name="SPRING_MAIL_PROPERTIES_MAIL_SMTP_AUTH" value="false" />
+      <env name="SPRING_MAIL_PROPERTIES_MAIL_SMTP_STARTTLS_ENABLE" value="false" />
+      <env name="SPRING_MAIL_USERNAME" value="" />
+    </envs>
+    <option name="FRAME_DEACTIVATION_UPDATE_POLICY" value="UpdateClassesAndResources" />
+    <module name="logwatchai" />
+    <option name="SPRING_BOOT_MAIN_CLASS" value="bbu.solution.logwatchai.LogwatchaiApplication" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>

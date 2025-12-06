@@ -69,6 +69,6 @@ jwt:
   expiration-ms: 3600000 # 1 Stunde
 
 app:
-  config-file: /app/config/logwatchai.yaml
+  config-file: ${APP_CONFIG_FILE:/app/config/logwatchai.yaml}
 
   # place for more configurations
