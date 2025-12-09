@@ -104,15 +104,12 @@ public class AIAnalysisServiceImpl implements AIAnalysisService {
      */
     private AIAnalysis parseAndBuildAIAnalysis(String rawResponse, UUID logEntryId) {
         try {
-            // clean rawResponse from backticks or markdown
-            rawResponse = rawResponse.strip();
-            if (rawResponse.startsWith("`") && rawResponse.endsWith("`")) {
-                rawResponse = rawResponse.substring(1, rawResponse.length()-1);
-            }
-            if (rawResponse.startsWith("```") && rawResponse.endsWith("```")) {
-                rawResponse = rawResponse.substring(rawResponse.indexOf('\n') + 1, rawResponse.lastIndexOf("```"));
-            }
+            // --- 1) RAW CLEANING  ---
+            rawResponse = cleanLLMResponse(rawResponse);
+
+            // --- 2) JSON PARSING ---
             var node = mapper.readTree(rawResponse);
+
             String severity = node.path("severity").asText(null);
             String category = node.path("category").asText(null);
             String summarized = node.path("summarizedIssue").asText(null);
@@ -120,16 +117,40 @@ public class AIAnalysisServiceImpl implements AIAnalysisService {
             String recommendation = node.path("recommendation").asText(null);
             double score = node.path("anomalyScore").asDouble(0.0);
 
-            return new AIAnalysis(logEntryId,
+            return new AIAnalysis(
+                    logEntryId,
                     severity != null ? SeverityUtil.valueOfOrNull(severity) : Severity.INFO,
-                    category, summarized, likelyCause, recommendation, score);
+                    category,
+                    summarized,
+                    likelyCause,
+                    recommendation,
+                    score
+            );
+
         } catch (Exception e) {
             System.err.println("Failed to parse AI response: " + rawResponse);
             e.printStackTrace();
             return fallbackAnalysis(logEntryId);
         }
     }
-
+    /**
+     * remove Markdown-Codeblocks, ```json, ``` and lonely Backticks.
+     */
+    private String cleanLLMResponse(String raw) {
+        if (raw == null) return null;
+        String cleaned = raw.trim();
+        cleaned = cleaned
+                .replace("```json", "")
+                .replace("```JSON", "")
+                .replace("```", "")
+                .replace("`", "")
+                .trim();
+        // "json\n{...}"
+        if (cleaned.startsWith("json\n")) {
+            cleaned = cleaned.substring(5).trim();
+        }
+        return cleaned;
+    }
     /**
      * Retrieves an AIAnalysis entry by its ID.
      *
