@@ -24,3 +24,7 @@
 hs_err_pid*
 replay_pid*
 
+# Lokale Configs mit Secrets
+/logwatchai/config/logwatchai.yaml
+*.secret
+*.env
